@@ -1,5 +1,8 @@
 import Box from './box'
 
+const HIDING_FADE = "fade";
+const HIDING_MOVE = "move";
+
 export default class Table extends Phaser.Group {
     constructor({game, direction, items, enableInput}) {
         super(game)
@@ -104,6 +107,7 @@ export default class Table extends Phaser.Group {
                 box.inputEnabled = true
                 box.events.onInputDown.add(this.clickListener, { box: box, table: this });
             }
+
         }
 
         this.visiblePos = {
@@ -117,6 +121,9 @@ export default class Table extends Phaser.Group {
     }
 
     clickListener(p) {
+        if (this.box.hidden) {
+            return
+        }
         this.table.itemSelected.dispatch(this.box)
     }
 
@@ -128,8 +135,106 @@ export default class Table extends Phaser.Group {
     }
 
     hideAnItem(id) {
+        for (let box of this.boxes) {
+            if (box.id == id) {
+                box.hidden = true;
+                if (otsimo.kv.game.hiding_type == HIDING_FADE) {
+                    let tween = otsimo.game.add.tween(box)
+                        .to({ alpha: otsimo.kv.game.hiding_fade_alpha }, otsimo.kv.game.hiding_fade_duration);
 
+                    tween.start();
+
+                } else if (otsimo.kv.game.hiding_type == HIDING_MOVE) {
+                    if (this.direction == "vertical") {
+                        let tween = otsimo.game.add.tween(box)
+                            .to({ x: this.hiddenPos.x }, otsimo.kv.game.hiding_move_duration);
+                        tween.start();
+                    } else {
+                        let tween = otsimo.game.add.tween(box)
+                            .to({ y: this.hiddenPos.y }, otsimo.kv.game.hiding_move_duration);
+                        tween.start();
+                    }
+                    this.relayout({ delay: otsimo.kv.game.hiding_move_duration / 2.0 })
+                }
+                break
+            }
+        }
     }
 
-   
+    relayout({delay}) {
+        if (this.direction == "vertical") {
+            this.relayoutVertical(delay)
+        } else {
+            this.relayoutHorizontal(delay)
+        }
+    }
+
+    relayoutHorizontal(delay) {
+        let layout = otsimo.kv.layout;
+        let gw = otsimo.game.width * layout.horizontal.width.multiplier + layout.horizontal.width.constant;
+
+        let vis = this.boxes.filter(b => !b.hidden).length
+
+        let is = layout.fixed_size
+            ? otsimo.kv.layout.max_item
+            : (vis + 0.5);
+
+        let w = gw / (is + 1);
+        let e = w / (is - 1);
+        let sx = -(vis / 2.0) * (w + e);
+
+
+        let k = 0;
+        for (let i = 0; i < this.boxes.length; i++) {
+            let box = this.boxes[i];
+            if (box.hidden) {
+                continue
+            }
+            otsimo.game.add.tween(box)
+                .to({ x: (sx + (k + 0.5) * (w + e)) }, otsimo.kv.game.hiding_move_duration, Phaser.Easing.Back.Out, true, delay);
+
+            if (!layout.fixed_size) {
+                let ns = box.scale.x * (w / box.width);
+                ns = box.scale.x + (ns - box.scale.x) * 0.75
+                otsimo.game.add.tween(box.scale)
+                    .to({ x: ns, y: ns }, otsimo.kv.game.hiding_move_duration, Phaser.Easing.Back.Out, true, delay);
+            }
+
+            k++;
+        }
+    }
+
+    relayoutVertical(delay) {
+        let layout = otsimo.kv.layout;
+        let gw = otsimo.game.height * layout.vertical.height.multiplier + layout.vertical.height.constant;
+
+        let vis = this.boxes.filter(b => !b.hidden).length
+
+        let is = layout.fixed_size
+            ? otsimo.kv.layout.max_item
+            : (vis + 0.5);
+
+        let h = gh / (is + 1);
+        let e = h / (is - 1);
+        let sy = - (vis / 2.0) * (h + e);
+        let k = 0;
+
+        for (let i = 0; i < this.boxes.length; i++) {
+            let box = this.boxes[i];
+            if (box.hidden) {
+                continue
+            }
+            otsimo.game.add.tween(box)
+                .to({ y: (sy + (k + 0.5) * (h + e)) }, otsimo.kv.game.hiding_move_duration, Phaser.Easing.Back.Out, true, delay);
+
+            if (!layout.fixed_size) {
+                let ns = box.scale.y * (h / box.height);
+                ns = box.scale.y + (ns - box.scale.y) * 0.75
+                otsimo.game.add.tween(box.scale)
+                    .to({ x: ns, y: ns }, otsimo.kv.game.hiding_move_duration, Phaser.Easing.Back.Out, true, delay);
+            }
+
+            k++;
+        }
+    }
 }

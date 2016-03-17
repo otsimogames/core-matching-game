@@ -32,12 +32,24 @@ interface OtsimoGame {
     easy_size: number;
     medium_size: number;
     hard_size: number;
-    answer_type: string;
+
+
     add_outline: boolean;
     outline_image: string;
+
+    answer_type: string;
     session_step: number;
     question_from: string;
     answers_from: string;
+
+    hint_type: string;
+    hide_item_on: number;
+    hiding_type: string;
+
+    hiding_fade_alpha:number;
+    hiding_fade_duration:number;
+
+    hiding_move_duration:number;
 }
 
 

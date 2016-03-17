@@ -15,11 +15,12 @@ const CHOOSE_GAME = "choose"
 export {SceneState, MATCH_GAME, CHOOSE_GAME};
 
 export default class Scene {
-    constructor({delegate}) {
+    constructor({delegate, session}) {
         this.delegate = delegate
+        this.session = session
         this.random = new Randomizer()
         this.step = -1
-        this.state = SceneState.Initialize;
+        this.state = SceneState.Initialize
     }
 
     get step() {
@@ -51,9 +52,10 @@ export default class Scene {
         table.x = table.hiddenPos.x;
         table.y = table.hiddenPos.y;
         table.moveTo(table.visiblePos);
-        
+
         this.table = table;
         this.gameStep = next;
+        this.session.startStep();
     }
 
     prepare() {
@@ -67,11 +69,14 @@ export default class Scene {
     }
 
     onItemSelected(box) {
-        console.log("item selected", box)
         if (this.gameStep.answer.kind == box.item.kind) {
-            console.log("correct box")
+            this.session.correctInput(box.item)
         } else {
-            console.log("wrong box")
+            box.wrongAnswerCount += 1
+            if (box.wrongAnswerCount >= otsimo.kv.game.hide_item_on) {
+                this.table.hideAnItem(box.id)
+            }
+            this.session.wrongInput(box.item, box.wrongAnswerCount)
         }
     }
 }
