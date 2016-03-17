@@ -1,0 +1,31 @@
+{
+  "ecmaFeatures": {
+    "blockBindings": true
+  },
+  "rules": {
+    "indent": [0
+    ],
+    "quotes": [
+      2,
+      "single"
+    ],
+    "linebreak-style": [
+      2,
+      "unix"
+    ],
+    "semi": [
+      0,
+      "never"
+    ],
+    "no-console": [
+      0
+    ]
+  },
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "Phaser": true
+  },
+  "extends": "eslint:recommended"
+}

@@ -1,0 +1,157 @@
+{
+    "settings/difficulty/title": "Difficulty",
+    "settings/difficulty/description": "difficulty of the game",
+    "settings/difficulty/keys/easy/title": "Easy",
+    "settings/difficulty/keys/easy/description": "easy",
+    "settings/difficulty/keys/medium/title": "Medium",
+    "settings/difficulty/keys/medium/description": "medium",
+    "settings/difficulty/keys/hard/title": "Hard",
+    "settings/difficulty/keys/hard/description": "hard",
+    "settings/show_hint/title": "Show Hint",
+    "settings/show_hint/description": "Show hint",
+    "settings/hint_duration/title": "Hint Duration",
+    "settings/hint_duration/description": "Hint duration",
+    "loadingText": "Loading...",
+    "loadingFont": "60px Arial",
+    "loadingBackground": "#4f6f8f",
+    "loadingColor": "#fff",
+    "preload": [
+        {
+            "name": "playButton",
+            "type": "image",
+            "path": "img/en/play.png"
+        },
+        {
+            "name": "atlas",
+            "type": "atlas",
+            "path": "img/en/atlas.png",
+            "data": "data/atlas.json"
+        },
+        {
+            "name": "back",
+            "type": "image",
+            "path": "img/back.png"
+        },
+        {
+            "name": "white_box",
+            "type": "image",
+            "path": "img/white_box.png"
+        },
+        {
+            "name": "particle",
+            "type": "image",
+            "path": "img/particle.png"
+        },
+        {
+            "name": "hand",
+            "type": "image",
+            "path": "img/hand.png"
+        },
+        {
+            "name": "congratulations",
+            "type": "audio",
+            "path": "audio/en/congratulations.wav"
+        },
+        {
+            "name": "applause",
+            "type": "audio",
+            "path": "audio/applause.wav"
+        },
+        {
+            "name": "welcome",
+            "type": "audio",
+            "path": "audio/en/welcome.wav"
+        },
+        {
+            "name": "try_again",
+            "type": "audio",
+            "path": "audio/en/try_again.wav"
+        }
+    ],
+    "game": {
+        "easy_size": 2,
+        "medium_size": 3,
+        "hard_size": 4,
+        "answer_type": "choose",
+        "add_outline": true,
+        "outline_image": "top_box",
+        "session_step": 10,
+        "question_from": "items",
+        "answers_from": "items"
+    },
+    "layout": {
+        "fixed_size": true,
+        "max_item": 4,
+        "cell_anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "horizontal": {
+            "width": {
+                "multiplier": 0.8,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        },
+        "vertical": {
+            "height": {
+                "multiplier": 0.8,
+                "constant": 0
+            },
+            "x": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        }
+    },
+    "items": [
+        {
+            "id": "blue",
+            "kind": "blue",
+            "audio": "audio/en/blue.wav",
+            "question": "audio/en/show_blue.wav",
+            "tint": "0x0000FF",
+            "text": "Blue",
+            "image": "white_box"
+        },
+        {
+            "id": "red",
+            "kind": "red",
+            "audio": "audio/en/red.wav",
+            "question": "audio/en/show_red.wav",
+            "tint": "0xFF0000",
+            "text": "Red",
+            "image": "white_box"
+        },
+        {
+            "id": "yellow",
+            "kind": "yellow",
+            "audio": "audio/en/yellow.wav",
+            "question": "audio/en/show_yellow.wav",
+            "tint": "0xFFFF00",
+            "text": "Yellow",
+            "image": "white_box"
+        },
+        {
+            "id": "green",
+            "kind": "green",
+            "audio": "audio/en/green.wav",
+            "question": "audio/en/show_green.wav",
+            "tint": "0x00FF00",
+            "text": "Green",
+            "image": "white_box"
+        },
+        {
+            "id": "black",
+            "kind": "black",
+            "audio": "audio/en/black.wav",
+            "question": "audio/en/show_black.wav",
+            "tint": "0x000000",
+            "text": "Black",
+            "image": "white_box"
+        }
+    ]
+}

@@ -1,0 +1,48 @@
+{
+    "unique_name": "core-matching-game",
+    "version": "---",
+    "main": "index.html",
+    "licence": "MIT",
+    "languages": [
+        "en"
+    ],
+    "default_language": "en",
+    "developer_name": "Otsimo",
+    "homepage": "https://github.com/otsimo/core-matching-game",
+    "repository": "git@github.com:otsimo/core-matching-game.git",
+    "authors": [
+        {
+            "name": "Sercan Değirmenci",
+            "email": "sercan@otsimo.com"
+        }
+    ],
+    "exclude": [
+        "node_modules",
+        "-/node_modules/phaser/build/phaser.min.js",
+        "-/node_modules/otsimo/otsimo.js"
+    ],
+    "settings": "settings.json",
+    "kv_path": "data",
+    "metadata": [
+        {
+            "language": "en",
+            "visible_name": "Core Matching Game",
+            "summary": "a short description",
+            "description": "an awesome game, this is long description",
+            "keywords": [
+                "matching",
+                "match"
+            ],
+            "logo": "i18n/en/logo_en_450x300.png",
+            "icon": "i18n/en/icon_en_512.png",
+            "images": [
+                "i18n/en/screenshoot1.png",
+                "i18n/en/screenshoot2.png"
+            ],
+            "assets": [
+                "img/en",
+                "audio/en"
+            ]
+        }
+    ]
+}
