@@ -13,8 +13,15 @@
     "settings/hint_duration/description": "Hint duration",
     "loadingText": "Loading...",
     "loadingFont": "60px Arial",
-    "loadingBackground": "#4f6f8f",
+    "loadingBackground": "#18B9F2",
     "loadingColor": "#fff",
+    "announceText": "Choose %s",
+    "announceTextStyle": {
+        "strokeThickness": 4,
+        "stroke": "#FFFFFF",
+        "font": "65px Arial",
+        "align": "center"
+    },
     "preload": [
         {
             "name": "playButton",
@@ -66,6 +73,36 @@
             "name": "try_again",
             "type": "audio",
             "path": "audio/en/try_again.wav"
+        },
+        {
+            "name": "blue_audio",
+            "type": "audio",
+            "path": "audio/en/blue.mp3"
+        },
+        {
+            "name": "blue_question",
+            "type": "audio",
+            "path": "audio/en/show_blue.mp3"
+        },
+        {
+            "name": "ballon_body",
+            "type": "image",
+            "path": "img/ballon/ballon_body.png"
+        },
+        {
+            "name": "ballon_light",
+            "type": "image",
+            "path": "img/ballon/ballon_light.png"
+        },
+        {
+            "name": "ballon_rope",
+            "type": "image",
+            "path": "img/ballon/ballon_rope.png"
+        },
+        {
+            "name": "ballon_star",
+            "type": "image",
+            "path": "img/ballon/ballon_star.png"
         }
     ],
     "game": {
@@ -80,10 +117,12 @@
         "answers_from": "items",
         "hint_type": "jump",
         "hide_item_on": 1,
-        "hiding_type": "fade",
+        "hiding_type": "move",
         "hiding_fade_alpha": 0.2,
         "hiding_fade_duration": 200,
-        "hiding_move_duration": 300
+        "hiding_move_duration": 300,
+        "table_show_duration": 400,
+        "table_leave_duration": 600
     },
     "layout": {
         "fixed_size": true,
@@ -117,8 +156,8 @@
         {
             "id": "blue",
             "kind": "blue",
-            "audio": "audio/en/blue.wav",
-            "question": "audio/en/show_blue.wav",
+            "audio": "blue_audio",
+            "question": "blue_question",
             "tint": "0x0000FF",
             "text": "Blue",
             "image": "white_box"
@@ -126,8 +165,8 @@
         {
             "id": "red",
             "kind": "red",
-            "audio": "audio/en/red.wav",
-            "question": "audio/en/show_red.wav",
+            "audio": "blue_audio",
+            "question": "blue_question",
             "tint": "0xFF0000",
             "text": "Red",
             "image": "white_box"
@@ -135,8 +174,8 @@
         {
             "id": "yellow",
             "kind": "yellow",
-            "audio": "audio/en/yellow.wav",
-            "question": "audio/en/show_yellow.wav",
+            "audio": "blue_audio",
+            "question": "blue_question",
             "tint": "0xFFFF00",
             "text": "Yellow",
             "image": "white_box"
@@ -144,8 +183,8 @@
         {
             "id": "green",
             "kind": "green",
-            "audio": "audio/en/green.wav",
-            "question": "audio/en/show_green.wav",
+            "audio": "blue_audio",
+            "question": "blue_question",
             "tint": "0x00FF00",
             "text": "Green",
             "image": "white_box"
@@ -153,8 +192,8 @@
         {
             "id": "black",
             "kind": "black",
-            "audio": "audio/en/black.wav",
-            "question": "audio/en/show_black.wav",
+            "audio": "blue_audio",
+            "question": "blue_question",
             "tint": "0x000000",
             "text": "Black",
             "image": "white_box"

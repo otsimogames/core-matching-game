@@ -16,11 +16,7 @@
             "email": "sercan@otsimo.com"
         }
     ],
-    "exclude": [
-        "node_modules",
-        "-/node_modules/phaser/build/phaser.min.js",
-        "-/node_modules/otsimo/otsimo.js"
-    ],
+    "exclude": [],
     "settings": "settings.json",
     "kv_path": "data",
     "metadata": [

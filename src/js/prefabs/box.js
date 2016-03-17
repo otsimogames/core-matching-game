@@ -23,4 +23,10 @@ export default class Box extends Phaser.Sprite {
         }
     }
 
+    highlight() {
+        let ns = this.scale.x * 1.2
+        otsimo.game.add.tween(this.scale).to({ x: ns, y: ns }, 150, Phaser.Easing.Back.Out, true)
+        return 150
+    }
+
 }

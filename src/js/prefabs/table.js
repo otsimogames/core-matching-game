@@ -124,14 +124,41 @@ export default class Table extends Phaser.Group {
         if (this.box.hidden) {
             return
         }
+
         this.table.itemSelected.dispatch(this.box)
     }
 
-    moveTo({x, y}) {
+    moveTo(x, y, dur) {
         let tween = otsimo.game.add.tween(this)
-            .to({ x: x, y: y }, 300, Phaser.Easing.Back.Out);
+            .to({ x: x, y: y }, dur, Phaser.Easing.Back.Out);
 
         tween.start();
+    }
+
+    moveOut(x, y, dur) {
+        let tween = otsimo.game.add.tween(this)
+            .to({ x: x, y: y }, dur, Phaser.Easing.Circular.In);
+
+        tween.start();
+    }
+
+    fadeOffItem(box, dur) {
+        let tween = otsimo.game.add.tween(box)
+            .to({ alpha: otsimo.kv.game.hiding_fade_alpha }, dur);
+
+        tween.start();
+    }
+
+    moveOutItem(box, dur) {
+        if (this.direction == "vertical") {
+            let tween = otsimo.game.add.tween(box)
+                .to({ x: this.hiddenPos.x }, dur);
+            tween.start();
+        } else {
+            let tween = otsimo.game.add.tween(box)
+                .to({ y: this.hiddenPos.y }, dur);
+            tween.start();
+        }
     }
 
     hideAnItem(id) {
@@ -139,21 +166,9 @@ export default class Table extends Phaser.Group {
             if (box.id == id) {
                 box.hidden = true;
                 if (otsimo.kv.game.hiding_type == HIDING_FADE) {
-                    let tween = otsimo.game.add.tween(box)
-                        .to({ alpha: otsimo.kv.game.hiding_fade_alpha }, otsimo.kv.game.hiding_fade_duration);
-
-                    tween.start();
-
+                    this.fadeOffItem(box, otsimo.kv.game.hiding_fade_duration)
                 } else if (otsimo.kv.game.hiding_type == HIDING_MOVE) {
-                    if (this.direction == "vertical") {
-                        let tween = otsimo.game.add.tween(box)
-                            .to({ x: this.hiddenPos.x }, otsimo.kv.game.hiding_move_duration);
-                        tween.start();
-                    } else {
-                        let tween = otsimo.game.add.tween(box)
-                            .to({ y: this.hiddenPos.y }, otsimo.kv.game.hiding_move_duration);
-                        tween.start();
-                    }
+                    this.moveOutItem(box, otsimo.kv.game.hiding_move_duration);
                     this.relayout({ delay: otsimo.kv.game.hiding_move_duration / 2.0 })
                 }
                 break

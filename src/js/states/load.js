@@ -5,7 +5,7 @@ export default class Load extends Phaser.State {
         let loadingFont = otsimo.kv.loadingFont
         let loadingColor = otsimo.kv.loadingColor
 
-        this.game.sound.mute = otsimo.sound
+        this.game.sound.mute = !otsimo.sound
         this.game.stage.backgroundColor = otsimo.kv.loadingBackground;
 
         var loading = this.game.add.text(this.game.world.centerX, this.game.world.centerY, loadingMessage, { font: loadingFont, fill: loadingColor });

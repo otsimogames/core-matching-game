@@ -9,7 +9,7 @@ export default class Play extends Phaser.State {
         this.session = session
         this.scene = scene
         this.game.add.button(25, 25, 'back', this.backAction, this);
-        
+
         scene.prepare();
     }
 
@@ -19,6 +19,11 @@ export default class Play extends Phaser.State {
 
     render() {
         this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
+        this.session.debug(this.game);
     }
 
+    sceneEnded() {
+        this.session.end();
+        this.game.state.start('Over');
+    }
 }

@@ -33,7 +33,6 @@ interface OtsimoGame {
     medium_size: number;
     hard_size: number;
 
-
     add_outline: boolean;
     outline_image: string;
 
@@ -46,10 +45,14 @@ interface OtsimoGame {
     hide_item_on: number;
     hiding_type: string;
 
-    hiding_fade_alpha:number;
-    hiding_fade_duration:number;
+    hiding_fade_alpha: number;
+    hiding_fade_duration: number;
 
-    hiding_move_duration:number;
+    hiding_move_duration: number;
+
+    table_leave_duration: number;
+    table_show_duration: number;
+
 }
 
 
@@ -78,6 +81,8 @@ interface KeyValue {
     items: Array<GameItem>;
     game: OtsimoGame;
     layout: GameLayout;
+    announceTextStyle: any;
+    announceText: string;
 }
 
 interface Manifest {
