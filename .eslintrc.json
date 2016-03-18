@@ -25,7 +25,8 @@
     "browser": true
   },
   "globals": {
-    "Phaser": true
+    "Phaser": true,
+    "otsimo":true
   },
   "extends": "eslint:recommended"
 }

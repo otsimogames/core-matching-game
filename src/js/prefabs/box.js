@@ -7,6 +7,7 @@ export default class Box extends Phaser.Sprite {
         this.tint = parseInt(item.tint, 16);
         this.wrongAnswerCount = 0
         this.hidden = false
+        this.inputEnabled=true
     }
 
     get id() {
