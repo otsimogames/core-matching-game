@@ -14,6 +14,10 @@ export default class Box extends Phaser.Sprite {
         return this.item.id
     }
 
+    get kind() {
+        return this.item.kind
+    }
+
     playSound() {
         this.game.sound.play(this.item.audio);
     }

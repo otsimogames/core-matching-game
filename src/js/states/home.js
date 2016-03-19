@@ -1,4 +1,4 @@
-import Balloon from '../prefabs/Balloon'
+import Balloon from '../prefabs/balloon'
 
 export default class Home extends Phaser.State {
 
@@ -18,4 +18,12 @@ export default class Home extends Phaser.State {
         this.game.state.start('Play');
     }
 
+    render() {
+        this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
+    }
 }
+
+
+
+
+

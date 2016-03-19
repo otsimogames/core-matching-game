@@ -1,4 +1,4 @@
-import Balloon from '../prefabs/Balloon'
+import Balloon from '../prefabs/balloon'
 
 export default class Over extends Phaser.State {
     create() {

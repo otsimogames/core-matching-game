@@ -23,7 +23,7 @@ export default class Session {
         console.log("wrong input")
     }
 
-    correctInput(item) {
+    correctInput(item, answerItem) {
         console.log("correct input")
     }
 

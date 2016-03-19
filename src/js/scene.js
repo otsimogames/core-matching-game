@@ -43,6 +43,7 @@ export default class Scene {
 
         this.table = table;
         this.gameStep = next;
+
         if (otsimo.kv.game.answer_type == CHOOSE_GAME) {
             table.itemSelected.add(this.onItemSelected, this)
             this.announceText(otsimo.game.world.centerY * 0.3, 300)
@@ -60,7 +61,21 @@ export default class Scene {
         let box = this.table.isCollides(answer.getBounds())
         if (box != null) {
             if (box.item.kind == answer.item.kind) {
+                this.gameStep.done = true
                 answer.stopDrag();
+                const dur = 150
+
+                for (let b of this.table.boxes) {
+                    if (b.kind != box.kind) {
+                        this.table.fadeOffItem(b, dur / 2);
+                    }
+                }
+                box.playSound();
+                this.session.correctInput(box.item, answer.item)
+
+                let self = this
+                setTimeout(() => self.hideTable(), dur * 4);
+
             } else {
                 answer.stopDrag();
                 otsimo.game.add.tween(answer)
@@ -140,7 +155,6 @@ export default class Scene {
         setTimeout(() => {
             self.table.destroy(true)
             at.destroy();
-
             if (!self.next()) {
                 self.delegate.sceneEnded()
             }
