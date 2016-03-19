@@ -54,7 +54,6 @@ export default class Balloon extends Phaser.Group {
     }
 
     static random() {
-        console.log("random Balloon");
         let x = 50 + (Math.random() * otsimo.game.width) * 0.8;
         let y = otsimo.game.height + (Math.random() * 200);
         let color = parseInt(randomColor(otsimo.kv.game.balloon_color_options).replace("#", "0x"), 16);

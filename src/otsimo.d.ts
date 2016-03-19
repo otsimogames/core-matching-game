@@ -53,7 +53,7 @@ interface OtsimoGame {
     table_leave_duration: number;
     table_show_duration: number;
 
-    balloon_color_options:any;
+    balloon_color_options: any;
 }
 
 
@@ -69,12 +69,19 @@ interface GameLayoutAxis {
     y: GameLayoutAxisEntry;
 }
 
+interface AnswerLayout {
+    anchor: Phaser.Point;
+    x: GameLayoutAxisEntry;
+    y: GameLayoutAxisEntry;
+}
+
 interface GameLayout {
     fixed_size: boolean;
     max_item: number;
     cell_anchor: Phaser.Point;
     horizontal: GameLayoutAxis;
     vertical: GameLayoutAxis;
+    answer_box: AnswerLayout;
 }
 
 interface KeyValue {

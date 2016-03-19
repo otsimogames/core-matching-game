@@ -32,15 +32,15 @@ export class Randomizer {
 
     randomKind() {
         let randomNumber = Math.floor(Math.random() * this.values.size);
-        return this.values.values()[randomNumber]
+        return [...this.values][randomNumber];
     }
 
     randomItemOfKind(set, kind, excluded) {
         let f = [...set].filter(l => {
-            if (kind && l.kind != kind) {
+            if (kind != null && l.kind != kind) {
                 return false;
             }
-            if (excluded && excluded.indexOf(l.kind) >= 0) {
+            if (excluded != null && excluded.indexOf(l.kind) >= 0) {
                 return false;
             }
             return true;
@@ -66,13 +66,12 @@ export class Randomizer {
             this.values = new Set(kinds.values());
         }
 
-        let s = this.randomKind()
+        let s = this.randomKind();
 
         if (otsimo.kv.game.answer_type == "match") {
             let items = []
             let correct = this.randomItemOfKind(this._to, s, []);
             items.push(correct)
-
             let n = this.itemAmount - 1;
             for (let i = 0; i < n; i++) {
                 let item = this.randomItemOfKind(this._to, null, items.map(f => f.kind))
@@ -80,7 +79,6 @@ export class Randomizer {
             }
 
             let answer = this.randomItemOfKind(this._from, s, []);
-
             return new GameStep({
                 answer: answer,
                 items: shuffle(items)

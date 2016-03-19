@@ -60,7 +60,7 @@ export default class Table extends Phaser.Group {
                 box.events.onInputDown.add(this.clickListener, { box: box, table: this });
             }
         }
-
+        this.itemSize = w
         this.visiblePos = {
             x: otsimo.game.world.centerX,
             y: (otsimo.game.height * layout.horizontal.y.multiplier + layout.horizontal.y.constant),
@@ -107,8 +107,9 @@ export default class Table extends Phaser.Group {
                 box.inputEnabled = true
                 box.events.onInputDown.add(this.clickListener, { box: box, table: this });
             }
-
         }
+
+        this.itemSize = h
 
         this.visiblePos = {
             x: (otsimo.game.width * layout.vertical.x.multiplier + layout.vertical.x.constant),
@@ -251,5 +252,21 @@ export default class Table extends Phaser.Group {
 
             k++;
         }
+    }
+
+    isCollides(other) {
+
+        other.width = other.width * 0.85;
+        other.height = other.height * 0.85;
+
+        for (let b of this.boxes) {
+            let b2 = b.getBounds();
+            b2.width = b2.width * 0.85;
+            b2.height = b2.height * 0.85;
+            if (!b.hidden && Phaser.Rectangle.intersects(other, b2)) {
+                return b;
+            }
+        }
+        return null;
     }
 }
