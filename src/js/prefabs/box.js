@@ -36,7 +36,7 @@ export default class Box extends Phaser.Sprite {
         this.input.enableDrag(false, true);
     }
 
-    dragStart() {
+    onDragStart() {
         this.defaultScaleX = this.scale.x
         this.defaultScaleY = this.scale.y
 
@@ -44,12 +44,21 @@ export default class Box extends Phaser.Sprite {
         otsimo.game.add.tween(this.scale).to({ x: ns, y: ns }, 100, Phaser.Easing.Back.Out, true)
     }
 
-    dragStop() {
+    onDragStop() {
+        this.lastDragPointer = null;
         otsimo.game.add.tween(this.scale).to({ x: this.defaultScaleX, y: this.defaultScaleY }, 100, Phaser.Easing.Back.Out, true)
     }
 
     dragUpdate(sprite, pointer, dragX, dragY, snapPoint) {
+        this.lastDragPointer = pointer;
         this.onDragUpdate.dispatch(this)
+    }
+
+    stopDrag() {
+        if (this.lastDragPointer) {
+            this.input.stopDrag(this.lastDragPointer);
+            this.lastDragPointer = null;
+        }
     }
 
     static answerBox({item, table}) {
@@ -71,9 +80,9 @@ export default class Box extends Phaser.Sprite {
 
         //enable drag
         answer.enableDrag()
-        answer.events.onDragStart.add(answer.dragStart, answer);
+        answer.events.onDragStart.add(answer.onDragStart, answer);
         answer.events.onDragUpdate.add(answer.dragUpdate, answer);
-        answer.events.onDragStop.add(answer.dragStop, answer);
+        answer.events.onDragStop.add(answer.onDragStop, answer);
 
         otsimo.game.world.add(answer);
         answer.visiblePos = new Phaser.Point(visX, visY);

@@ -56,9 +56,22 @@ export default class Scene {
     }
 
     onDrag() {
-        let b = this.table.isCollides(this.answerBox.getBounds())
-        if (b != null) {
-            console.log("COLLISON WITH", b);
+        let answer = this.answerBox;
+        let box = this.table.isCollides(answer.getBounds())
+        if (box != null) {
+            if (box.item.kind == answer.item.kind) {
+                answer.stopDrag();
+            } else {
+                answer.stopDrag();
+                otsimo.game.add.tween(answer)
+                    .to({ x: answer.visiblePos.x, y: answer.visiblePos.y }, otsimo.kv.game.table_show_duration, Phaser.Easing.Back.Out, true);
+
+                box.wrongAnswerCount += 1
+                if (box.wrongAnswerCount >= otsimo.kv.game.hide_item_on) {
+                    this.table.hideAnItem(box.id)
+                }
+                this.session.wrongInput(box.item, box.wrongAnswerCount)
+            }
         }
     }
 

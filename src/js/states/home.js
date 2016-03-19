@@ -1,3 +1,5 @@
+import Balloon from '../prefabs/Balloon'
+
 export default class Home extends Phaser.State {
 
     create() {
@@ -7,6 +9,9 @@ export default class Home extends Phaser.State {
         this.game.add.button((this.game.width) * 0.37, (this.game.height) * 0.47, 'playButton', this.playAction, this, 2, 1, 0);
         this.game.add.button(25, 25, 'back', otsimo.quitgame, this);
 
+        for (let i = 0; i < 15; i++) {
+            Balloon.random()
+        }
     }
 
     playAction(button) {

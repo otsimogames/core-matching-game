@@ -221,8 +221,9 @@ export default class Table extends Phaser.Group {
     }
 
     relayoutVertical(delay) {
+        console.log("relayoutVertical", delay)
         let layout = otsimo.kv.layout;
-        let gw = otsimo.game.height * layout.vertical.height.multiplier + layout.vertical.height.constant;
+        let gh = otsimo.game.height * layout.vertical.height.multiplier + layout.vertical.height.constant;
 
         let vis = this.boxes.filter(b => !b.hidden).length
 
