@@ -46,11 +46,11 @@ export default class Scene {
 
         if (otsimo.kv.game.answer_type == CHOOSE_GAME) {
             table.itemSelected.add(this.onItemSelected, this)
-            this.announceText(otsimo.game.world.centerY * 0.3, 300)
+            this.announce(otsimo.game.world.centerY * 0.3, 300)
         } else {
             this.answerBox = Box.answerBox({ item: next.answer, table: table });
             this.answerBox.onDragUpdate.add(this.onDrag, this);
-            this.announceText(-100, 500, this.answerBox);
+            this.announce(-100, 500, this.answerBox);
         }
         this.session.startStep();
         return true;
@@ -116,7 +116,7 @@ export default class Scene {
         }
     }
 
-    announceText(leaveY, leaveTime, answer) {
+    announce(leaveY, leaveTime, answer) {
         let fill = this.gameStep.answer.tint;
         let txt = sprintf(otsimo.kv.announceText, this.gameStep.answer.text);
         let text = otsimo.game.add.text(otsimo.game.world.centerX, otsimo.game.world.centerY * 0.7, txt, otsimo.kv.announceTextStyle);
