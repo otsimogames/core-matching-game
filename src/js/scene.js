@@ -153,6 +153,9 @@ export default class Scene {
 
         let self = this
         setTimeout(() => {
+            if (self.answerBox) {
+                self.answerBox.destroy();
+            }
             self.table.destroy(true)
             at.destroy();
             if (!self.next()) {
