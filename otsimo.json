@@ -2,7 +2,7 @@
     "unique_name": "core-matching-game",
     "version": "---",
     "main": "index.html",
-    "licence": "MIT",
+    "licence": "Apache 2",
     "languages": [
         "en"
     ],

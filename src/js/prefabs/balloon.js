@@ -20,7 +20,10 @@ export default class Balloon extends Phaser.Group {
     bodyTouched(obj, pointer) {
         let emitter = otsimo.game.add.emitter(pointer.x, pointer.y, 100);
         emitter.makeParticles('ballon_star');
-        emitter.gravity = 200;
+        emitter.gravity = 500;
+        emitter.setYSpeed(-500, 0);
+        emitter.width = this.bodySprite.width * 0.6;
+        emitter.height = this.bodySprite.width * 0.3;
         emitter.start(true, 4000, null, 10);
         otsimo.game.time.events.add(4000, emitter.destroy, emitter);
         emitter.forEach((a, c) => {

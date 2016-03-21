@@ -18,8 +18,10 @@ export default class Play extends Phaser.State {
     }
 
     render() {
-        this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
-        this.session.debug(this.game);
+        if (otsimo.debug) {
+            this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
+            this.session.debug(this.game);
+        }
     }
 
     sceneEnded() {
