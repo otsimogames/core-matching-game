@@ -29,30 +29,31 @@ export default class Scene {
         if (this.step >= otsimo.kv.game.session_step) {
             return false
         }
-        let next = this.random.next()
-        let dir = (otsimo.kv.game.answer_type == MATCH_GAME ? "vertical" : "horizontal")
-        let table = new Table({
-            game: otsimo.game,
-            items: next.items,
-            direction: dir,
-            enableInput: (otsimo.kv.game.answer_type == CHOOSE_GAME)
+        this.random.next((next) => {
+            let dir = (otsimo.kv.game.answer_type == MATCH_GAME ? "vertical" : "horizontal")
+            let table = new Table({
+                game: otsimo.game,
+                items: next.items,
+                direction: dir,
+                enableInput: (otsimo.kv.game.answer_type == CHOOSE_GAME)
+            })
+
+            table.x = table.hiddenPos.x;
+            table.y = table.hiddenPos.y;
+
+            this.table = table;
+            this.gameStep = next;
+
+            if (otsimo.kv.game.answer_type == CHOOSE_GAME) {
+                table.itemSelected.add(this.onItemSelected, this)
+                this.announce(otsimo.game.world.centerY * 0.3, 300)
+            } else {
+                this.answerBox = Box.answerBox({ item: next.answer, table: table });
+                this.answerBox.onDragUpdate.add(this.onDrag, this);
+                this.announce(-100, 500, this.answerBox);
+            }
+            this.session.startStep();
         })
-
-        table.x = table.hiddenPos.x;
-        table.y = table.hiddenPos.y;
-
-        this.table = table;
-        this.gameStep = next;
-
-        if (otsimo.kv.game.answer_type == CHOOSE_GAME) {
-            table.itemSelected.add(this.onItemSelected, this)
-            this.announce(otsimo.game.world.centerY * 0.3, 300)
-        } else {
-            this.answerBox = Box.answerBox({ item: next.answer, table: table });
-            this.answerBox.onDragUpdate.add(this.onDrag, this);
-            this.announce(-100, 500, this.answerBox);
-        }
-        this.session.startStep();
         return true;
     }
 

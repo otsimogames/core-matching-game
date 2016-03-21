@@ -61,7 +61,7 @@ export class Randomizer {
         return otsimo.kv.game.medium_size;
     }
 
-    next() {
+    next(callback) {
         if (this.values.size == 0) {
             this.values = new Set(kinds.values());
         }
@@ -79,10 +79,10 @@ export class Randomizer {
             }
 
             let answer = this.randomItemOfKind(this._from, s, []);
-            return new GameStep({
+            return callback(new GameStep({
                 answer: answer,
                 items: shuffle(items)
-            });
+            }));
         } else if (otsimo.kv.game.answer_type == "choose") {
             let items = []
             let correct = this.randomItemOfKind(this._to, s, []);
@@ -94,13 +94,12 @@ export class Randomizer {
                 items.push(item)
             }
 
-            return new GameStep({
-                answer: correct,
+            return callback(new GameStep({
+                answer: answer,
                 items: shuffle(items)
-            });
-
+            }));
         } else {
-            return null;
+            return callback(null);
         }
     }
 }
