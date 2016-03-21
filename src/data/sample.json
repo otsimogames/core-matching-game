@@ -128,7 +128,8 @@
         "hiding_move_duration": 300,
         "table_show_duration": 400,
         "table_leave_duration": 600,
-        "balloon_color_options": {
+        "balloon_options": {
+            "count": 15,
             "luminosity": "bright"
         }
     },

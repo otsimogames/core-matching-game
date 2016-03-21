@@ -59,20 +59,21 @@ export default class Balloon extends Phaser.Group {
     }
 
     static random() {
-        let x = 50 + (Math.random() * otsimo.game.width) * 0.8;
-        let y = otsimo.game.height + (Math.random() * 200);
-        let color = parseInt(randomColor(otsimo.kv.game.balloon_color_options).replace("#", "0x"), 16);
+        let colors = randomColor(otsimo.kv.game.balloon_options)
+        for (let c of colors) {
+            let x = 50 + (Math.random() * otsimo.game.width) * 0.8;
+            let y = otsimo.game.height + (Math.random() * 200);
+            let color = parseInt(c.replace("#", "0x"), 16);
 
-        let balloon = new Balloon({
-            game: otsimo.game,
-            x: x,
-            y: y,
-            color: color
-        });
+            let balloon = new Balloon({
+                game: otsimo.game,
+                x: x,
+                y: y,
+                color: color
+            });
 
-        balloon.randomScale();
-        balloon.moveRandomly();
-
-        return balloon;
+            balloon.randomScale();
+            balloon.moveRandomly();
+        }
     }
 }

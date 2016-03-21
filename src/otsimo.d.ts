@@ -53,7 +53,7 @@ interface OtsimoGame {
     table_leave_duration: number;
     table_show_duration: number;
 
-    balloon_color_options: any;
+    balloon_options: any;
 }
 
 
