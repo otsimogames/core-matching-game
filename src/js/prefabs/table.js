@@ -5,12 +5,13 @@ const HIDING_MOVE = "move";
 
 export default class Table extends Phaser.Group {
     constructor({game, direction, items, enableInput}) {
-        super(game)
-        this.items = items
-        this.direction = direction
-        this.items = items
-        this.boxes = []
-        this.enableInput = enableInput
+        super(game);
+        this.hintArrow = undefined;
+        this.items = items;
+        this.direction = direction;
+        this.items = items;
+        this.boxes = [];
+        this.enableInput = enableInput;
         if (enableInput) {
             this.itemSelected = new Phaser.Signal()
         }
@@ -56,7 +57,7 @@ export default class Table extends Phaser.Group {
             this.add(box);
             this.boxes.push(box);
             if (this.enableInput) {
-                box.inputEnabled = true
+                box.inputEnabled = true;
                 box.events.onInputDown.add(this.clickListener, { box: box, table: this });
             }
         }
@@ -269,5 +270,80 @@ export default class Table extends Phaser.Group {
             }
         }
         return null;
+    }
+
+    createHint(answerName) {
+        this.killHint();
+        if (otsimo.kv.game.hint_type == "hand") {
+            this.handHint(answerName);
+        } else {
+            this.jumpHint(answerName);
+        }
+    }
+
+    handHint (answerName) {
+        var answerItem = this.lookForAnswer(answerName);
+        console.log(answerItem.world);
+        this.hintArrow = otsimo.game.add.sprite(answerItem.world.x, answerItem.world.y + otsimo.game.height * 0.05, 'hand');
+        this.hintArrow.anchor.set(1,0.1);
+        var tween = otsimo.game.add.tween(this.hintArrow);
+        tween.to({y: answerItem.world.y},1000, Phaser.Easing.Elastic.In,true,0);
+        otsimo.game.time.events.add(Phaser.Timer.SECOND * 2, this.killHint, this);
+    }
+
+    jumpHint (answerName) {
+        this.answerItem = this.lookForAnswer(answerName);
+        this.jumpItem(this.answerItem);
+    }
+
+    jumpItem (answerItem) {
+        console.log(answerItem.world.x);
+        this.moveItem(answerItem);
+    }
+
+    moveItem (item) {
+        //this.twistItem(item);
+        let tween = otsimo.game.add.tween(item)
+            .to({y: 20}, 200, Phaser.Easing.Linear.None, false);
+
+        let tween2 = otsimo.game.add.tween(item)
+            .to({y: -20}, 200, Phaser.Easing.Linear.None, false);
+
+        let tween3 = otsimo.game.add.tween(item)
+            .to({y: 0}, 200, Phaser.Easing.Linear.None, false);
+
+        tween.chain(tween2);
+        tween2.chain(tween3);
+
+        tween.start();
+    }
+
+    twistItem (item) {
+
+        console.log('twisting');
+
+        let tween = otsimo.game.add.tween(item).to( { angle: 10 }, 70, Phaser.Easing.Linear.None, false);
+        let tween2 = otsimo.game.add.tween(item).to( { angle: -10 }, 70, Phaser.Easing.Linear.None, false);
+        let tween3 = otsimo.game.add.tween(item).to( { angle: 0 }, 100, Phaser.Easing.Linear.None, false);
+
+        tween.chain(tween2);
+
+        tween2.chain(tween3);
+
+        tween.start();
+    }
+
+    lookForAnswer (id) {
+        for(let b of this.boxes){
+            if(b.id == id){
+                return b;
+            }
+        }
+    }
+
+    killHint () {
+        if (this.hintArrow) {
+            this.hintArrow.kill();
+        }
     }
 }

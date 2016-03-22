@@ -114,7 +114,7 @@
         "easy_size": 2,
         "medium_size": 3,
         "hard_size": 4,
-        "answer_type": "match",
+        "answer_type": "choose",
         "add_outline": true,
         "outline_image": "top_box",
         "session_step": 10,

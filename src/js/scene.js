@@ -3,17 +3,18 @@ import {Randomizer} from "./randomizer"
 import Table from "./prefabs/table"
 import Box from "./prefabs/box"
 
-const MATCH_GAME = "match"
-const CHOOSE_GAME = "choose"
+const MATCH_GAME = "match";
+const CHOOSE_GAME = "choose";
 
 export {MATCH_GAME, CHOOSE_GAME};
 
 export default class Scene {
     constructor({delegate, session}) {
-        this.delegate = delegate
-        this.session = session
-        this.random = new Randomizer()
-        this.step = -1
+        this.delegate = delegate;
+        this.session = session;
+        this.random = new Randomizer();
+        this.step = -1;
+        this.hintArrow = undefined;
     }
 
     get step() {
@@ -25,12 +26,12 @@ export default class Scene {
     }
 
     next() {
-        this.step = this.step + 1
+        this.step = this.step + 1;
         if (this.step >= otsimo.kv.game.session_step) {
             return false
         }
         this.random.next((next) => {
-            let dir = (otsimo.kv.game.answer_type == MATCH_GAME ? "vertical" : "horizontal")
+            let dir = (otsimo.kv.game.answer_type == MATCH_GAME ? "vertical" : "horizontal");
             let table = new Table({
                 game: otsimo.game,
                 items: next.items,
@@ -45,7 +46,7 @@ export default class Scene {
             this.gameStep = next;
 
             if (otsimo.kv.game.answer_type == CHOOSE_GAME) {
-                table.itemSelected.add(this.onItemSelected, this)
+                table.itemSelected.add(this.onItemSelected, this);
                 this.announce(otsimo.game.world.centerY * 0.3, 300)
             } else {
                 this.answerBox = Box.answerBox({ item: next.answer, table: table });
@@ -59,12 +60,12 @@ export default class Scene {
 
     onDrag() {
         let answer = this.answerBox;
-        let box = this.table.isCollides(answer.getBounds())
+        let box = this.table.isCollides(answer.getBounds());
         if (box != null) {
             if (box.item.kind == answer.item.kind) {
-                this.gameStep.done = true
+                this.gameStep.done = true;
                 answer.stopDrag();
-                const dur = 150
+                const dur = 150;
 
                 for (let b of this.table.boxes) {
                     if (b.kind != box.kind) {
@@ -87,6 +88,7 @@ export default class Scene {
                     this.table.hideAnItem(box.id)
                 }
                 this.session.wrongInput(box.item, box.wrongAnswerCount)
+                this.createTimer(5);
             }
         }
     }
@@ -114,6 +116,7 @@ export default class Scene {
                 this.table.hideAnItem(box.id)
             }
             this.session.wrongInput(box.item, box.wrongAnswerCount)
+            this.createTimer(5);
         }
     }
 
@@ -166,7 +169,18 @@ export default class Scene {
     }
 
     showHint() {
+        console.log('showing hint');
+        this.table.createHint(this.gameStep.answer.id);
+    }
 
+    createTimer (seconds) {
+        if (this.hintArrow) {
+            this.hintArrow.kill();
+        }
+        console.log('creating timer');
+        otsimo.game.time.events.add(Phaser.Timer.SECOND, this.showHint, this);
     }
 
 }
+
+export {Scene};
