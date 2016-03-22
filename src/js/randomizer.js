@@ -63,11 +63,13 @@ export class Randomizer {
 
     next(callback) {
         if (this.values.size == 0) {
-            this.values = new Set(kinds.values());
+            this.values = new Set(this.kinds.values());
         }
-
+        
         let s = this.randomKind();
-
+        this.values.delete(s);
+        
+        
         if (otsimo.kv.game.answer_type == "match") {
             let items = []
             let correct = this.randomItemOfKind(this._to, s, []);
@@ -95,7 +97,7 @@ export class Randomizer {
             }
 
             return callback(new GameStep({
-                answer: answer,
+                answer: correct,
                 items: shuffle(items)
             }));
         } else {
