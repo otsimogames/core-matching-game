@@ -16,12 +16,12 @@
         "show_hint": {
             "id": "show_hint",
             "type": "boolean",
-            "default": false
+            "default": true
         },
         "hint_duration": {
             "id": "hint_duration",
             "type": "integer",
-            "default": 10
+            "default": 5
         }
     }
 }

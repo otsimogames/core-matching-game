@@ -14,7 +14,7 @@ export default class Scene {
         this.session = session;
         this.random = new Randomizer();
         this.step = -1;
-        this.hintArrow = undefined;
+        this.timer = undefined;
     }
 
     get step() {
@@ -88,7 +88,7 @@ export default class Scene {
                     this.table.hideAnItem(box.id)
                 }
                 this.session.wrongInput(box.item, box.wrongAnswerCount)
-                this.createTimer(5);
+                this.showHint();
             }
         }
     }
@@ -116,7 +116,7 @@ export default class Scene {
                 this.table.hideAnItem(box.id)
             }
             this.session.wrongInput(box.item, box.wrongAnswerCount)
-            this.createTimer(5);
+            this.showHint();
         }
     }
 
@@ -145,6 +145,7 @@ export default class Scene {
                     .to({ x: answer.visiblePos.x }, otsimo.kv.game.table_show_duration, Phaser.Easing.Back.Out, true);
             }
             table.moveTo(table.visiblePos.x, table.visiblePos.y, otsimo.kv.game.table_show_duration);
+            this.createTimer();
         }, 1600);
     }
 
@@ -169,16 +170,20 @@ export default class Scene {
     }
 
     showHint() {
-        console.log('showing hint');
+        this.killTimer();
         this.table.createHint(this.gameStep.answer.id);
+        this.createTimer();
     }
 
-    createTimer (seconds) {
-        if (this.hintArrow) {
-            this.hintArrow.kill();
+    createTimer () {
+        this.killTimer();
+        this.timer = otsimo.game.time.events.add(Phaser.Timer.SECOND * otsimo.settings.hint_duration, this.showHint, this);
+    }
+
+    killTimer () {
+        if (this.timer) {
+            otsimo.game.time.events.remove(this.timer);
         }
-        console.log('creating timer');
-        otsimo.game.time.events.add(Phaser.Timer.SECOND, this.showHint, this);
     }
 
 }

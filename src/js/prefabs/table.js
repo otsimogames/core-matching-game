@@ -131,6 +131,7 @@ export default class Table extends Phaser.Group {
     }
 
     moveTo(x, y, dur) {
+
         let tween = otsimo.game.add.tween(this)
             .to({ x: x, y: y }, dur, Phaser.Easing.Back.Out);
 
@@ -222,7 +223,6 @@ export default class Table extends Phaser.Group {
     }
 
     relayoutVertical(delay) {
-        console.log("relayoutVertical", delay)
         let layout = otsimo.kv.layout;
         let gh = otsimo.game.height * layout.vertical.height.multiplier + layout.vertical.height.constant;
 
@@ -283,7 +283,6 @@ export default class Table extends Phaser.Group {
 
     handHint (answerName) {
         var answerItem = this.lookForAnswer(answerName);
-        console.log(answerItem.world);
         this.hintArrow = otsimo.game.add.sprite(answerItem.world.x, answerItem.world.y + otsimo.game.height * 0.05, 'hand');
         this.hintArrow.anchor.set(1,0.1);
         var tween = otsimo.game.add.tween(this.hintArrow);
@@ -297,7 +296,6 @@ export default class Table extends Phaser.Group {
     }
 
     jumpItem (answerItem) {
-        console.log(answerItem.world.x);
         this.moveItem(answerItem);
     }
 
@@ -319,8 +317,6 @@ export default class Table extends Phaser.Group {
     }
 
     twistItem (item) {
-
-        console.log('twisting');
 
         let tween = otsimo.game.add.tween(item).to( { angle: 10 }, 70, Phaser.Easing.Linear.None, false);
         let tween2 = otsimo.game.add.tween(item).to( { angle: -10 }, 70, Phaser.Easing.Linear.None, false);
