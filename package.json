@@ -1,16 +1,16 @@
 {
-  "name": "core-matching-game",
+  "name": "otsimo-matching-game",
   "version": "1.0.0",
   "description": "",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/otsimo/core-matching-game.git"
+    "url": "https://github.com/otsimo/core-matching-game.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Secan Değirmenci <sercan@otsimo.com>",
+  "license": "Apache 2",
   "homepage": "https://github.com/otsimo/core-matching-game",
   "dependencies": {
-    "otsimo": "^0.3.0",
+    "otsimo": "^1.0.0",
     "phaser": "^2.4.4",
     "sprintf-js": "^1.0.3"
   },
