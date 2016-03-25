@@ -1,4 +1,3 @@
-import {shuffle} from "./utils"
 import {Randomizer} from "./randomizer"
 import Table from "./prefabs/table"
 import Box from "./prefabs/box"
@@ -121,13 +120,12 @@ export default class Scene {
     }
 
     announce(leaveY, leaveTime, answer) {
-        let fill = this.gameStep.answer.tint;
         let txt = sprintf(otsimo.kv.announceText, this.gameStep.answer.text);
         let text = otsimo.game.add.text(otsimo.game.world.centerX, otsimo.game.world.centerY * 0.7, txt, otsimo.kv.announceTextStyle);
 
         text.anchor.set(0.5, 0.5);
         text.alpha = 0.1;
-        text.fill = this.gameStep.answer.tint.replace('0x', '#');
+        text.fill = this.gameStep.answer.tint.replace("0x", "#");
         this.announceText = text;
 
         otsimo.game.add.tween(text).to({ alpha: 1 }, 100, "Linear", true);
@@ -175,12 +173,12 @@ export default class Scene {
         this.createTimer();
     }
 
-    createTimer () {
+    createTimer() {
         this.killTimer();
         this.timer = otsimo.game.time.events.add(Phaser.Timer.SECOND * otsimo.settings.hint_duration, this.showHint, this);
     }
 
-    killTimer () {
+    killTimer() {
         if (this.timer) {
             otsimo.game.time.events.remove(this.timer);
         }

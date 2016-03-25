@@ -1,32 +1,39 @@
 {
-  "ecmaFeatures": {
-    "blockBindings": true
-  },
-  "rules": {
-    "indent": [0
-    ],
-    "quotes": [
-      2,
-      "single"
-    ],
-    "linebreak-style": [
-      2,
-      "unix"
-    ],
-    "semi": [
-      0,
-      "never"
-    ],
-    "no-console": [
-      0
-    ]
-  },
-  "env": {
-    "browser": true
-  },
-  "globals": {
-    "Phaser": true,
-    "otsimo":true
-  },
-  "extends": "eslint:recommended"
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "ecmaFeatures": {
+        "blockBindings": true
+    },
+    "rules": {
+        "indent": [
+            0
+        ],
+        "quotes": [
+            2,
+            "double"
+        ],
+        "linebreak-style": [
+            2,
+            "unix"
+        ],
+        "semi": [
+            0,
+            "never"
+        ],
+        "no-console": [
+            0
+        ]
+    },
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "globals": {
+        "Phaser": true,
+        "otsimo": true,
+        "sprintf": true
+    },
+    "extends": "eslint:recommended"
 }

@@ -1,5 +1,3 @@
-import {Scene} from './scene'
-
 export default class Session {
     constructor({state}) {
         this.score = 0;
@@ -10,9 +8,9 @@ export default class Session {
     }
 
     end() {
-        let fin= Date.now();
-        let delta=fin-this.startTime;
-        console.log("end session, post to analytics")
+        let fin = Date.now();
+        let delta = fin - this.startTime;
+        console.log("end session, post to analytics", delta)
     }
 
     startStep() {
@@ -23,11 +21,11 @@ export default class Session {
     wrongInput(item, amount) {
         this.wrongAnswerStep += 1;
         this.wrongAnswerTotal += 1;
-        console.log("wrong input");
+        console.log("wrong input", item, amount);
     }
 
     correctInput(item, answerItem) {
-        console.log("correct input")
+        console.log("correct input", item, answerItem)
     }
 
     debug(game) {
