@@ -71,8 +71,10 @@ export default class Scene {
                         this.table.fadeOffItem(b, dur / 2);
                     }
                 }
+                this.table.killTimer();
                 box.playSound();
                 this.session.correctInput(box.item, answer.item)
+                this.table.createTimer(this.gameStep.answer.id);
 
                 let self = this
                 setTimeout(() => self.hideTable(), dur * 4);
@@ -86,8 +88,9 @@ export default class Scene {
                 if (box.wrongAnswerCount >= otsimo.kv.game.hide_item_on) {
                     this.table.hideAnItem(box.id)
                 }
-                this.session.wrongInput(box.item, box.wrongAnswerCount)
-                this.showHint();
+                this.table.killTimer();
+                this.session.wrongInput(box.item, box.wrongAnswerCount);
+                this.table.createTimer(this.gameStep.answer.id);
             }
         }
     }
@@ -104,8 +107,10 @@ export default class Scene {
                     this.table.fadeOffItem(b, dur / 2);
                 }
             }
+            this.table.killTimer();
             box.playSound();
             this.session.correctInput(box.item)
+            this.table.createTimer(this.gameStep.answer.id);
 
             let self = this
             setTimeout(() => self.hideTable(), dur * 4);
@@ -114,8 +119,9 @@ export default class Scene {
             if (box.wrongAnswerCount >= otsimo.kv.game.hide_item_on) {
                 this.table.hideAnItem(box.id)
             }
+            this.table.killTimer();
             this.session.wrongInput(box.item, box.wrongAnswerCount)
-            this.showHint();
+            this.table.createTimer(this.gameStep.answer.id);
         }
     }
 
@@ -143,7 +149,7 @@ export default class Scene {
                     .to({ x: answer.visiblePos.x }, otsimo.kv.game.table_show_duration, Phaser.Easing.Back.Out, true);
             }
             table.moveTo(table.visiblePos.x, table.visiblePos.y, otsimo.kv.game.table_show_duration);
-            this.createTimer();
+            this.table.createTimer(this.gameStep.answer.id);
         }, 1600);
     }
 
@@ -167,22 +173,7 @@ export default class Scene {
         }, dur);
     }
 
-    showHint() {
-        this.killTimer();
-        this.table.createHint(this.gameStep.answer.id);
-        this.createTimer();
-    }
 
-    createTimer() {
-        this.killTimer();
-        this.timer = otsimo.game.time.events.add(Phaser.Timer.SECOND * otsimo.settings.hint_duration, this.showHint, this);
-    }
-
-    killTimer() {
-        if (this.timer) {
-            otsimo.game.time.events.remove(this.timer);
-        }
-    }
 
 }
 

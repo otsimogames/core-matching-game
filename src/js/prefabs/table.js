@@ -12,6 +12,8 @@ export default class Table extends Phaser.Group {
         this.items = items;
         this.boxes = [];
         this.enableInput = enableInput;
+        this.timer = undefined;
+        this.answer = undefined;
         if (enableInput) {
             this.itemSelected = new Phaser.Signal()
         }
@@ -274,57 +276,73 @@ export default class Table extends Phaser.Group {
 
     createHint(answerName) {
         this.killHint();
+        this.killTimer();
         if (otsimo.kv.game.hint_type == "hand") {
             this.handHint(answerName);
         } else {
             this.jumpHint(answerName);
         }
+        this.createTimer(answerName);
     }
 
     handHint (answerName) {
-        var answerItem = this.lookForAnswer(answerName);
-        this.hintArrow = otsimo.game.add.sprite(answerItem.world.x, answerItem.world.y + otsimo.game.height * 0.05, 'hand');
+        this.hintArrow = otsimo.game.add.sprite(this.answerItem.world.x, this.answerItem.world.y + otsimo.game.height * 0.05, 'hand');
         this.hintArrow.anchor.set(1,0.1);
-        var tween = otsimo.game.add.tween(this.hintArrow);
-        tween.to({y: answerItem.world.y},1000, Phaser.Easing.Elastic.In,true,0);
+        var tween = otsimo.game.add.tween(this.hintArrow).to({y: this.answerItem.world.y}, 500 , Phaser.Easing.Circular.Out ,false);
+        var tween2 = otsimo.game.add.tween(this.hintArrow)
+            .to({y: this.answerItem.world.y + otsimo.game.height * 0.05}, 500 , Phaser.Easing.Linear.In ,false);
         otsimo.game.time.events.add(Phaser.Timer.SECOND * 2, this.killHint, this);
+        tween.chain(tween2);
+        tween.start();
+        console.log("False??????????")
     }
 
     jumpHint (answerName) {
-        this.answerItem = this.lookForAnswer(answerName);
         this.jumpItem(this.answerItem);
     }
 
     jumpItem (answerItem) {
-        this.moveItem(answerItem);
+        this.twistItem(answerItem);
+        //this.moveItem(answerItem);
     }
 
     moveItem (item) {
         //this.twistItem(item);
         let tween = otsimo.game.add.tween(item)
-            .to({y: 20}, 200, Phaser.Easing.Linear.None, false);
+            .to({y: 10}, 150, Phaser.Easing.Linear.None, false);
 
         let tween2 = otsimo.game.add.tween(item)
-            .to({y: -20}, 200, Phaser.Easing.Linear.None, false);
+            .to({y: -0}, 150, Phaser.Easing.Linear.None, false);
 
         let tween3 = otsimo.game.add.tween(item)
-            .to({y: 0}, 200, Phaser.Easing.Linear.None, false);
+            .to({y: 0}, 100, Phaser.Easing.Linear.None, false);
 
         tween.chain(tween2);
-        tween2.chain(tween3);
+        //tween2.chain(tween3);
 
         tween.start();
     }
 
     twistItem (item) {
 
-        let tween = otsimo.game.add.tween(item).to( { angle: 10 }, 70, Phaser.Easing.Linear.None, false);
-        let tween2 = otsimo.game.add.tween(item).to( { angle: -10 }, 70, Phaser.Easing.Linear.None, false);
-        let tween3 = otsimo.game.add.tween(item).to( { angle: 0 }, 100, Phaser.Easing.Linear.None, false);
+        let tween = otsimo.game.add.tween(item)
+            .to( {angle: 5 }, 75, Phaser.Easing.Back.Out, false);
+        let tween2 = otsimo.game.add.tween(item)
+            .to( {angle: -5 }, 75, Phaser.Easing.Back.Out, false);
+        let tween3 = otsimo.game.add.tween(item)
+            .to( {angle: 5 }, 75, Phaser.Easing.Back.Out, false);
+        let tween4 = otsimo.game.add.tween(item)
+            .to( {angle: -5 }, 75, Phaser.Easing.Back.Out, false);
+        let tween5 = otsimo.game.add.tween(item)
+            .to( {angle: 5 }, 75, Phaser.Easing.Back.Out, false);
+        let tween6 = otsimo.game.add.tween(item)
+            .to( {angle: 0 }, 75, Phaser.Easing.Back.Out, false);
 
         tween.chain(tween2);
-
         tween2.chain(tween3);
+        tween3.chain(tween4);
+        tween4.chain(tween5);
+        tween5.chain(tween6);
 
         tween.start();
     }
@@ -340,6 +358,27 @@ export default class Table extends Phaser.Group {
     killHint () {
         if (this.hintArrow) {
             this.hintArrow.kill();
+        }
+        this.killTimer();
+        this.createTimer(this.answer);
+    }
+
+    showHint() {
+        this.killTimer();
+        this.createHint(this.answer);
+        this.createTimer(this.answer);
+    }
+
+    createTimer(answer) {
+        this.answer = answer;
+        this.answerItem = this.lookForAnswer(answer);
+        this.killTimer();
+        this.timer = otsimo.game.time.events.add(Phaser.Timer.SECOND * otsimo.settings.hint_duration, this.showHint, this);
+    }
+
+    killTimer() {
+        if (this.timer) {
+            otsimo.game.time.events.remove(this.timer);
         }
     }
 }

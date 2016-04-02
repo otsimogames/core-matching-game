@@ -1,3 +1,5 @@
+import {Scene} from './scene'
+
 export default class Session {
     constructor({state}) {
         this.score = 0;
@@ -25,7 +27,7 @@ export default class Session {
     }
 
     correctInput(item, answerItem) {
-        console.log("correct input", item, answerItem)
+        console.log("correct input", item, answerItem);
     }
 
     debug(game) {

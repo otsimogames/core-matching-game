@@ -21,6 +21,7 @@ export default class Play extends Phaser.State {
         if (otsimo.debug) {
             this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
             this.session.debug(this.game);
+            this.game.debug.text("Time until event: " + this.game.time.events.duration, 300, 50);
         }
     }
 
