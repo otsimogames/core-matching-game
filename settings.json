@@ -6,7 +6,7 @@
         "difficulty": {
             "id": "difficulty",
             "type": "string",
-            "default": "hard",
+            "default": "medium",
             "enum": [
                 "easy",
                 "medium",

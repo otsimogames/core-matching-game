@@ -85,7 +85,7 @@ export default class Table extends Phaser.Group {
         let e = h / (is - 1);
         let sy = - (this.items.length / 2.0) * (h + e);
         let sx = 0.0;
-        let maxWidth = 0
+        let maxWidth = 0;
 
         for (let i = 0; i < this.items.length; i++) {
             let item = this.items[i];
@@ -116,11 +116,11 @@ export default class Table extends Phaser.Group {
 
         this.visiblePos = {
             x: (otsimo.game.width * layout.vertical.x.multiplier + layout.vertical.x.constant),
-            y: otsimo.game.world.centerY,
+            y: otsimo.game.world.centerY
         }
         this.hiddenPos = {
             x: (otsimo.game.width + maxWidth),
-            y: otsimo.game.world.centerY,
+            y: otsimo.game.world.centerY
         }
     }
 
@@ -277,15 +277,19 @@ export default class Table extends Phaser.Group {
     createHint(answerName) {
         this.killHint();
         this.killTimer();
+        if (!otsimo.settings.show_hint) {
+            console.log("shot_hint is false");
+            return;
+        }
         if (otsimo.kv.game.hint_type == "hand") {
-            this.handHint(answerName);
+            this.handHint();
         } else {
-            this.jumpHint(answerName);
+            this.jumpHint();
         }
         this.createTimer(answerName);
     }
 
-    handHint (answerName) {
+    handHint () {
         this.hintArrow = otsimo.game.add.sprite(this.answerItem.world.x, this.answerItem.world.y + otsimo.game.height * 0.05, 'hand');
         this.hintArrow.anchor.set(1,0.1);
         var tween = otsimo.game.add.tween(this.hintArrow).to({y: this.answerItem.world.y}, 500 , Phaser.Easing.Circular.Out ,false);
@@ -297,7 +301,7 @@ export default class Table extends Phaser.Group {
         console.log("False??????????")
     }
 
-    jumpHint (answerName) {
+    jumpHint () {
         this.jumpItem(this.answerItem);
     }
 
@@ -318,7 +322,7 @@ export default class Table extends Phaser.Group {
             .to({y: 0}, 100, Phaser.Easing.Linear.None, false);
 
         tween.chain(tween2);
-        //tween2.chain(tween3);
+        tween2.chain(tween3);
 
         tween.start();
     }

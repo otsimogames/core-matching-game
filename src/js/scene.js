@@ -74,7 +74,7 @@ export default class Scene {
                 this.table.killTimer();
                 box.playSound();
                 this.session.correctInput(box.item, answer.item)
-                this.table.createTimer(this.gameStep.answer.id);
+                this.table.killTimer();
 
                 let self = this
                 setTimeout(() => self.hideTable(), dur * 4);
@@ -110,7 +110,7 @@ export default class Scene {
             this.table.killTimer();
             box.playSound();
             this.session.correctInput(box.item)
-            this.table.createTimer(this.gameStep.answer.id);
+            this.table.killTimer();
 
             let self = this
             setTimeout(() => self.hideTable(), dur * 4);

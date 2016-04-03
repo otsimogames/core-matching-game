@@ -120,7 +120,7 @@
         "session_step": 10,
         "question_from": "items",
         "answers_from": "items",
-        "hint_type": "hand",
+        "hint_type": "jump",
         "hide_item_on": 1,
         "hiding_type": "move",
         "hiding_fade_alpha": 0.2,
