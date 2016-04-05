@@ -73,6 +73,7 @@ export default class Scene {
                 }
                 this.table.killTimer();
                 box.playSound();
+                this.session.incrementHint(this.table.takeHintStep());
                 this.session.correctInput(box.item, answer.item)
                 this.table.killTimer();
 
@@ -89,6 +90,7 @@ export default class Scene {
                     this.table.hideAnItem(box.id)
                 }
                 this.table.killTimer();
+                this.session.incrementHint(this.table.takeHintStep());
                 this.session.wrongInput(box.item, box.wrongAnswerCount);
                 this.table.createTimer(this.gameStep.answer.id);
             }
@@ -109,6 +111,7 @@ export default class Scene {
             }
             this.table.killTimer();
             box.playSound();
+            this.session.incrementHint(this.table.takeHintStep());
             this.session.correctInput(box.item)
             this.table.killTimer();
 
@@ -120,7 +123,8 @@ export default class Scene {
                 this.table.hideAnItem(box.id)
             }
             this.table.killTimer();
-            this.session.wrongInput(box.item, box.wrongAnswerCount)
+            this.session.incrementHint(this.table.takeHintStep());
+            this.session.wrongInput(box.item, box.wrongAnswerCount);
             this.table.createTimer(this.gameStep.answer.id);
         }
     }

@@ -111,13 +111,14 @@
         }
     ],
     "game": {
-        "easy_size": 2,
-        "medium_size": 3,
-        "hard_size": 4,
+        "easy_size": 5,
+        "medium_size": 5,
+        "hard_size": 5,
         "answer_type": "choose",
         "add_outline": true,
         "outline_image": "top_box",
         "session_step": 10,
+        "step_score": 5,
         "question_from": "items",
         "answers_from": "items",
         "hint_type": "jump",
@@ -134,15 +135,15 @@
         }
     },
     "layout": {
-        "fixed_size": true,
+        "fixed_size": false,
         "max_item": 4,
         "cell_anchor": {
-            "x": 1,
+            "x": 0.5,
             "y": 0.5
         },
         "horizontal": {
             "width": {
-                "multiplier": 0.8,
+                "multiplier": 0.7,
                 "constant": 0
             },
             "y": {

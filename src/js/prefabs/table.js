@@ -14,6 +14,7 @@ export default class Table extends Phaser.Group {
         this.enableInput = enableInput;
         this.timer = undefined;
         this.answer = undefined;
+        this.hintStep = 0;
         if (enableInput) {
             this.itemSelected = new Phaser.Signal()
         }
@@ -275,6 +276,7 @@ export default class Table extends Phaser.Group {
     }
 
     createHint(answerName) {
+        this.hintStep++;
         this.killHint();
         this.killTimer();
         if (!otsimo.settings.show_hint) {
@@ -291,7 +293,7 @@ export default class Table extends Phaser.Group {
 
     handHint () {
         this.hintArrow = otsimo.game.add.sprite(this.answerItem.world.x, this.answerItem.world.y + otsimo.game.height * 0.05, 'hand');
-        this.hintArrow.anchor.set(1,0.1);
+        this.hintArrow.anchor.set(0.5,0.1);
         var tween = otsimo.game.add.tween(this.hintArrow).to({y: this.answerItem.world.y}, 500 , Phaser.Easing.Circular.Out ,false);
         var tween2 = otsimo.game.add.tween(this.hintArrow)
             .to({y: this.answerItem.world.y + otsimo.game.height * 0.05}, 500 , Phaser.Easing.Linear.In ,false);
@@ -306,33 +308,17 @@ export default class Table extends Phaser.Group {
     }
 
     jumpItem (answerItem) {
-        this.twistItem(answerItem);
-        //this.moveItem(answerItem);
+        //this.twistItem(answerItem);
+        this.moveItem(answerItem);
     }
 
     moveItem (item) {
-        //this.twistItem(item);
         let tween = otsimo.game.add.tween(item)
-            .to({y: 10}, 150, Phaser.Easing.Linear.None, false);
+            .to({y: -30}, 250, Phaser.Easing.Cubic.Out, false);
 
         let tween2 = otsimo.game.add.tween(item)
-            .to({y: -0}, 150, Phaser.Easing.Linear.None, false);
+            .to({y: 0}, 200, Phaser.Easing.Cubic.In, false);
 
-        let tween3 = otsimo.game.add.tween(item)
-            .to({y: 0}, 100, Phaser.Easing.Linear.None, false);
-
-        tween.chain(tween2);
-        tween2.chain(tween3);
-
-        tween.start();
-    }
-
-    twistItem (item) {
-
-        let tween = otsimo.game.add.tween(item)
-            .to( {angle: 5 }, 75, Phaser.Easing.Back.Out, false);
-        let tween2 = otsimo.game.add.tween(item)
-            .to( {angle: -5 }, 75, Phaser.Easing.Back.Out, false);
         let tween3 = otsimo.game.add.tween(item)
             .to( {angle: 5 }, 75, Phaser.Easing.Back.Out, false);
         let tween4 = otsimo.game.add.tween(item)
@@ -340,13 +326,19 @@ export default class Table extends Phaser.Group {
         let tween5 = otsimo.game.add.tween(item)
             .to( {angle: 5 }, 75, Phaser.Easing.Back.Out, false);
         let tween6 = otsimo.game.add.tween(item)
+            .to( {angle: -5 }, 75, Phaser.Easing.Back.Out, false);
+        let tween7 = otsimo.game.add.tween(item)
+            .to( {angle: 5 }, 75, Phaser.Easing.Back.Out, false);
+        let tween8 = otsimo.game.add.tween(item)
             .to( {angle: 0 }, 75, Phaser.Easing.Back.Out, false);
 
-        tween.chain(tween2);
-        tween2.chain(tween3);
+        tween.chain(tween3);
         tween3.chain(tween4);
         tween4.chain(tween5);
         tween5.chain(tween6);
+        tween6.chain(tween7);
+        tween7.chain(tween8);
+        tween8.chain(tween2);
 
         tween.start();
     }
@@ -384,5 +376,9 @@ export default class Table extends Phaser.Group {
         if (this.timer) {
             otsimo.game.time.events.remove(this.timer);
         }
+    }
+
+    takeHintStep() {
+        return this.hintStep;
     }
 }

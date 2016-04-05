@@ -40,7 +40,7 @@ interface OtsimoGame {
     session_step: number;
     question_from: string;
     answers_from: string;
-
+    step_score: number;
     hint_type: string;
     hide_item_on: number;
     hiding_type: string;
