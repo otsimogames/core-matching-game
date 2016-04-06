@@ -1,6 +1,3 @@
-import {Scene} from './scene'
-
-
 export default class Session {
     constructor({state}) {
         this.score = 0;
