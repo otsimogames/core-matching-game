@@ -21,7 +21,7 @@ export default class Session {
             score: this.score,
             duration: delta,
             failure: this.wrongAnswerTotal,
-            success: this.correctAnswerTotal,
+            success: this.correctAnswerTotal
         }
 
         otsimo.customevent("game:session:end", payload)
@@ -38,7 +38,7 @@ export default class Session {
     }
 
     wrongInput(item, amount) {
-        let now = Date.now();        
+        let now = Date.now();
         this.decrementScore();
         this.wrongAnswerStep += 1;
         this.wrongAnswerTotal += 1;
