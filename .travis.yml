@@ -8,4 +8,9 @@ install:
 script: npm run-script test
 after_success: sh publish.sh
 before_install:
-- openssl aes-256-cbc -K $encrypted_7563c8fbc5a5_key -iv $encrypted_7563c8fbc5a5_iv -in .npmrc.enc -out ~/.npmrc -d
+- openssl aes-256-cbc -K $encrypted_7563c8fbc5a5_key -iv $encrypted_7563c8fbc5a5_iv
+  -in .npmrc.enc -out ~/.npmrc -d
+notifications:
+  email: false
+  slack:
+    secure: NdxtdsPSQVMqIDAY8ewS9fZLWsCItVlyebHDm41fDiFF/HoFAX32Wm8QaJ/6bcNrrxSJ5yMAfzfwoPrzGjZT81r5DJlHeVI3f/lWsZo9nXeTBhjXDSEq+2W3GsBL7phufRBGs+mN8daAxuwf62YirrnV5DJhC7nCgmCNAWyLrYeSQ/XoiMgWU46DWsAel7/E9Du0hSgrqwVJ4SkacGUQRNk22nK/iUsZfSCSEzB7RrIzJdg23z1Z3RC893czBcKppDiAdZT00MY4dw9mf89poq4ZJDopKscPjVhbMRL3J4EPgVpG/i4bJxrhfqUdbtSMqm/0/hB5ouisyFcCIyLCaxqWeTWeFNaY9rhTFstNjrN9l5jFLiZROCepJo/kUNWD1J8lnF9yLwDsZenIL+lg+tAJAy/HKpQ2O5SU3LCpOf/y38qS3sHNQiTj0cxm+h0SSBGBkbXXMt4IbwWt8bKvtEIDju+CcL5LQTt+siQb7BKOqCeLCvNZ8GtqcevbhG6mnBiFb++tXN5dR6yn5CSORv+BtbrMCQcnYHDjXlht+p/8lgYWl6YS4T+9FK2RvW4oOiod8RFjwVovYC37idEsPc6enLITp+tGdgHK22HnHMi3QXq0pchRVdYDNjYemgq1gPZiLH2yzAx+NnLfD+icMWRsWt2Zl8/V+c4Zfpd3Xuk=
