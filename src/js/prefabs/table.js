@@ -277,7 +277,7 @@ export default class Table extends Phaser.Group {
 
     createHint(answerName) {
         this.hintStep++;
-        this.killHint();
+        this.killHint(false);
         this.killTimer();
         if (!otsimo.settings.show_hint) {
             console.log("shot_hint is false");
@@ -292,15 +292,20 @@ export default class Table extends Phaser.Group {
     }
 
     handHint () {
+        console.log("hintArrow: ", this.hintArrow);
+        if (this.hintArrow && this.hintStep >3) {
+            console.log("this.hintStep is: ", this.hintStep);
+            return;
+        }
         this.hintArrow = otsimo.game.add.sprite(this.answerItem.world.x, this.answerItem.world.y + otsimo.game.height * 0.05, 'hand');
         this.hintArrow.anchor.set(0.5,0.1);
         var tween = otsimo.game.add.tween(this.hintArrow).to({y: this.answerItem.world.y}, 500 , Phaser.Easing.Circular.Out ,false);
         var tween2 = otsimo.game.add.tween(this.hintArrow)
             .to({y: this.answerItem.world.y + otsimo.game.height * 0.05}, 500 , Phaser.Easing.Linear.In ,false);
-        otsimo.game.time.events.add(Phaser.Timer.SECOND * 2, this.killHint, this);
+        otsimo.game.time.events.add(Phaser.Timer.SECOND * 2, this.killHint, this, false);
         tween.chain(tween2);
         tween.start();
-        console.log("False??????????")
+        console.log("False");
     }
 
     jumpHint () {
@@ -351,10 +356,15 @@ export default class Table extends Phaser.Group {
         }
     }
 
-    killHint () {
+    killHint (force) {
+        console.log("killing hint, force is: ", force);
+        if (!force && this.hintStep >= 3) {
+            return;
+        }
         if (this.hintArrow) {
             this.hintArrow.kill();
         }
+        this.hintArrow = undefined;
         this.killTimer();
         this.createTimer(this.answer);
     }

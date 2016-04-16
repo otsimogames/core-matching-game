@@ -74,7 +74,8 @@ export default class Scene {
                 this.table.killTimer();
                 box.playSound();
                 this.session.incrementHint(this.table.takeHintStep());
-                this.session.correctInput(box.item, answer.item)
+                this.session.correctInput(box.item, answer.item);
+                this.table.killHint(true);
                 this.table.killTimer();
 
                 let self = this
@@ -92,6 +93,7 @@ export default class Scene {
                 this.table.killTimer();
                 this.session.incrementHint(this.table.takeHintStep());
                 this.session.wrongInput(box.item, box.wrongAnswerCount);
+                this.table.killHint(true);
                 this.table.createTimer(this.gameStep.answer.id);
             }
         }
@@ -113,6 +115,7 @@ export default class Scene {
             box.playSound();
             this.session.incrementHint(this.table.takeHintStep());
             this.session.correctInput(box.item)
+            this.table.killHint(true);
             this.table.killTimer();
 
             let self = this
@@ -125,6 +128,7 @@ export default class Scene {
             this.table.killTimer();
             this.session.incrementHint(this.table.takeHintStep());
             this.session.wrongInput(box.item, box.wrongAnswerCount);
+            this.table.killHint(true);
             this.table.createTimer(this.gameStep.answer.id);
         }
     }
