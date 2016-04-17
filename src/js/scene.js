@@ -94,7 +94,8 @@ export default class Scene {
                 this.session.incrementHint(this.table.takeHintStep());
                 this.session.wrongInput(box.item, box.wrongAnswerCount);
                 this.table.killHint(true);
-                this.table.createTimer(this.gameStep.answer.id);
+                this.table.killTween();
+                this.table.createTimer(this.gameStep.answer.id, 0);
             }
         }
     }
@@ -128,8 +129,9 @@ export default class Scene {
             this.table.killTimer();
             this.session.incrementHint(this.table.takeHintStep());
             this.session.wrongInput(box.item, box.wrongAnswerCount);
+            this.table.killTween();
             this.table.killHint(true);
-            this.table.createTimer(this.gameStep.answer.id);
+            this.table.createTimer(this.gameStep.answer.id, 0);
         }
     }
 
@@ -157,7 +159,7 @@ export default class Scene {
                     .to({ x: answer.visiblePos.x }, otsimo.kv.game.table_show_duration, Phaser.Easing.Back.Out, true);
             }
             table.moveTo(table.visiblePos.x, table.visiblePos.y, otsimo.kv.game.table_show_duration);
-            this.table.createTimer(this.gameStep.answer.id);
+            this.table.createTimer(this.gameStep.answer.id, 0);
         }, 1600);
     }
 
