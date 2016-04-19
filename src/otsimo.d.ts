@@ -42,6 +42,8 @@ interface OtsimoGame {
     answers_from: string;
     step_score: number;
     hint_type: string;
+    hint_hand_duration: number;
+    hint_jump_duration: number;
     hide_item_on: number;
     hiding_type: string;
 

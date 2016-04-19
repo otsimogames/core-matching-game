@@ -1,6 +1,7 @@
 import {Randomizer} from "./randomizer"
 import Table from "./prefabs/table"
 import Box from "./prefabs/box"
+import Hint from "./prefabs/hint"
 
 const MATCH_GAME = "match";
 const CHOOSE_GAME = "choose";
@@ -13,7 +14,6 @@ export default class Scene {
         this.session = session;
         this.random = new Randomizer();
         this.step = -1;
-        this.timer = undefined;
     }
 
     get step() {
@@ -25,6 +25,7 @@ export default class Scene {
     }
 
     next() {
+        console.log("in next");
         this.step = this.step + 1;
         if (this.step >= otsimo.kv.game.session_step) {
             return false
@@ -36,13 +37,14 @@ export default class Scene {
                 items: next.items,
                 direction: dir,
                 enableInput: (otsimo.kv.game.answer_type == CHOOSE_GAME)
-            })
+            });
 
             table.x = table.hiddenPos.x;
             table.y = table.hiddenPos.y;
 
             this.table = table;
             this.gameStep = next;
+
 
             if (otsimo.kv.game.answer_type == CHOOSE_GAME) {
                 table.itemSelected.add(this.onItemSelected, this);
@@ -53,6 +55,7 @@ export default class Scene {
                 this.announce(-100, 500, this.answerBox);
             }
             this.session.startStep();
+
         })
         return true;
     }
@@ -71,12 +74,8 @@ export default class Scene {
                         this.table.fadeOffItem(b, dur / 2);
                     }
                 }
-                this.table.killTimer();
                 box.playSound();
-                this.session.incrementHint(this.table.takeHintStep());
                 this.session.correctInput(box.item, answer.item);
-                this.table.killHint(true);
-                this.table.killTimer();
 
                 let self = this
                 setTimeout(() => self.hideTable(), dur * 4);
@@ -90,17 +89,14 @@ export default class Scene {
                 if (box.wrongAnswerCount >= otsimo.kv.game.hide_item_on) {
                     this.table.hideAnItem(box.id)
                 }
-                this.table.killTimer();
-                this.session.incrementHint(this.table.takeHintStep());
                 this.session.wrongInput(box.item, box.wrongAnswerCount);
-                this.table.killHint(true);
-                this.table.killTween();
-                this.table.createTimer(this.gameStep.answer.id, 0);
             }
         }
     }
 
     onItemSelected(box) {
+        console.log("before onItemSelected: ", this.answerChoose);
+        this.hint.killTween(Infinity, Infinity);
         if (this.gameStep.done) {
             return
         }
@@ -112,12 +108,8 @@ export default class Scene {
                     this.table.fadeOffItem(b, dur / 2);
                 }
             }
-            this.table.killTimer();
             box.playSound();
-            this.session.incrementHint(this.table.takeHintStep());
             this.session.correctInput(box.item)
-            this.table.killHint(true);
-            this.table.killTimer();
 
             let self = this
             setTimeout(() => self.hideTable(), dur * 4);
@@ -126,16 +118,22 @@ export default class Scene {
             if (box.wrongAnswerCount >= otsimo.kv.game.hide_item_on) {
                 this.table.hideAnItem(box.id)
             }
-            this.table.killTimer();
-            this.session.incrementHint(this.table.takeHintStep());
             this.session.wrongInput(box.item, box.wrongAnswerCount);
-            this.table.killTween();
-            this.table.killHint(true);
-            this.table.createTimer(this.gameStep.answer.id, 0);
         }
+        this.findAnswer();
+        this.hint.killTween(this.answerChoose.x, this.answerChoose.y);
+        console.log("hint called");
+        this.hint.call(0);
+        console.log("after onItemSelected: ", this.answerChoose);
     }
 
     announce(leaveY, leaveTime, answer) {
+        this.findAnswer();
+        let hint = new Hint({
+            game: otsimo.game,
+            answer: this.answerChoose
+        });
+        this.hint = hint;
         let txt = sprintf(otsimo.kv.announceText, this.gameStep.answer.text);
         let text = otsimo.game.add.text(otsimo.game.world.centerX, otsimo.game.world.centerY * 0.7, txt, otsimo.kv.announceTextStyle);
 
@@ -159,8 +157,8 @@ export default class Scene {
                     .to({ x: answer.visiblePos.x }, otsimo.kv.game.table_show_duration, Phaser.Easing.Back.Out, true);
             }
             table.moveTo(table.visiblePos.x, table.visiblePos.y, otsimo.kv.game.table_show_duration);
-            this.table.createTimer(this.gameStep.answer.id, 0);
         }, 1600);
+        this.hint.call(1600);
     }
 
     hideTable() {
@@ -181,6 +179,15 @@ export default class Scene {
                 self.delegate.sceneEnded()
             }
         }, dur);
+    }
+    
+    findAnswer() {
+        for (let i of this.table.boxes) {
+            if (i.id == this.gameStep.answer.id) {
+                this.answerChoose = i;
+                return;
+            }
+        }
     }
 
 
