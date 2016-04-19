@@ -66,7 +66,7 @@ export default class Scene {
         let box = this.table.isCollides(answer.getBounds());
         if (box != null) {
             if (box.item.kind == answer.item.kind) {
-                this.hint.removeTimer();
+                this.hint.killTween(this.answerChoose.x, this.answerChoose.y);
                 this.gameStep.done = true;
                 answer.stopDrag();
                 const dur = 150;
@@ -83,6 +83,7 @@ export default class Scene {
                 setTimeout(() => self.hideTable(), dur * 4);
 
             } else {
+                this.hint.killTween(this.oldX, this.oldY);
                 answer.stopDrag();
                 otsimo.game.add.tween(answer)
                     .to({ x: answer.visiblePos.x, y: answer.visiblePos.y }, otsimo.kv.game.table_show_duration, Phaser.Easing.Back.Out, true);
@@ -93,6 +94,9 @@ export default class Scene {
                 }
                 this.session.wrongInput(box.item, box.wrongAnswerCount);
             }
+        }
+        if (!this.gameStep.done) {
+            this.hint.call(0);   
         }
     }
 
