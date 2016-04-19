@@ -8,7 +8,9 @@ export default class Box extends Phaser.Sprite {
         this.wrongAnswerCount = 0
         this.hidden = false
         this.onDragUpdate = new Phaser.Signal()
-
+        this.tweenArray = [];
+        this.oldX = x;
+        this.oldY = y;
     }
 
     get id() {

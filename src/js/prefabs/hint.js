@@ -105,13 +105,14 @@ export default class Hint {
             .to({ y: this.answer.world.y + otsimo.game.height * 0.05 }, otsimo.kv.game.hint_hand_duration, Phaser.Easing.Sinusoidal.In, false);
         this.tweenArr.push(t);
         this.tweenArr.push(t2);
-        if (this.step <= 3) {
-            t2.onComplete.add(this.kill, this);   
+        if (this.step < 3) {
+            t2.onComplete.add(this.kill, this);
         }
         t.chain(t2);
         t.start();
         let delay = 2 * otsimo.kv.game.hint_hand_duration;
         this.call(delay);
+        this.answer.tweenArray = this.tweenArr;
     }
 
     jumpTween(type, count, delay) {
@@ -139,6 +140,7 @@ export default class Hint {
             .to({ x: x0, y: y0 }, otsimo.kv.game.hint_jump_duration, Phaser.Easing.Sinusoidal.In, false);
         delay += 2 * otsimo.kv.game.hint_jump_duration + 100;
         this.tweenArr.push(this.tween);
+        this.answer.tweenArray = this.tweenArr;
         if (this.step >= 3) {
             this.tween.loop();
             this.tween.start();
@@ -173,26 +175,26 @@ export default class Hint {
         console.log("this.tween: ", this.tween);
         let temp = this.tween;
         for (let i of this.tweenArr) {
-                temp = i;
-                while (temp.chainedTween != null) {
-                    let k = temp.chainedTween;
-                    otsimo.game.tweens.remove(temp.chainedTween);
-                    temp = k;
-                }
-                otsimo.game.tweens.remove(i);
-                i = undefined;
+            temp = i;
+            while (temp.chainedTween != null) {
+                let k = temp.chainedTween;
+                otsimo.game.tweens.remove(temp.chainedTween);
+                temp = k;
             }
+            otsimo.game.tweens.remove(i);
+            i = undefined;
+        }
         if (this.tween) {
             this.tween.stop();
             this.halt = true;
         }
 
         console.log("this.tween stops");
-
-        console.log("killTween before this.answer= ", this.answer.x, this.answer.y)
-        this.answer.x = x;
-        this.answer.y = y;
-        console.log("killTween after this.answer= ", this.answer.x, this.answer.y)
+        if (otsimo.kv.game.answer_type == "match") {
+            this.answer.x = x;    
+        } else {
+            this.answer.y = y;   
+        }
 
     }
 

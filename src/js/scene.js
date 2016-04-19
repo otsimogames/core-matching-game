@@ -60,8 +60,13 @@ export default class Scene {
     }
 
     onDrag() {
-        this.hint.kill();
+        if (otsimo.kv.game.hint_type == "hand") {
+            this.hint.kill();
+        }
         this.hint.removeTimer();
+        if (this.gameStep.done) {
+            return;
+        }
         let answer = this.answerBox;
         let box = this.table.isCollides(answer.getBounds());
         if (box != null) {
@@ -90,22 +95,28 @@ export default class Scene {
 
                 box.wrongAnswerCount += 1
                 if (box.wrongAnswerCount >= otsimo.kv.game.hide_item_on) {
-                    this.table.hideAnItem(box.id)
+                    this.table.hideAnItem(box.id);
+                    if (otsimo.kv.game.hiding_type == "fade") {
+                        otsimo.game.time.events.add(otsimo.kv.game.hiding_fade_duration, this.findAnswer, this);
+                    } else if (otsimo.kv.game.hiding_type == "move") {
+                        otsimo.game.time.events.add(otsimo.kv.game.hiding_move_duration * 2.5, this.findAnswer, this);
+                    }
                 }
                 this.session.wrongInput(box.item, box.wrongAnswerCount);
             }
         }
         if (!this.gameStep.done) {
-            this.hint.call(0);   
+            this.hint.call(0);
         }
     }
 
     onItemSelected(box) {
-        this.findAnswer();
-        this.hint.kill();
+        if (otsimo.kv.game.hint_type == "hand") {
+            this.hint.kill();
+        }
         this.hint.removeTimer();
         if (this.gameStep.done) {
-            return
+            return;
         }
         if (this.gameStep.answer.kind == box.item.kind) {
             this.hint.killTween(this.answerChoose.x, this.answerChoose.y);
@@ -122,15 +133,21 @@ export default class Scene {
             let self = this
             setTimeout(() => self.hideTable(), dur * 4);
         } else {
-            this.hint.killTween(this.oldX, this.oldY);
+            console.log("else");
             box.wrongAnswerCount += 1
+            this.hint.killTween(this.oldX, this.oldY);
             if (box.wrongAnswerCount >= otsimo.kv.game.hide_item_on) {
                 this.table.hideAnItem(box.id);
+                if (otsimo.kv.game.hiding_type == "fade") {
+                    otsimo.game.time.events.add(otsimo.kv.game.hiding_fade_duration, this.findAnswer, this);
+                } else if (otsimo.kv.game.hiding_type == "move") {
+                    otsimo.game.time.events.add(otsimo.kv.game.hiding_move_duration * 2.5, this.findAnswer, this);
+                }
             }
             this.session.wrongInput(box.item, box.wrongAnswerCount);
         }
         if (!this.gameStep.done) {
-            this.hint.call(0);   
+            this.hint.call(0);
         }
     }
 
@@ -187,14 +204,14 @@ export default class Scene {
             }
         }, dur);
     }
-    
+
     findAnswer() {
         for (let i of this.table.boxes) {
             if (i.id == this.gameStep.answer.id) {
                 this.answerChoose = i;
+                console.log("findAnswer: ", this.answerChoose);
                 this.oldX = this.answerChoose.x;
                 this.oldY = this.answerChoose.y;
-                console.log("findAnswer: ", this.answerChoose)
                 return;
             }
         }

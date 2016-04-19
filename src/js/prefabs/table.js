@@ -206,16 +206,24 @@ export default class Table extends Phaser.Group {
         for (let i = 0; i < this.boxes.length; i++) {
             let box = this.boxes[i];
             if (box.hidden) {
-                continue
+                continue;
+            }
+            if (box.tweenArray != []) {
+                this.killTween(box, box.oldX, box.oldY);
             }
             otsimo.game.add.tween(box)
                 .to({ x: (sx + (k + 0.5) * (w + e)) }, otsimo.kv.game.hiding_move_duration, Phaser.Easing.Back.Out, true, delay);
 
+            console.log("relayout: ", box.x, box.y);
+
             if (!layout.fixed_size) {
+                otsimo.game.time.events.add(2 * otsimo.kv.game.hiding_move_duration, this.killTween, this, box, box.oldX, box.oldY)
                 let ns = box.scale.x * (w / box.width);
-                ns = box.scale.x + (ns - box.scale.x) * 0.75
+                ns = box.scale.x + (ns - box.scale.x) * 0.75;
                 otsimo.game.add.tween(box.scale)
                     .to({ x: ns, y: ns }, otsimo.kv.game.hiding_move_duration, Phaser.Easing.Back.Out, true, delay);
+            } else {
+                otsimo.game.time.events.add(otsimo.kv.game.hiding_move_duration, this.killTween, this, box, box.oldX, box.oldY)
             }
 
             k++;
@@ -242,14 +250,20 @@ export default class Table extends Phaser.Group {
             if (box.hidden) {
                 continue
             }
+            if (box.tweenArray != []) {
+                this.killTween(box, box.oldX, box.oldY);
+            }
             otsimo.game.add.tween(box)
                 .to({ y: (sy + (k + 0.5) * (h + e)) }, otsimo.kv.game.hiding_move_duration, Phaser.Easing.Back.Out, true, delay);
 
             if (!layout.fixed_size) {
+                otsimo.game.time.events.add(2 * otsimo.kv.game.hiding_move_duration, this.killTween, this, box, box.oldX, box.oldY);
                 let ns = box.scale.y * (h / box.height);
                 ns = box.scale.y + (ns - box.scale.y) * 0.75
                 otsimo.game.add.tween(box.scale)
                     .to({ x: ns, y: ns }, otsimo.kv.game.hiding_move_duration, Phaser.Easing.Back.Out, true, delay);
+            } else {
+                otsimo.game.time.events.add(otsimo.kv.game.hiding_move_duration, this.killTween, this, box, box.oldX, box.oldY)
             }
 
             k++;
@@ -271,4 +285,37 @@ export default class Table extends Phaser.Group {
         }
         return null;
     }
+
+    killTween(box, x, y) {
+        if (box.tweenArray == []) {
+            return;
+        }
+        console.log("killTween");
+        let temp = box.tweenArray[0];
+        for (let i of box.tweenArray) {
+            temp = i;
+            while (temp.chainedTween != null) {
+                let k = temp.chainedTween;
+                otsimo.game.tweens.remove(temp.chainedTween);
+                temp = k;
+            }
+            otsimo.game.tweens.remove(i);
+            i = undefined;
+        }
+        if (this.tween) {
+            this.tween.stop();
+        }
+        let t1 = box.x;
+        let t2 = box.y;
+        if (otsimo.kv.game.answer_type == "match") {
+            box.x = x;
+            box.oldX = t1;
+        } else {
+            box.y = y;
+            box.oldY = t2;
+        }
+        //box.y = y;
+        //box.oldY = t;
+    }
+
 }
