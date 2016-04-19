@@ -13,6 +13,9 @@ export default class Hint {
     }
 
     call(delay) {
+        if (!otsimo.settings.show_hint) {
+            return;
+        }
         this.removeTimer();
         console.log("call");
         switch (otsimo.kv.game.hint_type) {
