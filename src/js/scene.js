@@ -101,6 +101,7 @@ export default class Scene {
     }
 
     onItemSelected(box) {
+        this.findAnswer();
         this.hint.kill();
         this.hint.removeTimer();
         if (this.gameStep.done) {
@@ -128,7 +129,6 @@ export default class Scene {
             }
             this.session.wrongInput(box.item, box.wrongAnswerCount);
         }
-        this.findAnswer();
         if (!this.gameStep.done) {
             this.hint.call(0);   
         }

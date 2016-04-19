@@ -21,6 +21,7 @@ export default class Hint {
         switch (otsimo.kv.game.hint_type) {
             case ("jump"):
                 this.timer = otsimo.game.time.events.add(delay + (otsimo.settings.hint_duration * 1000), this.jump, this);
+                this.timerArr.push(this.timer);
                 break;
             case ("hand"):
                 this.timer = otsimo.game.time.events.add(delay + (otsimo.settings.hint_duration * 1000), this.hand, this);
@@ -28,6 +29,7 @@ export default class Hint {
                 break;
             default:
                 this.timer = otsimo.game.time.events.add(delay + (otsimo.settings.hint_duration * 1000), this.hand, this);
+                this.timerArr.push(this.timer);
                 break;
         }
     }
