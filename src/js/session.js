@@ -36,6 +36,7 @@ export default class Session {
     }
 
     wrongInput(item, amount) {
+        console.log("item amount", amount)
         let now = Date.now();
         this.decrementScore();
         this.wrongAnswerStep += 1;
@@ -52,6 +53,7 @@ export default class Session {
     }
 
     correctInput(item, answerItem) {
+        console.log("item amount", answerItem)
         let now = Date.now();
         this.score += this.stepScore;
         this.correctAnswerTotal += 1;
