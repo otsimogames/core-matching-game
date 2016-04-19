@@ -7,28 +7,33 @@ export default class Hint {
         this.tween = undefined;
         this.timer = undefined;
         this.step = 0;
+        this.halt = false;
+        this.tweenArr = [];
+        this.timerArr = [];
     }
 
     call(delay) {
+        this.removeTimer();
         console.log("call");
         switch (otsimo.kv.game.hint_type) {
             case ("jump"):
-                this.timer = otsimo.game.time.events.add(delay + (otsimo.settings.hint_duration*1000), this.jump, this);
+                this.timer = otsimo.game.time.events.add(delay + (otsimo.settings.hint_duration * 1000), this.jump, this);
                 break;
             case ("hand"):
-                this.timer = otsimo.game.time.events.add(delay + (otsimo.settings.hint_duration*1000), this.hand, this);
+                this.timer = otsimo.game.time.events.add(delay + (otsimo.settings.hint_duration * 1000), this.hand, this);
+                this.timerArr.push(this.timer);
                 break;
             default:
-                this.timer = otsimo.game.time.events.add(delay + (otsimo.settings.hint_duration*1000), this.hand, this);
+                this.timer = otsimo.game.time.events.add(delay + (otsimo.settings.hint_duration * 1000), this.hand, this);
                 break;
         }
     }
-    
+
     kill() {
         console.log("kill");
         switch (otsimo.kv.game.hint_type) {
             case ("jump"):
-                this.killTween(Infinity, Infinity);
+                this.killTweenIn();
                 break;
             case ("hand"):
                 this.killArrow();
@@ -38,13 +43,15 @@ export default class Hint {
                 break;
         }
     }
-    
+
     removeTimer() {
-        console.log("removeTimer");
+        console.log("REMOVE");
+        otsimo.game.time.events.stop(false);
         if (this.timer) {
             otsimo.game.time.events.remove(this.timer);
             this.timer = undefined;
         }
+        otsimo.game.time.events.start();
     }
 
     incrementStep() {
@@ -53,6 +60,7 @@ export default class Hint {
     }
 
     hand() {
+        this.halt = false;
         console.log("hand");
         this.incrementStep();
         if (this.step > 3 && this.arrow) {
@@ -60,42 +68,52 @@ export default class Hint {
         }
         this.handTween();
     }
-    
+
+    jump() {
+        this.halt = false;
+        console.log("jump");
+        this.incrementStep();
+        /*if (this.step > 3) {
+            console.log("this.tween:", this.tween);
+            return;
+        } else {*/
+        switch (otsimo.kv.game.answer_type) {
+            case ("choose"):
+                this.jumpTween("h", 0, 0);
+                break;
+            case ("match"):
+                this.jumpTween("v", 0, 0);
+                break;
+            default:
+                this.jumpTween("h", 0, 0);
+        }
+        //}
+    }
+
     handTween() {
         console.log("handTween");
+        console.log("this.answer is: ", this.answer);
         this.arrow = otsimo.game.add.sprite(this.answer.world.x, this.answer.world.y + otsimo.game.height * 0.05, 'hand');
         this.arrow.anchor.set(0.5, 0.1);
-        let t = otsimo.game.add.tween(this.arrow).to({ y: this.answer.world.y }, otsimo.kv.game.hint_hand_duration, Phaser.Easing.Circular.Out, false);
+        let t = otsimo.game.add.tween(this.arrow).to({ y: this.answer.world.y }, otsimo.kv.game.hint_hand_duration, Phaser.Easing.Sinusoidal.Out, false);
         let t2 = otsimo.game.add.tween(this.arrow)
-            .to({ y: this.answer.world.y + otsimo.game.height * 0.05 }, otsimo.kv.game.hint_duration_hand, Phaser.Easing.Linear.In, false);
-        t2.onComplete.add(this.kill, this);
+            .to({ y: this.answer.world.y + otsimo.game.height * 0.05 }, otsimo.kv.game.hint_hand_duration, Phaser.Easing.Sinusoidal.In, false);
+        this.tweenArr.push(t);
+        this.tweenArr.push(t2);
+        if (this.step <= 3) {
+            t2.onComplete.add(this.kill, this);   
+        }
         t.chain(t2);
         t.start();
-        let delay = otsimo.kv.game.hint_hand_duration;
+        let delay = 2 * otsimo.kv.game.hint_hand_duration;
         this.call(delay);
     }
 
-    jump() {
-        console.log("jump");
-        this.incrementStep();
-        if (this.step > 3 && this.tween) {
-            console.log("this.tween:", this.tween);
-            return;
-        } else {
-            switch (otsimo.kv.game.answer_type) {
-                case ("choose"):
-                    this.jumpTween("h", 0, 0);
-                    break;
-                case ("match"):
-                    this.jumpTween("v", 0, 0);
-                    break;
-                default:
-                    this.jumpTween("h", 0, 0);
-            }
-        }
-    }
-
     jumpTween(type, count, delay) {
+        if (this.halt) {
+            console.log("HALT");
+            return;
+        }
         console.log("jumpTween");
         count++;
         let x0 = this.answer.x;
@@ -115,7 +133,7 @@ export default class Hint {
             .to({ x: x1, y: y1 }, otsimo.kv.game.hint_jump_duration, Phaser.Easing.Sinusoidal.Out, false, delay)
             .to({ x: x0, y: y0 }, otsimo.kv.game.hint_jump_duration, Phaser.Easing.Sinusoidal.In, false);
         delay += 2 * otsimo.kv.game.hint_jump_duration + 100;
-        console.log("this.step is: ", this.step);
+        this.tweenArr.push(this.tween);
         if (this.step >= 3) {
             this.tween.loop();
             this.tween.start();
@@ -124,30 +142,53 @@ export default class Hint {
                 this.tween.start();
                 this.jumpTween(type, count, delay);
             } else {
-                this.killTween(Infinity, Infinity);
+                this.killTweenIn();
                 this.call(delay);
             }
         }
     }
 
-    killTween(x, y) {
-        console.log("killTween");
+    killTweenIn() {
         if (this.tween) {
+            this.tween.stop();
+            console.log("this.tween stops");
+            this.halt = true;
             var temp = this.tween;
             while (temp.chainedTween != null) {
                 let k = temp.chainedTween;
-                otsimo.game.tweens.remove(temp.chainedTween);
+                otsimo.game.tween.remove(temp.chainedTween);
                 temp = k;
             }
             otsimo.game.tweens.remove(this.tween);
-            this.tween = undefined;
-            if (x == Infinity && y == Infinity) {
-                return;
-            } else {
-                this.answer.x = x;
-                this.answer.y = y;
-            }
         }
+    }
+
+    killTween(x, y) {
+        console.log("killTween");
+        console.log("this.tween: ", this.tween);
+        let temp = this.tween;
+        for (let i of this.tweenArr) {
+                temp = i;
+                while (temp.chainedTween != null) {
+                    let k = temp.chainedTween;
+                    otsimo.game.tweens.remove(temp.chainedTween);
+                    temp = k;
+                }
+                otsimo.game.tweens.remove(i);
+                i = undefined;
+            }
+        if (this.tween) {
+            this.tween.stop();
+            this.halt = true;
+        }
+
+        console.log("this.tween stops");
+
+        console.log("killTween before this.answer= ", this.answer.x, this.answer.y)
+        this.answer.x = x;
+        this.answer.y = y;
+        console.log("killTween after this.answer= ", this.answer.x, this.answer.y)
+
     }
 
     killArrow() {

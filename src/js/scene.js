@@ -25,7 +25,6 @@ export default class Scene {
     }
 
     next() {
-        console.log("in next");
         this.step = this.step + 1;
         if (this.step >= otsimo.kv.game.session_step) {
             return false
@@ -47,6 +46,7 @@ export default class Scene {
 
 
             if (otsimo.kv.game.answer_type == CHOOSE_GAME) {
+                this.answerBox = Box.answerBox({ item: next.answer, table: table });
                 table.itemSelected.add(this.onItemSelected, this);
                 this.announce(otsimo.game.world.centerY * 0.3, 300)
             } else {
@@ -55,16 +55,18 @@ export default class Scene {
                 this.announce(-100, 500, this.answerBox);
             }
             this.session.startStep();
-
         })
         return true;
     }
 
     onDrag() {
+        this.hint.kill();
+        this.hint.removeTimer();
         let answer = this.answerBox;
         let box = this.table.isCollides(answer.getBounds());
         if (box != null) {
             if (box.item.kind == answer.item.kind) {
+                this.hint.removeTimer();
                 this.gameStep.done = true;
                 answer.stopDrag();
                 const dur = 150;
@@ -95,12 +97,13 @@ export default class Scene {
     }
 
     onItemSelected(box) {
-        console.log("before onItemSelected: ", this.answerChoose);
-        this.hint.killTween(Infinity, Infinity);
+        this.hint.kill();
+        this.hint.removeTimer();
         if (this.gameStep.done) {
             return
         }
         if (this.gameStep.answer.kind == box.item.kind) {
+            this.hint.killTween(this.answerChoose.x, this.answerChoose.y);
             this.gameStep.done = true
             let dur = box.highlight()
             for (let b of this.table.boxes) {
@@ -109,31 +112,25 @@ export default class Scene {
                 }
             }
             box.playSound();
-            this.session.correctInput(box.item)
+            this.session.correctInput(box.item);
 
             let self = this
             setTimeout(() => self.hideTable(), dur * 4);
         } else {
+            this.hint.killTween(this.oldX, this.oldY);
             box.wrongAnswerCount += 1
             if (box.wrongAnswerCount >= otsimo.kv.game.hide_item_on) {
-                this.table.hideAnItem(box.id)
+                this.table.hideAnItem(box.id);
             }
             this.session.wrongInput(box.item, box.wrongAnswerCount);
         }
         this.findAnswer();
-        this.hint.killTween(this.answerChoose.x, this.answerChoose.y);
-        console.log("hint called");
-        this.hint.call(0);
-        console.log("after onItemSelected: ", this.answerChoose);
+        if (!this.gameStep.done) {
+            this.hint.call(0);   
+        }
     }
 
     announce(leaveY, leaveTime, answer) {
-        this.findAnswer();
-        let hint = new Hint({
-            game: otsimo.game,
-            answer: this.answerChoose
-        });
-        this.hint = hint;
         let txt = sprintf(otsimo.kv.announceText, this.gameStep.answer.text);
         let text = otsimo.game.add.text(otsimo.game.world.centerX, otsimo.game.world.centerY * 0.7, txt, otsimo.kv.announceTextStyle);
 
@@ -158,6 +155,12 @@ export default class Scene {
             }
             table.moveTo(table.visiblePos.x, table.visiblePos.y, otsimo.kv.game.table_show_duration);
         }, 1600);
+        this.findAnswer();
+        let hint = new Hint({
+            game: otsimo.game,
+            answer: this.answerChoose
+        });
+        this.hint = hint;
         this.hint.call(1600);
     }
 
@@ -185,6 +188,9 @@ export default class Scene {
         for (let i of this.table.boxes) {
             if (i.id == this.gameStep.answer.id) {
                 this.answerChoose = i;
+                this.oldX = this.answerChoose.x;
+                this.oldY = this.answerChoose.y;
+                console.log("findAnswer: ", this.answerChoose)
                 return;
             }
         }
