@@ -52,7 +52,7 @@ export default class Table extends Phaser.Group {
             if (box.height > maxHeight) {
                 maxHeight = box.height;
             }
-            box.anchor = layout.cell_anchor;
+            box.setAnchor(layout.cell_anchor);
 
             this.add(box);
             this.boxes.push(box);
@@ -101,7 +101,7 @@ export default class Table extends Phaser.Group {
             if (box.width > maxWidth) {
                 maxWidth = box.width;
             }
-            box.anchor = layout.cell_anchor;
+            box.setAnchor(layout.cell_anchor);
             this.add(box);
             this.boxes.push(box);
             if (this.enableInput) {
@@ -156,10 +156,12 @@ export default class Table extends Phaser.Group {
         if (this.direction == "vertical") {
             let tween = otsimo.game.add.tween(box)
                 .to({ x: this.hiddenPos.x }, dur);
+            tween.onComplete.addOnce(box.destroy, box);
             tween.start();
         } else {
             let tween = otsimo.game.add.tween(box)
                 .to({ y: this.hiddenPos.y }, dur);
+            tween.onComplete.addOnce(box.destroy, box);
             tween.start();
         }
     }
