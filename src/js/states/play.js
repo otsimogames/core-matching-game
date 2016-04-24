@@ -9,7 +9,13 @@ export default class Play extends Phaser.State {
         this.session = session
         this.scene = scene
         this.game.add.button(25, 25, 'back', this.backAction, this);
-
+        if (otsimo.kv.play_background_color) {
+            this.game.stage.backgroundColor = otsimo.kv.play_background_color;
+        }
+        if (otsimo.kv.background_image) {
+            let back = this.game.add.image(this.game.world.centerX, this.game.world.centerY, otsimo.kv.background_image)
+            back.anchor.set(0.5, 0.5);
+        }
         scene.next();
     }
 
