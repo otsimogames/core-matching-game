@@ -26,6 +26,7 @@ interface GameItem {
     tint: string;
     text: string;
     image: string;
+    outline: string;    
 }
 
 interface OtsimoGame {
@@ -55,7 +56,7 @@ interface OtsimoGame {
     table_leave_duration: number;
     table_show_duration: number;
 
-    balloon_options: any;
+    balloon_options: any;    
 }
 
 
@@ -86,6 +87,10 @@ interface GameLayout {
     answer_box: AnswerLayout;
 }
 
+interface Decoration {
+    
+}
+
 interface KeyValue {
     preload: Array<Asset>;
     items: Array<GameItem>;
@@ -93,6 +98,12 @@ interface KeyValue {
     layout: GameLayout;
     announceTextStyle: any;
     announceText: string;
+    custom_announce_color: string;
+    background_image: string;
+    play_background_color: string;  
+    home_background_color: string;    
+    over_background_color: string;
+    decoration: Decoration;
 }
 
 interface Manifest {
