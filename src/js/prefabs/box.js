@@ -11,6 +11,18 @@ export default class Box extends Phaser.Sprite {
         this.tweenArray = [];
         this.oldX = x;
         this.oldY = y;
+
+        if (otsimo.kv.game.add_outline) {
+            var oimg = item.outline || otsimo.kv.game.outline_image;
+            let out = new Phaser.Sprite(game, 0, 0, oimg)
+            out.anchor.set(0.5, 0.5);
+            out.z = -5;
+            this.addChild(out);
+            this.outline = out;
+            this.has_outline = true;
+        } else {
+            this.has_outline = false;
+        }
     }
 
     get id() {
@@ -28,6 +40,16 @@ export default class Box extends Phaser.Sprite {
     playQuestion() {
         if (typeof this.item.question !== "undefined") {
             this.game.sound.play(this.item.question);
+        }
+    }
+
+    setAnchor(a) {
+        this.anchor.set(a.x, a.y);
+        if (this.has_outline) {
+            let w = (this.width / this.scale.x);
+            let h = (this.height / this.scale.y);
+            this.outline.x = w * 0.5 - w * a.x;
+            this.outline.y = h * 0.5 - h * a.y;
         }
     }
 
