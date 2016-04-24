@@ -17,7 +17,6 @@ export default class Hint {
             return;
         }
         this.removeTimer();
-        console.log("call");
         switch (otsimo.kv.game.hint_type) {
             case ("jump"):
                 this.timer = otsimo.game.time.events.add(delay + (otsimo.settings.hint_duration * 1000), this.jump, this);
@@ -35,7 +34,6 @@ export default class Hint {
     }
 
     kill() {
-        console.log("kill");
         switch (otsimo.kv.game.hint_type) {
             case ("jump"):
                 this.killTweenIn();
@@ -50,7 +48,6 @@ export default class Hint {
     }
 
     removeTimer() {
-        console.log("REMOVE");
         otsimo.game.time.events.stop(false);
         if (this.timer) {
             otsimo.game.time.events.remove(this.timer);
@@ -60,13 +57,11 @@ export default class Hint {
     }
 
     incrementStep() {
-        console.log("incrementStep");
         this.step++;
     }
 
     hand() {
         this.halt = false;
-        console.log("hand");
         this.incrementStep();
         if (this.step > 3 && this.arrow) {
             return;
@@ -76,7 +71,6 @@ export default class Hint {
 
     jump() {
         this.halt = false;
-        console.log("jump");
         this.incrementStep();
         /*if (this.step > 3) {
             console.log("this.tween:", this.tween);
@@ -96,7 +90,6 @@ export default class Hint {
     }
 
     handTween() {
-        console.log("handTween");
         console.log("this.answer is: ", this.answer);
         this.arrow = otsimo.game.add.sprite(this.answer.world.x, this.answer.world.y + otsimo.game.height * 0.05, 'hand');
         this.arrow.anchor.set(0.5, 0.1);
@@ -120,7 +113,6 @@ export default class Hint {
             console.log("HALT");
             return;
         }
-        console.log("jumpTween");
         count++;
         let x0 = this.answer.x;
         let x1 = this.answer.x;
@@ -158,7 +150,6 @@ export default class Hint {
     killTweenIn() {
         if (this.tween) {
             this.tween.stop();
-            console.log("this.tween stops");
             this.halt = true;
             var temp = this.tween;
             while (temp.chainedTween != null) {
@@ -171,8 +162,6 @@ export default class Hint {
     }
 
     killTween(x, y) {
-        console.log("killTween");
-        console.log("this.tween: ", this.tween);
         let temp = this.tween;
         for (let i of this.tweenArr) {
             temp = i;
@@ -189,7 +178,6 @@ export default class Hint {
             this.halt = true;
         }
 
-        console.log("this.tween stops");
         if (otsimo.kv.game.answer_type == "match") {
             this.answer.x = x;    
         } else {
@@ -199,7 +187,6 @@ export default class Hint {
     }
 
     killArrow() {
-        console.log("killArrow");
         if (this.arrow) {
             this.arrow.kill();
             this.arrow = undefined;
