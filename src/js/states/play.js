@@ -1,5 +1,6 @@
 import Session from '../session'
 import Scene from '../scene'
+import {calculateConstraint} from '../utils'
 
 export default class Play extends Phaser.State {
     create() {
@@ -8,7 +9,6 @@ export default class Play extends Phaser.State {
 
         this.session = session
         this.scene = scene
-        this.game.add.button(25, 25, 'back', this.backAction, this);
         if (otsimo.kv.play_background_color) {
             this.game.stage.backgroundColor = otsimo.kv.play_background_color;
         }
@@ -16,6 +16,9 @@ export default class Play extends Phaser.State {
             let back = this.game.add.image(this.game.world.centerX, this.game.world.centerY, otsimo.kv.background_image)
             back.anchor.set(0.5, 0.5);
         }
+
+        this.initDecoration();
+        this.game.add.button(25, 25, 'back', this.backAction, this);
         scene.next();
     }
 
@@ -34,5 +37,15 @@ export default class Play extends Phaser.State {
     sceneEnded() {
         this.session.end();
         this.game.state.start('Over');
+    }
+
+    initDecoration() {
+        if (otsimo.kv.decoration) {
+            for (let d of otsimo.kv.decoration) {
+                let c = calculateConstraint(d);
+                let img = this.game.add.image(c.x, c.y, d.image, d.frame);
+                img.anchor.set(c.anchor.x, c.anchor.y);
+            }
+        }
     }
 }

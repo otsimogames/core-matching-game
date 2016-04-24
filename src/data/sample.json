@@ -15,7 +15,9 @@
     "loadingFont": "60px Arial",
     "loadingBackground": "#18B9F2",
     "loadingColor": "#fff",
+    "custom_announce_color": "",
     "announceText": "Choose %s",
+    "background_image": "background",
     "announceTextStyle": {
         "strokeThickness": 4,
         "stroke": "#FFFFFF",
@@ -24,15 +26,19 @@
     },
     "preload": [
         {
+            "name": "background",
+            "type": "image",
+            "path": "img/background.png"
+        },
+        {
+            "name": "stroke",
+            "type": "image",
+            "path": "img/stroke.png"
+        },
+        {
             "name": "playButton",
             "type": "image",
             "path": "img/en/play.png"
-        },
-        {
-            "name": "atlas",
-            "type": "atlas",
-            "path": "img/en/atlas.png",
-            "data": "data/atlas.json"
         },
         {
             "name": "back",
@@ -111,12 +117,12 @@
         }
     ],
     "game": {
-        "easy_size": 5,
-        "medium_size": 5,
-        "hard_size": 5,
-        "answer_type": "choose",
-        "add_outline": true,
-        "outline_image": "top_box",
+        "easy_size": 2,
+        "medium_size": 3,
+        "hard_size": 4,
+        "answer_type": "match",
+        "add_outline": false,
+        "outline_image": "stroke",
         "session_step": 10,
         "step_score": 5,
         "question_from": "items",
@@ -125,7 +131,7 @@
         "hint_jump_duration": 200,
         "hint_hand_duration": 500,
         "hide_item_on": 1,
-        "hiding_type": "move",
+        "hiding_type": "fade",
         "hiding_fade_alpha": 0.2,
         "hiding_fade_duration": 200,
         "hiding_move_duration": 300,
@@ -140,7 +146,7 @@
         "fixed_size": false,
         "max_item": 4,
         "cell_anchor": {
-            "x": 0.5,
+            "x": 1,
             "y": 0.5
         },
         "horizontal": {
@@ -160,7 +166,7 @@
             },
             "x": {
                 "multiplier": 1,
-                "constant": -50
+                "constant": -100
             }
         },
         "answer_box": {
@@ -178,6 +184,23 @@
             }
         }
     },
+    "decoration": [
+        {
+            "image":"stroke",
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 0.3,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        }
+    ],
     "items": [
         {
             "id": "blue",
@@ -186,7 +209,8 @@
             "question": "blue_question",
             "tint": "0x0000FF",
             "text": "Blue",
-            "image": "white_box"
+            "image": "white_box",
+            "outline": "white_box"
         },
         {
             "id": "red",
