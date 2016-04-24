@@ -157,8 +157,12 @@ export default class Scene {
 
         text.anchor.set(0.5, 0.5);
         text.alpha = 0.1;
-        text.fill = this.gameStep.answer.tint.replace("0x", "#");
-        this.announceText = text;
+        if (otsimo.kv.custom_announce_color) {
+            text.fill = otsimo.kv.custom_announce_color.replace("0x", "#");
+        } else {
+            text.fill = this.gameStep.answer.tint.replace("0x", "#");
+        }
+         this.announceText = text;
 
         otsimo.game.add.tween(text).to({ alpha: 1 }, 100, "Linear", true);
         let a = otsimo.game.add.tween(text).to({ y: otsimo.game.world.centerY }, 300, Phaser.Easing.Circular.Out)
