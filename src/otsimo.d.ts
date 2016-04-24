@@ -108,11 +108,25 @@ interface KeyValue {
     home_background_color: string;
     over_background_color: string;
     decoration: Array<DecorationItem>;
+    name_shadow: TextShadow;
+}
+
+interface LanguageMetadata {
+    language: string;
+    visible_name: string;
 }
 
 interface Manifest {
     unique_name: string;
     version: string;
+    metadata: Array<LanguageMetadata>;
+}
+
+interface TextShadow {
+    x: number;
+    y: number;
+    color: string;
+    blur: number;
 }
 
 declare namespace otsimo {

@@ -10,7 +10,7 @@ export default class Over extends Phaser.State {
             back.anchor.set(0.5, 0.5);
         }
         this.game.add.button((this.game.width) * 0.37, (this.game.height) * 0.47, 'playButton', this.playAction, this, 2, 1, 0);
-        this.game.add.button(25, 25, 'back', this.backAction, this);
+        this.game.add.button(25, 30, 'back', this.backAction, this);
         Balloon.random()
     }
 

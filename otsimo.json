@@ -39,6 +39,26 @@
                 "img/en",
                 "audio/en"
             ]
+        },
+        {
+            "language": "sample",
+            "visible_name": "Core Matching Game",
+            "summary": "a short description",
+            "description": "an awesome game, this is long description",
+            "keywords": [
+                "matching",
+                "match"
+            ],
+            "logo": "i18n/en/logo_en_450x300.png",
+            "icon": "i18n/en/icon_en_512.png",
+            "images": [
+                "i18n/en/screenshoot1.png",
+                "i18n/en/screenshoot2.png"
+            ],
+            "assets": [
+                "img/en",
+                "audio/en"
+            ]
         }
     ]
 }

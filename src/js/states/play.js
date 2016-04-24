@@ -18,7 +18,7 @@ export default class Play extends Phaser.State {
         }
 
         this.initDecoration();
-        this.game.add.button(25, 25, 'back', this.backAction, this);
+        this.game.add.button(25, 30, 'back', this.backAction, this);
         scene.next();
     }
 
