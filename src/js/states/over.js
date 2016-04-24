@@ -1,4 +1,5 @@
 import Balloon from '../prefabs/balloon'
+import {calculateConstraint} from '../utils'
 
 export default class Over extends Phaser.State {
     create() {
@@ -11,6 +12,7 @@ export default class Over extends Phaser.State {
         }
         this.game.add.button((this.game.width) * 0.37, (this.game.height) * 0.47, 'playButton', this.playAction, this, 2, 1, 0);
         this.game.add.button(25, 30, 'back', this.backAction, this);
+        
         Balloon.random()
     }
 
