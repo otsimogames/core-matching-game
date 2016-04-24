@@ -1,5 +1,5 @@
 import Balloon from '../prefabs/balloon'
-import {gameVisibleName} from '../utils'
+import {gameVisibleName, calculateConstraint} from '../utils'
 
 export default class Home extends Phaser.State {
     create() {
@@ -15,8 +15,9 @@ export default class Home extends Phaser.State {
         this.game.add.button(25, 30, 'back', otsimo.quitgame, this);
 
         let vn = gameVisibleName();
-        let text = otsimo.game.add.text(otsimo.game.world.centerX, otsimo.game.world.centerY * 0.5, vn, otsimo.kv.gameNameTextStyle);
-        text.anchor.set(0.5, 0.5);
+        let q = calculateConstraint(otsimo.kv.gameNameLayout);
+        let text = otsimo.game.add.text(q.x, q.y, vn, otsimo.kv.gameNameTextStyle);
+        text.anchor.set(q.anchor.x, q.anchor.y);
         text.setShadow(otsimo.kv.name_shadow.x, otsimo.kv.name_shadow.y, otsimo.kv.name_shadow.color, otsimo.kv.name_shadow.blur, true, false);
     }
 

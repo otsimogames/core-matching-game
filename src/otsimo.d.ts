@@ -72,7 +72,7 @@ interface GameLayoutAxis {
     y: GameLayoutAxisEntry;
 }
 
-interface AnswerLayout {
+interface XYAnchorLayout {
     anchor: Phaser.Point;
     x: GameLayoutAxisEntry;
     y: GameLayoutAxisEntry;
@@ -84,7 +84,7 @@ interface GameLayout {
     cell_anchor: Phaser.Point;
     horizontal: GameLayoutAxis;
     vertical: GameLayoutAxis;
-    answer_box: AnswerLayout;
+    answer_box: XYAnchorLayout;
 }
 
 interface DecorationItem {
@@ -109,6 +109,8 @@ interface KeyValue {
     over_background_color: string;
     decoration: Array<DecorationItem>;
     name_shadow: TextShadow;
+    gameNameTextStyle: any;
+    gameNameLayout: XYAnchorLayout;
 }
 
 interface LanguageMetadata {
