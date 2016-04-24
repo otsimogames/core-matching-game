@@ -73,7 +73,7 @@ export default class Scene {
             if (box.item.kind == answer.item.kind) {
                 this.hint.killTween(this.answerChoose.x, this.answerChoose.y);
                 this.gameStep.done = true;
-                answer.stopDrag();
+                answer.stopAndDisableDrag();
                 const dur = 150;
 
                 for (let b of this.table.boxes) {

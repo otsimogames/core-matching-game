@@ -23,6 +23,7 @@ export default class Box extends Phaser.Sprite {
         } else {
             this.has_outline = false;
         }
+        this.doNotMoveAfterDrag = false
     }
 
     get id() {
@@ -76,6 +77,10 @@ export default class Box extends Phaser.Sprite {
     onDragStop() {
         this.lastDragPointer = null;
         otsimo.game.add.tween(this.scale).to({ x: this.defaultScaleX, y: this.defaultScaleY }, 100, Phaser.Easing.Back.Out, true)
+        if (!this.doNotMoveAfterDrag) {
+            otsimo.game.add.tween(this)
+                .to({ x: this.visiblePos.x, y: this.visiblePos.y }, otsimo.kv.game.table_show_duration, Phaser.Easing.Back.Out, true);
+        }
     }
 
     dragUpdate(sprite, pointer, dragX, dragY, snapPoint) {
@@ -88,6 +93,13 @@ export default class Box extends Phaser.Sprite {
             this.input.stopDrag(this.lastDragPointer);
             this.lastDragPointer = null;
         }
+    }
+
+    stopAndDisableDrag() {
+        this.doNotMoveAfterDrag = true
+        this.inputEnabled = false
+        this.input.disableDrag();
+        this.stopDrag()
     }
 
     static answerBox({item, table}) {
