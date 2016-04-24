@@ -15,8 +15,8 @@
     "loadingFont": "60px Arial",
     "loadingBackground": "#18B9F2",
     "loadingColor": "#fff",
-    "custom_announce_color": "",
     "announceText": "Choose %s",
+    "custom_announce_color": "",
     "background_image": "background",
     "announceTextStyle": {
         "strokeThickness": 4,
@@ -29,6 +29,11 @@
             "name": "background",
             "type": "image",
             "path": "img/background.png"
+        },
+        {
+            "name": "decline",
+            "type": "image",
+            "path": "img/line.png"
         },
         {
             "name": "stroke",
@@ -186,7 +191,7 @@
     },
     "decoration": [
         {
-            "image":"stroke",
+            "image": "stroke",
             "anchor": {
                 "x": 0.5,
                 "y": 0.5
@@ -194,6 +199,36 @@
             "x": {
                 "multiplier": 0.3,
                 "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        },
+        {
+            "image": "decline",
+            "anchor": {
+                "x": 1,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 1,
+                "constant": -20
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        },
+        {
+            "image": "decline",
+            "anchor": {
+                "x": 1,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 1,
+                "constant": -340
             },
             "y": {
                 "multiplier": 0.5,
