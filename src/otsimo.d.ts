@@ -59,6 +59,7 @@ interface OtsimoGame {
     balloon_options: any;
     balloon_sound: string;
     click_sound: string;
+    correct_sound: string;
 }
 
 
@@ -168,6 +169,7 @@ declare namespace otsimo {
     var game: Phaser.Game;
     var currentMusic: Phaser.Sound;
     var clickSound: Phaser.Sound;
+    var correctSound: Phaser.Sound;
 
     function quitgame(): void;
 

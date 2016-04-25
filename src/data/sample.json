@@ -105,7 +105,7 @@
         {
             "name": "applause",
             "type": "audio",
-            "path": "audio/applause.wav"
+            "path": "audio/applause.mp3"
         },
         {
             "name": "welcome",
@@ -203,7 +203,9 @@
             "count": 15,
             "luminosity": "bright"
         },
-        "balloon_sound": "balonpop"
+        "balloon_sound": "balonpop",
+        "correct_sound": "applause",
+        "click_sound": "clickSound"
     },
     "layout": {
         "fixed_size": false,

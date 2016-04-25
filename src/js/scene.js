@@ -133,7 +133,6 @@ export default class Scene {
             let self = this
             setTimeout(() => self.hideTable(), dur * 4);
         } else {
-            console.log("else");
             box.wrongAnswerCount += 1
             this.hint.killTween(this.oldX, this.oldY);
             if (box.wrongAnswerCount >= otsimo.kv.game.hide_item_on) {
