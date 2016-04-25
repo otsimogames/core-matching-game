@@ -58,6 +58,7 @@ interface OtsimoGame {
 
     balloon_options: any;
     balloon_sound: string;
+    click_sound: string;
 }
 
 
@@ -106,6 +107,13 @@ interface MusicInfo {
     volume_over_screen: number;
 }
 
+interface EndingScene {
+    victory_sound: string;
+    duration: number;
+    text: XYAnchorLayout;
+    button: XYAnchorLayout;
+}
+
 interface KeyValue {
     preload: Array<Asset>;
     items: Array<GameItem>;
@@ -124,6 +132,7 @@ interface KeyValue {
     gameNameLayout: XYAnchorLayout;
     homePlayButton: XYAnchorLayout;
     game_music: MusicInfo;
+    ending_scene: EndingScene;
 }
 
 interface LanguageMetadata {
@@ -158,6 +167,7 @@ declare namespace otsimo {
 
     var game: Phaser.Game;
     var currentMusic: Phaser.Sound;
+    var clickSound: Phaser.Sound;
 
     function quitgame(): void;
 

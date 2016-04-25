@@ -22,6 +22,9 @@ export default class Load extends Phaser.State {
             otsimo.currentMusic = audio.play();
             otsimo.currentMusic.volume = otsimo.kv.game_music.volume_load_screen;
         }
+        if (otsimo.kv.game.click_sound) {
+            otsimo.clickSound = this.game.add.audio(otsimo.kv.click_sound);
+        }
         this.game.state.start('Home');
     }
 

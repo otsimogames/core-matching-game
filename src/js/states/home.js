@@ -30,7 +30,7 @@ export default class Home extends Phaser.State {
         let home = this.game.add.button(cp.x, cp.y, 'playButton', this.playAction, this, 2, 1, 0);
         home.anchor.set(cp.anchor.x, cp.anchor.y);
 
-        let back = this.game.add.button(25, 30, 'back', otsimo.quitgame, this);
+        let back = this.game.add.button(25, 35, 'back', this.quitGame, this);
         back.anchor.set(0, 0);
 
         let vn = gameVisibleName();
@@ -46,6 +46,9 @@ export default class Home extends Phaser.State {
     }
 
     playAction(button) {
+        if (otsimo.clickSound) {
+            otsimo.clickSound.play()
+        }
         this.game.state.start('Play');
     }
 
@@ -53,6 +56,13 @@ export default class Home extends Phaser.State {
         if (otsimo.debug) {
             this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
         }
+    }
+
+    quitGame() {
+        if (otsimo.clickSound) {
+            otsimo.clickSound.play()
+        }
+        otsimo.quitgame()
     }
 }
 
