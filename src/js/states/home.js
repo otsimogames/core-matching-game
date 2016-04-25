@@ -1,6 +1,21 @@
 import Balloon from '../prefabs/balloon'
 import {gameVisibleName, calculateConstraint} from '../utils'
 
+
+let defaultPlayButton = {
+    anchor: {
+        x: 0.5, y: 0.5
+    },
+    x: {
+        multiplier: 0.5,
+        constant: 0
+    },
+    y: {
+        multiplier: 0.7,
+        constant: 0
+    }
+}
+
 export default class Home extends Phaser.State {
     create() {
         if (otsimo.kv.home_background_color) {
@@ -11,8 +26,12 @@ export default class Home extends Phaser.State {
             back.anchor.set(0.5, 0.5);
         }
 
-        this.game.add.button((this.game.width) * 0.37, (this.game.height) * 0.47, 'playButton', this.playAction, this, 2, 1, 0);
-        this.game.add.button(25, 30, 'back', otsimo.quitgame, this);
+        let cp = calculateConstraint(otsimo.kv.homePlayButton || defaultPlayButton);
+        let home = this.game.add.button(cp.x, cp.y, 'playButton', this.playAction, this, 2, 1, 0);
+        home.anchor.set(cp.anchor.x, cp.anchor.y);
+        
+        let back = this.game.add.button(25, 30, 'back', otsimo.quitgame, this);
+        back.anchor.set(0, 0);
 
         let vn = gameVisibleName();
         let q = calculateConstraint(otsimo.kv.gameNameLayout);

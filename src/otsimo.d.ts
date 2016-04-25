@@ -111,6 +111,7 @@ interface KeyValue {
     name_shadow: TextShadow;
     gameNameTextStyle: any;
     gameNameLayout: XYAnchorLayout;
+    homePlayButton: XYAnchorLayout;    
 }
 
 interface LanguageMetadata {

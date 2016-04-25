@@ -25,10 +25,10 @@
         "align": "center"
     },
     "name_shadow": {
-        "x": 4,
-        "y": 4,
-        "color": "#333333",
-        "blur": 2
+        "x": 16,
+        "y": 16,
+        "color": "rgba(0,0,0,0.5)",
+        "blur": 15
     },
     "gameNameLayout": {
         "anchor": {
@@ -45,14 +45,14 @@
         }
     },
     "gameNameTextStyle": {
-        "strokeThickness": 8,
+        "strokeThickness": 18,
         "stroke": "#FFFFFF",
         "font": "98px mfont",
-        "fill": "#18B9F2",
+        "fill": "#00FF22",
         "align": "center",
         "maxLines": 2,
         "wordWrap": true,
-        "wordWrapWidth": 900,
+        "wordWrapWidth": 960,
         "boundsAlignH": "center",
         "boundsAlignV": "top"
     },
