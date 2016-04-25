@@ -156,12 +156,12 @@ export default class Table extends Phaser.Group {
         if (this.direction == "vertical") {
             let tween = otsimo.game.add.tween(box)
                 .to({ x: this.hiddenPos.x }, dur);
-            tween.onComplete.addOnce(box.destroy, box);
+            tween.onComplete.addOnce(box.kill, box);
             tween.start();
         } else {
             let tween = otsimo.game.add.tween(box)
                 .to({ y: this.hiddenPos.y }, dur);
-            tween.onComplete.addOnce(box.destroy, box);
+            tween.onComplete.addOnce(box.kill, box);
             tween.start();
         }
     }
