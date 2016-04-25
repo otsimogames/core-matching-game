@@ -57,6 +57,7 @@ interface OtsimoGame {
     table_show_duration: number;
 
     balloon_options: any;
+    balloon_sound: string;
 }
 
 

@@ -54,7 +54,6 @@ export default class Home extends Phaser.State {
             this.game.debug.text(this.game.time.fps || '--', 2, 14, "#00ff00");
         }
     }
-
 }
 
 
