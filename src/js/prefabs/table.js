@@ -146,21 +146,28 @@ export default class Table extends Phaser.Group {
     }
 
     fadeOffItem(box, dur) {
+        if (box.IsFadeOffed) {
+            return
+        }
         let tween = otsimo.game.add.tween(box)
-            .to({ alpha: otsimo.kv.game.hiding_fade_alpha }, dur);
-
-        tween.start();
+            .to({ alpha: otsimo.kv.game.hiding_fade_alpha }, dur, Phaser.Easing.Circular.Out, true);
+        let s = box.scale;
+        let sx = s.x * 0.9;
+        let sy = s.y * 0.9;
+        let tweenS = otsimo.game.add.tween(box.scale)
+            .to({ x: sx, y: sy }, dur, Phaser.Easing.Circular.Out, true);
+        box.IsFadeOffed = true;
     }
 
     moveOutItem(box, dur) {
         if (this.direction == "vertical") {
             let tween = otsimo.game.add.tween(box)
-                .to({ x: this.hiddenPos.x }, dur);
+                .to({ x: this.hiddenPos.x }, dur, Phaser.Easing.Sinusoidal.In);
             tween.onComplete.addOnce(box.kill, box);
             tween.start();
         } else {
             let tween = otsimo.game.add.tween(box)
-                .to({ y: this.hiddenPos.y }, dur);
+                .to({ y: this.hiddenPos.y }, dur, Phaser.Easing.Sinusoidal.In);
             tween.onComplete.addOnce(box.kill, box);
             tween.start();
         }
