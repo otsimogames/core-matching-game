@@ -151,13 +151,18 @@
             "name": "star",
             "type": "image",
             "path": "img/star.png"
+        },
+        {
+            "name": "backmusic",
+            "type": "audio",
+            "path": "audio/bg.mp3"
         }
     ],
     "game": {
         "easy_size": 2,
         "medium_size": 3,
         "hard_size": 4,
-        "answer_type": "match",
+        "answer_type": "choose",
         "add_outline": false,
         "outline_image": "stroke",
         "session_step": 10,
@@ -168,7 +173,7 @@
         "hint_jump_duration": 200,
         "hint_hand_duration": 500,
         "hide_item_on": 1,
-        "hiding_type": "fade",
+        "hiding_type": "move",
         "hiding_fade_alpha": 0.2,
         "hiding_fade_duration": 200,
         "hiding_move_duration": 300,
@@ -183,7 +188,7 @@
         "fixed_size": false,
         "max_item": 4,
         "cell_anchor": {
-            "x": 1,
+            "x": 0.5,
             "y": 0.5
         },
         "horizontal": {
@@ -362,5 +367,14 @@
             "text": "Black",
             "image": "star"
         }
-    ]
+    ],
+    "game_music": {
+        "music": "backmusic",
+        "volume": 1,
+        "loop": true,
+        "volume_load_screen": 1,
+        "volume_home_screen": 1,
+        "volume_play_screen": 0.3,
+        "volume_over_screen": 1
+    }
 }

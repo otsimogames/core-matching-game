@@ -29,7 +29,7 @@ export default class Home extends Phaser.State {
         let cp = calculateConstraint(otsimo.kv.homePlayButton || defaultPlayButton);
         let home = this.game.add.button(cp.x, cp.y, 'playButton', this.playAction, this, 2, 1, 0);
         home.anchor.set(cp.anchor.x, cp.anchor.y);
-        
+
         let back = this.game.add.button(25, 30, 'back', otsimo.quitgame, this);
         back.anchor.set(0, 0);
 
@@ -39,6 +39,9 @@ export default class Home extends Phaser.State {
         text.anchor.set(q.anchor.x, q.anchor.y);
         if (otsimo.kv.name_shadow) {
             text.setShadow(otsimo.kv.name_shadow.x, otsimo.kv.name_shadow.y, otsimo.kv.name_shadow.color, otsimo.kv.name_shadow.blur, true, false);
+        }
+        if (otsimo.currentMusic) {
+            otsimo.currentMusic.volume = otsimo.kv.game_music.volume_home_screen;
         }
     }
 

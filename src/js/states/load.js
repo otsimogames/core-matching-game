@@ -17,6 +17,11 @@ export default class Load extends Phaser.State {
         if (otsimo.debug) {
             this.game.time.advancedTiming = true;
         }
+        if (otsimo.kv.game_music) {
+            let audio = this.game.add.audio(otsimo.kv.game_music.music, otsimo.kv.game_music.volume, otsimo.kv.game_music.loop);
+            otsimo.currentMusic = audio.play();
+            otsimo.currentMusic.volume = otsimo.kv.game_music.volume_load_screen;
+        }
         this.game.state.start('Home');
     }
 

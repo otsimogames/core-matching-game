@@ -95,6 +95,16 @@ interface DecorationItem {
     y: GameLayoutAxisEntry;
 }
 
+interface MusicInfo {
+    music: string;
+    volume: number;
+    loop: boolean;
+    volume_load_screen: number;
+    volume_home_screen: number;
+    volume_play_screen: number;
+    volume_over_screen: number;
+}
+
 interface KeyValue {
     preload: Array<Asset>;
     items: Array<GameItem>;
@@ -111,7 +121,8 @@ interface KeyValue {
     name_shadow: TextShadow;
     gameNameTextStyle: any;
     gameNameLayout: XYAnchorLayout;
-    homePlayButton: XYAnchorLayout;    
+    homePlayButton: XYAnchorLayout;
+    game_music: MusicInfo;
 }
 
 interface LanguageMetadata {
@@ -145,6 +156,7 @@ declare namespace otsimo {
     var kv: KeyValue;
 
     var game: Phaser.Game;
+    var currentMusic: Phaser.Sound;
 
     function quitgame(): void;
 

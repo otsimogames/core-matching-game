@@ -19,6 +19,9 @@ export default class Play extends Phaser.State {
 
         this.initDecoration();
         this.game.add.button(25, 30, 'back', this.backAction, this);
+        if (otsimo.currentMusic) {
+            otsimo.currentMusic.volume = otsimo.kv.game_music.volume_play_screen;
+        }
         scene.next();
     }
 
