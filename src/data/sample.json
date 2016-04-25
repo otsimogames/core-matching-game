@@ -156,6 +156,11 @@
             "name": "backmusic",
             "type": "audio",
             "path": "audio/bg.mp3"
+        },
+        {
+            "name": "balonpop",
+            "type": "audio",
+            "path": "audio/balon.mp3"
         }
     ],
     "game": {
@@ -173,7 +178,7 @@
         "hint_jump_duration": 200,
         "hint_hand_duration": 500,
         "hide_item_on": 1,
-        "hiding_type": "move",
+        "hiding_type": "fade",
         "hiding_fade_alpha": 0.2,
         "hiding_fade_duration": 200,
         "hiding_move_duration": 300,
@@ -182,7 +187,8 @@
         "balloon_options": {
             "count": 15,
             "luminosity": "bright"
-        }
+        },
+        "balloon_sound": "balonpop"
     },
     "layout": {
         "fixed_size": false,
