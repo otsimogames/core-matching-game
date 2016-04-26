@@ -62,7 +62,6 @@ export default class Hint {
     }
 
     hand() {
-        console.log("hand call");
         this.halt = false;
         this.incrementStep();
         if (this.step > 3 && this.arrow) {
@@ -78,10 +77,6 @@ export default class Hint {
     jump() {
         this.halt = false;
         this.incrementStep();
-        /*if (this.step > 3) {
-            console.log("this.tween:", this.tween);
-            return;
-        } else {*/
         switch (otsimo.kv.game.answer_type) {
             case ("choose"):
                 this.jumpTween("h", 0, 0);
@@ -118,14 +113,12 @@ export default class Hint {
             console.log("no this.match, returning");
             return;
         }
-        console.log("this.match is: ", this.match);
         this.arrow = otsimo.game.add.sprite(this.match.world.x, this.match.world.y + otsimo.game.height * 0.05, 'hand');
         this.arrow.anchor.set(0.5, 0.1);
         let t = otsimo.game.add.tween(this.arrow).to({ y: this.match.world.y }, otsimo.kv.game.hint_hand_duration, Phaser.Easing.Sinusoidal.Out, false);
         let t2 = otsimo.game.add.tween(this.arrow.scale).to({ x: 0.8 , y: 0.8 }, 200 , Phaser.Easing.Back.Out, false);
         let t3 = otsimo.game.add.tween(this.arrow)
-            .to({ x: this.answer.world.x, y: this.answer.world.y }, otsimo.kv.game.hint_hand_match_duration, Phaser.Easing.Sinusoidal.Out, false);
-        console.log("t2 params: ", this.answer.world.x, this.answer.world.y);            
+            .to({ x: this.answer.world.x, y: this.answer.world.y }, otsimo.kv.game.hint_hand_match_duration, Phaser.Easing.Sinusoidal.Out, false);       
         this.tweenArr.push(t);
         this.tweenArr.push(t2);
         this.tweenArr.push(t3);

@@ -219,7 +219,6 @@ export default class Scene {
         for (let i of this.table.boxes) {
             if (i.id == this.gameStep.answer.id) {
                 this.answerChoose = i;
-                console.log("findAnswer: ", this.answerChoose);
                 this.oldX = this.answerChoose.x;
                 this.oldY = this.answerChoose.y;
                 return;
