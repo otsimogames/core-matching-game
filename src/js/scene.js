@@ -183,9 +183,13 @@ export default class Scene {
             table.moveTo(table.visiblePos.x, table.visiblePos.y, otsimo.kv.game.table_show_duration);
         }, 1600);
         this.findAnswer();
+        if (!this.answerBox) {
+            this.answerBox = undefined;
+        }
         let hint = new Hint({
             game: otsimo.game,
-            answer: this.answerChoose
+            answer: this.answerChoose,
+            match: this.answerBox
         });
         this.hint = hint;
         this.hint.call(1600);

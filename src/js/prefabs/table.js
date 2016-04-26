@@ -1,5 +1,4 @@
 import Box from './box'
-import Hint from './hint'
 
 const HIDING_FADE = "fade";
 const HIDING_MOVE = "move";
