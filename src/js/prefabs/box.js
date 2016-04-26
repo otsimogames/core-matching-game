@@ -36,9 +36,6 @@ export default class Box extends Phaser.Sprite {
 
     playSound() {
         this.game.sound.play(this.item.audio);
-        if (otsimo.correctSound) {
-            otsimo.correctSound.play(null, null, 0.5)
-        }
     }
 
     playQuestion() {

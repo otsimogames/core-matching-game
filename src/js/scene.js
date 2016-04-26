@@ -128,6 +128,9 @@ export default class Scene {
                 }
             }
             box.playSound();
+            if (otsimo.correctSound) {
+                otsimo.correctSound.play(null, null, 0.5)
+            }
             this.session.correctInput(box.item);
 
             let self = this
@@ -161,7 +164,7 @@ export default class Scene {
         } else {
             text.fill = this.gameStep.answer.tint.replace("0x", "#");
         }
-         this.announceText = text;
+        this.announceText = text;
 
         otsimo.game.add.tween(text).to({ alpha: 1 }, 100, "Linear", true);
         let a = otsimo.game.add.tween(text).to({ y: otsimo.game.world.centerY }, 300, Phaser.Easing.Circular.Out)
