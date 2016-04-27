@@ -14,6 +14,7 @@ export default class Scene {
         this.session = session;
         this.random = new Randomizer();
         this.step = -1;
+        this.prevS = 0;
     }
 
     get step() {
@@ -82,7 +83,9 @@ export default class Scene {
                     }
                 }
                 box.playSound();
-                this.session.correctInput(box.item, answer.item);
+                let tempS = this.hint.getStep();
+                this.prevS = tempS;
+                this.session.correctInput(box.item, tempS);
 
                 let self = this
                 setTimeout(() => self.hideTable(), dur * 4);
@@ -102,7 +105,9 @@ export default class Scene {
                         otsimo.game.time.events.add(otsimo.kv.game.hiding_move_duration * 2.5, this.findAnswer, this);
                     }
                 }
-                this.session.wrongInput(box.item, box.wrongAnswerCount);
+                let tempS = this.hint.getStep() - this.prevS;
+                this.prevS = tempS;
+                this.session.wrongInput(box.item, box.wrongAnswerCount, tempS);
             }
         }
         if (!this.gameStep.done) {
@@ -131,7 +136,9 @@ export default class Scene {
             if (otsimo.correctSound) {
                 otsimo.correctSound.play(null, null, 0.5)
             }
-            this.session.correctInput(box.item);
+            let tempS = this.hint.getStep()  - this.prevS;
+            this.prevS = tempS;
+            this.session.correctInput(box.item, tempS);
 
             let self = this
             setTimeout(() => self.hideTable(), dur * 4);
@@ -146,7 +153,9 @@ export default class Scene {
                     otsimo.game.time.events.add(otsimo.kv.game.hiding_move_duration * 2.5, this.findAnswer, this);
                 }
             }
-            this.session.wrongInput(box.item, box.wrongAnswerCount);
+            let tempS = this.hint.getStep() - this.prevS;
+            this.prevS = tempS;
+            this.session.wrongInput(box.item, box.wrongAnswerCount, tempS);
         }
         if (!this.gameStep.done) {
             this.hint.call(0);

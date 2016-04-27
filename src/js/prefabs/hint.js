@@ -217,5 +217,9 @@ export default class Hint {
             this.arrow = undefined;
         }
     }
+    
+    getStep() {
+        return this.step;
+    }
 
 }

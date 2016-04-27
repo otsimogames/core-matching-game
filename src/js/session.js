@@ -35,10 +35,11 @@ export default class Session {
         this.previousInput = Date.now();
     }
 
-    wrongInput(item, amount) {
+    wrongInput(item, amount, step) {
         console.log("item amount: ", amount);
-        let now = Date.now();
         this.decrementScore();
+        this.incrementHint(step);
+        let now = Date.now();
         this.wrongAnswerStep += 1;
         this.wrongAnswerTotal += 1;
         let payload = {
@@ -52,10 +53,13 @@ export default class Session {
 
     }
 
-    correctInput(item, answerItem) {
-        console.log("answerItem: ", answerItem);
+    correctInput(item, step) {
+        console.log("step: ", step);
+        console.log("score: ", this.score);
+        this.incrementHint(step);
         let now = Date.now();
         this.score += this.stepScore;
+        console.log("score: ", this.score);
         this.correctAnswerTotal += 1;
         let payload = {
             item: item.id,
