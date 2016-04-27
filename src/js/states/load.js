@@ -18,14 +18,16 @@ export default class Load extends Phaser.State {
             this.game.time.advancedTiming = true;
         }
         if (otsimo.kv.game_music) {
-            let audio = this.game.add.audio(otsimo.kv.game_music.music, otsimo.kv.game_music.volume, otsimo.kv.game_music.loop);
-            otsimo.currentMusic = audio.play();
-            otsimo.currentMusic.volume = otsimo.kv.game_music.volume_load_screen;
+            otsimo.cmaudio = this.game.add.audio(otsimo.kv.game_music.music, otsimo.kv.game_music.volume, otsimo.kv.game_music.loop);
+            this.game.sound.setDecodedCallback([otsimo.cmaudio], () => {
+                otsimo.currentMusic = otsimo.cmaudio.play();
+                otsimo.currentMusic.volume = otsimo.kv.game_music.volume_load_screen;
+            }, this);
         }
         if (otsimo.kv.game.click_sound) {
             otsimo.clickSound = this.game.add.audio(otsimo.kv.game.click_sound);
         }
-        
+
         if (otsimo.kv.game.correct_sound) {
             otsimo.correctSound = this.game.add.audio(otsimo.kv.game.correct_sound);
         }
