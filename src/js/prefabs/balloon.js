@@ -69,7 +69,8 @@ export default class Balloon extends Phaser.Group {
             popSound = otsimo.game.add.audio(otsimo.kv.game.balloon_sound);
         }
         let colors = randomColor(otsimo.kv.game.balloon_options)
-        for (let c of colors) {
+        for (let i = 0; i < colors.length; i++) {
+            let c = colors[i];
             let x = 50 + (Math.random() * otsimo.game.width) * 0.8;
             let y = otsimo.game.height + (Math.random() * 200);
             let color = parseInt(c.replace("#", "0x"), 16);

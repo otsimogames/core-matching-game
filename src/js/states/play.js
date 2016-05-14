@@ -47,7 +47,8 @@ export default class Play extends Phaser.State {
 
     initDecoration() {
         if (otsimo.kv.decoration) {
-            for (let d of otsimo.kv.decoration) {
+            for (let j = 0; j < otsimo.kv.decoration.length; j++) {
+                let d = otsimo.kv.decoration[j];
                 let c = calculateConstraint(d);
                 let img = this.game.add.image(c.x, c.y, d.image, d.frame);
                 img.anchor.set(c.anchor.x, c.anchor.y);

@@ -173,7 +173,8 @@ export default class Table extends Phaser.Group {
     }
 
     hideAnItem(id) {
-        for (let box of this.boxes) {
+        for (let j = 0; j < this.boxes.length; j++) {
+            let box = this.boxes[j];
             if (box.id == id) {
                 box.hidden = true;
                 if (otsimo.kv.game.hiding_type == HIDING_FADE) {
@@ -283,7 +284,8 @@ export default class Table extends Phaser.Group {
         other.width = other.width * 0.85;
         other.height = other.height * 0.85;
 
-        for (let b of this.boxes) {
+        for (let j = 0; j < this.boxes.length; j++) {
+            let b = this.boxes[j];
             let b2 = b.getBounds();
             b2.width = b2.width * 0.85;
             b2.height = b2.height * 0.85;
@@ -300,7 +302,8 @@ export default class Table extends Phaser.Group {
         }
         console.log("killTween");
         let temp = box.tweenArray[0];
-        for (let i of box.tweenArray) {
+        for (let j = 0; j < box.tweenArray.length; j++) {
+            let i = box.tweenArray[j];
             temp = i;
             while (temp.chainedTween != null) {
                 let k = temp.chainedTween;

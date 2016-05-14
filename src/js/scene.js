@@ -77,7 +77,8 @@ export default class Scene {
                 answer.stopAndDisableDrag();
                 const dur = 150;
 
-                for (let b of this.table.boxes) {
+                for (let i = 0; i < this.table.boxes.length; i++) {
+                    let b = this.table.boxes[i];
                     if (b.kind != box.kind) {
                         this.table.fadeOffItem(b, dur / 2);
                     }
@@ -127,7 +128,8 @@ export default class Scene {
             this.hint.killTween(this.answerChoose.x, this.answerChoose.y);
             this.gameStep.done = true
             let dur = box.highlight()
-            for (let b of this.table.boxes) {
+            for (let i = 0; i < this.table.boxes.length; i++) {
+                let b = this.table.boxes[i];
                 if (b.id != box.id) {
                     this.table.fadeOffItem(b, dur / 2);
                 }
@@ -136,7 +138,7 @@ export default class Scene {
             if (otsimo.correctSound) {
                 otsimo.correctSound.play(null, null, 0.5)
             }
-            let tempS = this.hint.getStep()  - this.prevS;
+            let tempS = this.hint.getStep() - this.prevS;
             this.prevS = tempS;
             this.session.correctInput(box.item, tempS);
 
@@ -225,7 +227,8 @@ export default class Scene {
     }
 
     findAnswer() {
-        for (let i of this.table.boxes) {
+        for (let j = 0; j < this.table.boxes.length; j++) {
+            let i = this.table.boxes[j];
             if (i.id == this.gameStep.answer.id) {
                 this.answerChoose = i;
                 this.oldX = this.answerChoose.x;

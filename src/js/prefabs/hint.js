@@ -107,7 +107,7 @@ export default class Hint {
         this.call(delay);
         this.answer.tweenArray = this.tweenArr;
     }
-    
+
     handMatch() {
         if (!this.match) {
             console.log("no this.match, returning");
@@ -116,9 +116,9 @@ export default class Hint {
         this.arrow = otsimo.game.add.sprite(this.match.world.x, this.match.world.y + otsimo.game.height * 0.05, 'hand');
         this.arrow.anchor.set(0.5, 0.1);
         let t = otsimo.game.add.tween(this.arrow).to({ y: this.match.world.y }, otsimo.kv.game.hint_hand_duration, Phaser.Easing.Sinusoidal.Out, false);
-        let t2 = otsimo.game.add.tween(this.arrow.scale).to({ x: 0.8 , y: 0.8 }, 200 , Phaser.Easing.Back.Out, false);
+        let t2 = otsimo.game.add.tween(this.arrow.scale).to({ x: 0.8, y: 0.8 }, 200, Phaser.Easing.Back.Out, false);
         let t3 = otsimo.game.add.tween(this.arrow)
-            .to({ x: this.answer.world.x, y: this.answer.world.y }, otsimo.kv.game.hint_hand_match_duration, Phaser.Easing.Sinusoidal.Out, false);       
+            .to({ x: this.answer.world.x, y: this.answer.world.y }, otsimo.kv.game.hint_hand_match_duration, Phaser.Easing.Sinusoidal.Out, false);
         this.tweenArr.push(t);
         this.tweenArr.push(t2);
         this.tweenArr.push(t3);
@@ -188,14 +188,14 @@ export default class Hint {
 
     killTween(x, y) {
         let temp = this.tween;
-        for (let i of this.tweenArr) {
-            temp = i;
+        for (let j = 0; j < this.tweenArr.length; j++) {
+            temp = this.tweenArr[j];
             while (temp.chainedTween != null) {
                 let k = temp.chainedTween;
                 otsimo.game.tweens.remove(temp.chainedTween);
                 temp = k;
             }
-            otsimo.game.tweens.remove(i);
+            otsimo.game.tweens.remove(this.tweenArr[j]);
             i = undefined;
         }
         if (this.tween) {
@@ -217,7 +217,7 @@ export default class Hint {
             this.arrow = undefined;
         }
     }
-    
+
     getStep() {
         return this.step;
     }

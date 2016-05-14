@@ -15,12 +15,12 @@ export class Randomizer {
         let _from = otsimo.kv[otsimo.kv.game.question_from];
         let _to = otsimo.kv[otsimo.kv.game.answers_from];
 
-        for (let i of _from) {
-            fromKinds.add(i.kind)
+        for (let i = 0; i < _from.length; i++) {
+            fromKinds.add(_from[i].kind);
         }
-        for (let i of _to) {
-            if (fromKinds.has(i.kind)) {
-                kinds.add(i.kind);
+        for (let i = 0; i < _to.length; i++) {
+            if (fromKinds.has(_to[i].kind)) {
+                kinds.add(_to[i].kind);
             }
         }
 
@@ -65,11 +65,11 @@ export class Randomizer {
         if (this.values.size == 0) {
             this.values = new Set(this.kinds.values());
         }
-        
+
         let s = this.randomKind();
         this.values.delete(s);
-        
-        
+
+
         if (otsimo.kv.game.answer_type == "match") {
             let items = []
             let correct = this.randomItemOfKind(this._to, s, []);
