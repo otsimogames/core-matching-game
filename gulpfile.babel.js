@@ -17,7 +17,6 @@ gulp.task('build', () => {
             'general_data:prod'
         ],
         'html:prod'
-        //   'rev:prod'
     );
 });
 

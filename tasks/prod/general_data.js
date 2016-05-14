@@ -8,6 +8,6 @@ gulp.task('general_data:prod', () => {
     return gulp.src(config.paths.src.general_data)
         .pipe(jsonMinify())
         .pipe(replace(/,"meta":\{.*}$/, '}'))
-        .pipe(gulp.dest(config.paths.builds.tmp.root))
+        .pipe(gulp.dest(config.paths.builds.prod.root))
         .on('error', util.log);
 });

@@ -12,6 +12,11 @@
             src: url('img/mfont.woff') format('woff');
         }
     </style>
+    
+    <!--build:libpoly(./) js/polyfill.js-->
+    <script src="node_modules/babel-polyfill/dist/polyfill.min.js"></script>
+    <!-- endbuild --> 
+    
     <!--build:lib(./) js/phaser.js-->
     <script src="node_modules/phaser/build/phaser.js"></script>
     <!-- endbuild -->
@@ -24,6 +29,7 @@
     <script src="node_modules/sprintf-js/src/sprintf.js"></script>
     <!-- endbuild -->
     
+   
 </head>
 
 <body style="padding:0;margin:0">

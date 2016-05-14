@@ -15,5 +15,5 @@ gulp.task('js:prod', () => {
         .on('error', util.log)
         .pipe(source('game.js'))
         .pipe(buffer())
-        .pipe(gulp.dest(config.paths.builds.tmp.js))
+        .pipe(gulp.dest(config.paths.builds.prod.js))
 });
