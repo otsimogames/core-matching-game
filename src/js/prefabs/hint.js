@@ -196,7 +196,6 @@ export default class Hint {
                 temp = k;
             }
             otsimo.game.tweens.remove(this.tweenArr[j]);
-            i = undefined;
         }
         if (this.tween) {
             this.tween.stop();
