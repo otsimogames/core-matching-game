@@ -311,7 +311,6 @@ export default class Table extends Phaser.Group {
                 temp = k;
             }
             otsimo.game.tweens.remove(i);
-            i = undefined;
         }
         if (this.tween) {
             this.tween.stop();
