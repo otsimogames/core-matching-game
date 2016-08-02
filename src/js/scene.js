@@ -26,9 +26,12 @@ export default class Scene {
     }
 
     next() {
+        if (otsimo.game.state.current != "Play") {
+            return false;
+        }
         this.step = this.step + 1;
         if (this.step >= otsimo.kv.game.session_step) {
-            return false
+            return false;
         }
         this.random.next((next) => {
             let dir = (otsimo.kv.game.answer_type == MATCH_GAME ? "vertical" : "horizontal");
@@ -220,7 +223,7 @@ export default class Scene {
             }
             self.table.destroy(true)
             at.destroy();
-            if (!self.next()) {
+            if (!self.next() && otsimo.game.state.current == "Play") {
                 self.delegate.sceneEnded()
             }
         }, dur);
