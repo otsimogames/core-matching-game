@@ -206,7 +206,11 @@
         },
         "balloon_sound": "balonpop",
         "correct_sound": "applause",
-        "click_sound": "clickSound"
+        "click_sound": "clickSound",
+        "init_tts": true,
+        "tts_voices": [
+            "com.apple.ttsbundle.Samantha-compact"
+        ]
     },
     "layout": {
         "fixed_size": false,

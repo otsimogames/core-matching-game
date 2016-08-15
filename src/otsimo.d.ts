@@ -58,6 +58,8 @@ interface OtsimoGame {
     balloon_sound: string;
     click_sound: string;
     correct_sound: string;
+    init_tts: boolean;
+    tts_voices: string[];
 }
 
 
@@ -162,6 +164,12 @@ interface TTSDriver {
     voiceList(): Array<string>;
 }
 
+interface VoiceInfo {
+    language: string;
+    id: string;
+    name: string;
+}
+
 interface TTS {
     speak(text: string): void;
 
@@ -169,7 +177,7 @@ interface TTS {
 
     getVoice(): string;
 
-    voiceList(): Array<string>;
+    voiceList(): VoiceInfo[];
 
     setDriver(driver: TTSDriver): void;
 
