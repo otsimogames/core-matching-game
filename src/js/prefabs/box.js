@@ -23,7 +23,7 @@ export default class Box extends Phaser.Sprite {
         } else {
             this.has_outline = false;
         }
-        this.doNotMoveAfterDrag = false
+        this.doNotMoveAfterDrag = false;
     }
 
     get id() {
@@ -35,12 +35,20 @@ export default class Box extends Phaser.Sprite {
     }
 
     playSound() {
-        this.game.sound.play(this.item.audio);
+        if (this.item.tts) {
+            otsimo.tts.speak(this.item.audio);
+        } else {
+            this.game.sound.play(this.item.audio);
+        }
     }
 
     playQuestion() {
         if (typeof this.item.question !== "undefined") {
-            this.game.sound.play(this.item.question);
+            if (this.tts) {
+                otsimo.tts.speak(this.item.question);
+            } else {
+                this.game.sound.play(this.item.question);
+            }
         }
     }
 

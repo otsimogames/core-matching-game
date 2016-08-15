@@ -186,7 +186,11 @@ export default class Scene {
         a.chain(b)
         a.start();
 
-        otsimo.game.sound.play(this.gameStep.answer.question)
+        if (this.gameStep.answer.question) {
+            otsimo.tts.speak(this.gameStep.answer.question)
+        } else {
+            otsimo.game.sound.play(this.gameStep.answer.question)
+        }
 
         let table = this.table;
         setTimeout(() => {

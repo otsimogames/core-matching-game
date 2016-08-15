@@ -50,9 +50,7 @@ interface OtsimoGame {
 
     hiding_fade_alpha: number;
     hiding_fade_duration: number;
-
     hiding_move_duration: number;
-
     table_leave_duration: number;
     table_show_duration: number;
 
@@ -154,6 +152,30 @@ interface TextShadow {
     blur: number;
 }
 
+interface TTSDriver {
+    speak(text: string): void;
+
+    setVoice(text: string): void;
+
+    getVoice(): string;
+
+    voiceList(): Array<string>;
+}
+
+interface TTS {
+    speak(text: string): void;
+
+    setVoice(text: string): void;
+
+    getVoice(): string;
+
+    voiceList(): Array<string>;
+
+    setDriver(driver: TTSDriver): void;
+
+    getDriver(): string;
+}
+
 declare namespace otsimo {
 
     var debug: boolean;
@@ -170,6 +192,7 @@ declare namespace otsimo {
     var currentMusic: Phaser.Sound;
     var clickSound: Phaser.Sound;
     var correctSound: Phaser.Sound;
+    var tts: TTS;
 
     function quitgame(): void;
 
@@ -183,6 +206,12 @@ declare namespace otsimo {
 
     function onSettingsChanged(callback: Function): void;
 
+    function saveLocalSettings(data: any): void;
+    /**
+     * Loads local settings from remote or local browser
+     * @param callback Callback Function which returns (err,data)
+     */
+    function loadLocalSettings(callback: Function): void;
 }
 
 declare module "otsimo" {
