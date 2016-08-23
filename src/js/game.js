@@ -22,7 +22,7 @@ function initTTSVoice(){
                 otsimo.log(`voice list is not array ${vl}`)
             }
         }else{
-            otsimo.log(`otsimo.kv.game.tts_voices is not an array`)
+            otsimo.log("otsimo.kv.game.tts_voices is not an array")
         }
     }
 }
