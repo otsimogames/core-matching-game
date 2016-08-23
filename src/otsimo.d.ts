@@ -181,7 +181,7 @@ interface TTS {
 
     setDriver(driver: TTSDriver): void;
 
-    getDriver(): string;
+    getDriver(): TTSDriver;
 }
 
 declare namespace otsimo {
