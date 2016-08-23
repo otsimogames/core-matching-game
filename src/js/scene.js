@@ -186,7 +186,7 @@ export default class Scene {
         a.chain(b)
         a.start();
 
-        if (this.gameStep.answer.question) {
+        if (this.gameStep.answer.tts === true) {
             otsimo.tts.speak(this.gameStep.answer.question)
         } else {
             otsimo.game.sound.play(this.gameStep.answer.question)

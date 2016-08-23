@@ -63,7 +63,7 @@ export default class Over extends Phaser.State {
 
         //text sound
         setTimeout(() => {
-            if (otsimo.kv.ending_scene.text.tts) {
+            if (otsimo.kv.ending_scene.text.tts === true) {
                 otsimo.tts.speak(otsimo.kv.ending_scene.text.sound)
             } else {
                 let cong = this.game.add.audio(otsimo.kv.ending_scene.text.sound);

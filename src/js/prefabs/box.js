@@ -35,7 +35,7 @@ export default class Box extends Phaser.Sprite {
     }
 
     playSound() {
-        if (this.item.tts) {
+        if (this.item.tts === true) {
             otsimo.tts.speak(this.item.audio);
         } else {
             this.game.sound.play(this.item.audio);
@@ -44,7 +44,7 @@ export default class Box extends Phaser.Sprite {
 
     playQuestion() {
         if (typeof this.item.question !== "undefined") {
-            if (this.tts) {
+            if (this.item.tts === true) {
                 otsimo.tts.speak(this.item.question);
             } else {
                 this.game.sound.play(this.item.question);
