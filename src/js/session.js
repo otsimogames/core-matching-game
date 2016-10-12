@@ -1,3 +1,11 @@
+function makeid(length = 5) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for (var i = 0; i < length; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+}
+
 export default class Session {
     constructor({state}) {
         this.score = 0;
@@ -11,6 +19,7 @@ export default class Session {
         this.hintStep = 0;
         this.stepStartTime = Date.now();
         this.previousInput = Date.now();
+        this.id = makeid(10);
     }
 
     end() {
@@ -21,7 +30,8 @@ export default class Session {
             score: this.score,
             duration: delta,
             failure: this.wrongAnswerTotal,
-            success: this.correctAnswerTotal
+            success: this.correctAnswerTotal,
+            id: this.id,            
         }
 
         otsimo.customevent("game:session:end", payload)
@@ -35,7 +45,17 @@ export default class Session {
         this.previousInput = Date.now();
     }
 
-    wrongInput(item, amount, step) {
+    /**
+     * 
+     * 
+     * @param {Object} item
+     * @param {number} amount
+     * @param {number} step
+     * @param {Object} correct
+     * 
+     * @memberOf Session
+     */
+    wrongInput(item, amount, step, correct) {
         console.log("item amount: ", amount);
         this.decrementScore();
         this.incrementHint(step);
@@ -46,13 +66,25 @@ export default class Session {
             item: item.id,
             kind: item.kind,
             time: now - this.stepStartTime,
-            delta: now - this.previousInput
+            delta: now - this.previousInput,
+            correct_item: correct.id,
+            correct_kind: correct.kind,
+            wrong_count: amount,
+            step: step,
+            id: this.id,
         }
         this.previousInput = now;
         otsimo.customevent("game:failure", payload);
-
     }
 
+    /**
+     * 
+     * 
+     * @param {object} item
+     * @param {number} step
+     * 
+     * @memberOf Session
+     */
     correctInput(item, step) {
         console.log("step: ", step);
         console.log("score: ", this.score);
@@ -65,7 +97,9 @@ export default class Session {
             item: item.id,
             kind: item.kind,
             time: now - this.stepStartTime,
-            delta: now - this.previousInput
+            delta: now - this.previousInput,
+            step: step,
+            id: this.id,            
         }
         this.previousInput = now;
         otsimo.customevent("game:success", payload);
@@ -86,6 +120,13 @@ export default class Session {
         }
     }
 
+    /**
+     * 
+     * 
+     * @param {number} tableHintStep
+     * 
+     * @memberOf Session
+     */
     incrementHint(tableHintStep) {
         let change = tableHintStep - this.hintStep;
         if (this.stepScore > 0) {

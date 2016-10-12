@@ -1,3 +1,9 @@
+/**
+ * 
+ * 
+ * @export
+ * @class Hint
+ */
 export default class Hint {
     constructor({game, answer, match}) {
         this.game = game;
@@ -13,6 +19,13 @@ export default class Hint {
         this.timerArr = [];
     }
 
+    /**
+     * 
+     * 
+     * @param {number} delay
+     * 
+     * @memberOf Hint
+     */
     call(delay) {
         if (!otsimo.settings.show_hint) {
             return;
@@ -133,6 +146,14 @@ export default class Hint {
         this.answer.tweenArray = this.tweenArr;
     }
 
+    /**
+     * 
+     * 
+     * @param {string} type
+     * @param {string} count
+     * @param {number} delay
+     * @memberOf Hint
+     */
     jumpTween(type, count, delay) {
         if (this.halt) {
             console.log("HALT");
@@ -186,6 +207,14 @@ export default class Hint {
         }
     }
 
+    /**
+     * 
+     * 
+     * @param {number} x
+     * @param {number} y
+     * 
+     * @memberOf Hint
+     */
     killTween(x, y) {
         let temp = this.tween;
         for (let j = 0; j < this.tweenArr.length; j++) {
@@ -217,6 +246,11 @@ export default class Hint {
         }
     }
 
+    /**
+     * 
+     * @returns number
+     * @memberOf Hint
+     */
     getStep() {
         return this.step;
     }

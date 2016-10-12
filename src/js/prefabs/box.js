@@ -1,4 +1,11 @@
 
+/**
+ * 
+ * 
+ * @export
+ * @class Box
+ * @extends {Phaser.Sprite}
+ */
 export default class Box extends Phaser.Sprite {
     constructor({game, x, y, item}) {
         super(game, x, y, item.image)

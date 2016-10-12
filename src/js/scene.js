@@ -1,4 +1,4 @@
-import {Randomizer} from "./randomizer"
+import { Randomizer } from "./randomizer"
 import Table from "./prefabs/table"
 import Box from "./prefabs/box"
 import Hint from "./prefabs/hint"
@@ -6,15 +6,29 @@ import Hint from "./prefabs/hint"
 const MATCH_GAME = "match";
 const CHOOSE_GAME = "choose";
 
-export {MATCH_GAME, CHOOSE_GAME};
+export { MATCH_GAME, CHOOSE_GAME };
 
+/**
+ * 
+ * 
+ * @export
+ * @class Scene
+ */
 export default class Scene {
+    /**
+     * Creates an instance of Scene.
+     * 
+     * @param {any} {delegate, session}
+     * 
+     * @memberOf Scene
+     */
     constructor({delegate, session}) {
         this.delegate = delegate;
         this.session = session;
         this.random = new Randomizer();
         this.step = -1;
         this.prevS = 0;
+        this.hint = new Hint()
     }
 
     get step() {
@@ -111,7 +125,7 @@ export default class Scene {
                 }
                 let tempS = this.hint.getStep() - this.prevS;
                 this.prevS = tempS;
-                this.session.wrongInput(box.item, box.wrongAnswerCount, tempS);
+                this.session.wrongInput(box.item, box.wrongAnswerCount, tempS, answer.item);
             }
         }
         if (!this.gameStep.done) {
@@ -160,7 +174,7 @@ export default class Scene {
             }
             let tempS = this.hint.getStep() - this.prevS;
             this.prevS = tempS;
-            this.session.wrongInput(box.item, box.wrongAnswerCount, tempS);
+            this.session.wrongInput(box.item, box.wrongAnswerCount, tempS, answer.item);
         }
         if (!this.gameStep.done) {
             this.hint.call(0);
@@ -249,4 +263,4 @@ export default class Scene {
 
 }
 
-export {Scene};
+export { Scene };
