@@ -20,6 +20,16 @@ export default class Session {
         this.stepStartTime = Date.now();
         this.previousInput = Date.now();
         this.id = makeid(10);
+        this.sessionStart();
+    }
+
+    sessionStart() {
+        let payload = {
+            id: this.id,
+            difficulty: otsimo.settings.difficulty,
+            difficulty_items: itemAmount,
+        }
+        otsimo.customevent("game:session:start", payload)
     }
 
     end() {
@@ -31,9 +41,10 @@ export default class Session {
             duration: delta,
             failure: this.wrongAnswerTotal,
             success: this.correctAnswerTotal,
-            id: this.id,            
+            id: this.id,
+            difficulty: otsimo.settings.difficulty,
+            difficulty_items: itemAmount,
         }
-
         otsimo.customevent("game:session:end", payload)
     }
 
@@ -45,6 +56,17 @@ export default class Session {
         this.previousInput = Date.now();
     }
 
+    get itemAmount() {
+        let diff = otsimo.settings.difficulty;
+        if (diff == "easy") {
+            return otsimo.kv.game.easy_size;
+        } else if (diff == "medium") {
+            return otsimo.kv.game.medium_size;
+        } else if (diff == "hard") {
+            return otsimo.kv.game.hard_size;
+        }
+        return otsimo.kv.game.medium_size;
+    }
     /**
      * 
      * 
@@ -72,6 +94,8 @@ export default class Session {
             wrong_count: amount,
             step: step,
             id: this.id,
+            difficulty: otsimo.settings.difficulty,
+            difficulty_items: itemAmount,
         }
         this.previousInput = now;
         otsimo.customevent("game:failure", payload);
@@ -93,13 +117,16 @@ export default class Session {
         this.score += this.stepScore;
         console.log("score: ", this.score);
         this.correctAnswerTotal += 1;
+        //toto(sercan) add other items
         let payload = {
             item: item.id,
             kind: item.kind,
             time: now - this.stepStartTime,
             delta: now - this.previousInput,
             step: step,
-            id: this.id,            
+            id: this.id,
+            difficulty: otsimo.settings.difficulty,
+            difficulty_items: itemAmount,
         }
         this.previousInput = now;
         otsimo.customevent("game:success", payload);

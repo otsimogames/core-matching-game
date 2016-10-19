@@ -1,4 +1,3 @@
-import Balloon from '../prefabs/balloon'
 import {gameVisibleName, calculateConstraint} from '../utils'
 
 

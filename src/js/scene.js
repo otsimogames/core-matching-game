@@ -28,7 +28,6 @@ export default class Scene {
         this.random = new Randomizer();
         this.step = -1;
         this.prevS = 0;
-        this.hint = new Hint()
     }
 
     get step() {
@@ -262,5 +261,3 @@ export default class Scene {
 
 
 }
-
-export { Scene };

@@ -1,5 +1,28 @@
 import Balloon from '../prefabs/balloon'
-import {calculateConstraint} from '../utils'
+import { calculateConstraint } from '../utils'
+
+class BalloonCounter {
+    constructor() {
+        this.counter = 0;
+    }
+
+    /**
+     * add balloon pop
+     * @param {number} amount
+     * @memberOf BalloonCounter
+     */
+    add(amount) {
+        this.counter += amount;
+    }
+
+    /**
+     * send to server
+     * @memberOf BalloonCounter
+     */
+    send() {
+        otsimo.customevent('game:balloon:pop', { amount: this.counter })
+    }
+}
 
 export default class Over extends Phaser.State {
     create() {
@@ -28,8 +51,8 @@ export default class Over extends Phaser.State {
         btn.anchor.set(bc.anchor.x, bc.anchor.y)
         btn.alpha = 0
 
-
-        Balloon.random()
+        this.counter = new BalloonCounter();
+        Balloon.random(this.counter)
 
         //add text
         let text = otsimo.game.add.text(tc.x, tc.y - 100, otsimo.kv.ending_scene.text.text, otsimo.kv.ending_scene.text.style);
@@ -76,6 +99,7 @@ export default class Over extends Phaser.State {
         if (otsimo.clickSound) {
             otsimo.clickSound.play()
         }
+        this.counter.send();
         this.game.state.start('Play');
     }
 
@@ -83,6 +107,7 @@ export default class Over extends Phaser.State {
         if (otsimo.clickSound) {
             otsimo.clickSound.play()
         }
+        this.counter.send();        
         this.game.state.start('Home');
     }
 
