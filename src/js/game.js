@@ -29,7 +29,7 @@ function initTTSVoice(){
 
 otsimo.run(function () {
 
-    let game = new Phaser.Game(otsimo.width, otsimo.height, Phaser.AUTO, "gameContainer");
+    let game = new Phaser.Game(otsimo.width, otsimo.height, Phaser.CANVAS, "gameContainer");
     Object.keys(states).forEach(state => game.state.add(state, states[state]));
     otsimo.game = game;
 

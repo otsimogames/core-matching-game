@@ -185,7 +185,7 @@
         "answer_type": "match",
         "add_outline": false,
         "outline_image": "stroke",
-        "session_step": 3,
+        "session_step": 1,
         "step_score": 5,
         "question_from": "items",
         "answers_from": "items",

@@ -51,9 +51,6 @@ export default class Over extends Phaser.State {
         btn.anchor.set(bc.anchor.x, bc.anchor.y)
         btn.alpha = 0
 
-        this.counter = new BalloonCounter();
-        Balloon.random(this.counter)
-
         //add text
         let text = otsimo.game.add.text(tc.x, tc.y - 100, otsimo.kv.ending_scene.text.text, otsimo.kv.ending_scene.text.style);
         text.anchor.set(tc.anchor.x, tc.anchor.y);
@@ -93,13 +90,31 @@ export default class Over extends Phaser.State {
                 cong.play()
             }
         }, dur / 2);
+
+        this.counter = new BalloonCounter();
+        this.balloons = Balloon.random(this.counter);
+        this.payloadSent = false;       // checks whether the balloon payload is sent or not
+    }
+
+    update() {
+        if (this.payloadSent) {
+            return
+        }
+        if (!(Balloon.balloonsActive(this.balloons))) {
+            this.payloadSent = true;
+            this.counter.send();
+        }
     }
 
     playAction(button) {
         if (otsimo.clickSound) {
             otsimo.clickSound.play()
         }
-        this.counter.send();
+        // Jic that the user doesn't wait for all the balloons to pass by the screen.
+        if (!this.payloadSent) {
+            this.payloadSent = true;
+            this.counter.send();
+        }
         this.game.state.start('Play');
     }
 
@@ -107,7 +122,11 @@ export default class Over extends Phaser.State {
         if (otsimo.clickSound) {
             otsimo.clickSound.play()
         }
-        this.counter.send();        
+        // Jic that the user doesn't wait for all the balloons to pass by the screen.
+        if (!this.payloadSent) {
+            this.payloadSent = true;
+            this.counter.send();
+        }
         this.game.state.start('Home');
     }
 
