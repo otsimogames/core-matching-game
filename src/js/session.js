@@ -25,7 +25,6 @@ export default class Session {
     }
 
     sessionStart() {
-        let itemAmount = this.itemAmount();
         let session_step = otsimo.kv.game.session_step;
         let payload = {
             id: this.id,

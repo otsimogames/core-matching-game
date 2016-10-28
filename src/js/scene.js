@@ -100,6 +100,9 @@ export default class Scene {
                     }
                 }
                 box.playSound();
+                if (otsimo.correctSound) {
+                    otsimo.correctSound.play(null, null, 0.5)
+                }
                 let tempS = this.hint.getStep();
                 this.prevS = tempS;
                 this.session.correctInput(box.item, tempS);
