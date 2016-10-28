@@ -143,6 +143,7 @@ export default class Scene {
         if (this.gameStep.done) {
             return;
         }
+        let answer = this.answerBox;        // thanks travis
         if (this.gameStep.answer.kind == box.item.kind) {
             this.hint.killTween(this.answerChoose.x, this.answerChoose.y);
             this.gameStep.done = true
