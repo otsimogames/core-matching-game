@@ -120,7 +120,6 @@ export default class Session {
         this.score += this.stepScore;
         console.log("score: ", this.score);
         this.correctAnswerTotal += 1;
-        //toto(sercan) add other items
         let payload = {
             item: item.id,
             kind: item.kind,
