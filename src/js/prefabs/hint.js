@@ -100,7 +100,6 @@ export default class Hint {
             default:
                 this.jumpTween("h", 0, 0);
         }
-        //}
     }
 
     handTween() {
