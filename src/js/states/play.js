@@ -29,7 +29,7 @@ export default class Play extends Phaser.State {
         if (otsimo.clickSound) {
             otsimo.clickSound.play()
         }
-        this.game.state.start('Home');
+        otsimo.quitgame();
     }
 
     render() {

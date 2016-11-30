@@ -31,7 +31,7 @@ export default class Load extends Phaser.State {
         if (otsimo.kv.game.correct_sound) {
             otsimo.correctSound = this.game.add.audio(otsimo.kv.game.correct_sound);
         }
-        this.game.state.start('Home');
+        this.game.state.start('Play');
     }
 
     loadAssets() {
