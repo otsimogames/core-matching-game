@@ -21,10 +21,6 @@ export default class Lightbox {
     }
 
     createLightboxScene(width, height) {
-        this.scene.hint.kill();
-        this.scene.hint.removeTimer();
-        this.scene.table.disableAll();
-
         //create background
         let start_x = otsimo.game.width * 0.1;
         let start_y = otsimo.game.height * 0.1;
@@ -34,7 +30,7 @@ export default class Lightbox {
         otsimo.game.add.tween(this.bg).to({ alpha: 0.7 }, 500, Phaser.Easing.Sinusoidal.Out, true);
         this.bg.inputEnabled = true;
 
-        this.timer = otsimo.game.time.events.add(500, this.addVideo, this);
+        this.timer = otsimo.game.time.events.add(0, this.addVideo, this);
 
         this.bg.events.onInputDown.add(this.clickListener, this);
     }
@@ -46,11 +42,13 @@ export default class Lightbox {
 
         this.video = otsimo.game.add.video("gif");
 
-        this.imageOfVideo = this.video.addToWorld(otsimo.game.width * 0.5, otsimo.game.height * 0.5, 0.5, 0.5);
+        this.imageOfVideo = this.video.addToWorld(otsimo.game.width * 0.5, otsimo.game.height * 0.5, 0.5, 0.5, otsimo.game.width * 0.8 / this.video.width, otsimo.game.height * 0.8 / this.video.height);
         this.video.play(true);
     }
 
-    call() {
+    call(next, table) {
+        this._next = next;
+        this._table = table;        
         this.createCover();
         let w = otsimo.game.width * 0.8;
         let h = otsimo.game.height * 0.8;
@@ -72,8 +70,7 @@ export default class Lightbox {
         this.cover.destroy();
         this.bg.alpha = 0;
         this.bg.destroy();
-        this.scene.table.enableAll();
-        this.scene.hint.call(0);
+        this.scene.goNext(this._next, this._table);
     }
 
 }
