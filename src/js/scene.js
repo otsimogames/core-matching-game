@@ -62,16 +62,6 @@ export default class Scene {
             this.table = table;
             this.gameStep = next;
 
-            if (otsimo.kv.game.answer_type == CHOOSE_GAME) {
-                this.answerBox = Box.answerBox({ item: next.answer, table: table });
-                table.itemSelected.add(this.onItemSelected, this);
-                this.announce(otsimo.game.world.centerY * 0.3, 300)
-            } else {
-                this.answerBox = Box.answerBox({ item: next.answer, table: table });
-                this.answerBox.onDragUpdate.add(this.onDrag, this);
-                this.announce(-100, 500, this.answerBox);
-            }
-
             if (!this.step) {
                 console.log("in first step, must show lightbox");
                 let lightbox = new Lightbox({
@@ -79,12 +69,29 @@ export default class Scene {
                     scene: this
                 });
                 setTimeout(() => {
-                    lightbox.call();
-                }, 1600);
+                    lightbox.call(next, table);
+                }, 0);
+            } else {
+                this.goNext(next, table);
             }
-            this.session.startStep();
+
+
         })
         return true;
+    }
+
+    goNext(next, table) {
+        if (otsimo.kv.game.answer_type == CHOOSE_GAME) {
+            this.answerBox = Box.answerBox({ item: next.answer, table: table });
+            table.itemSelected.add(this.onItemSelected, this);
+            this.announce(otsimo.game.world.centerY * 0.3, 300)
+        } else {
+            this.answerBox = Box.answerBox({ item: next.answer, table: table });
+            this.answerBox.onDragUpdate.add(this.onDrag, this);
+            this.announce(-100, 500, this.answerBox);
+        }
+
+        this.session.startStep();
     }
 
     onDrag() {
