@@ -126,7 +126,7 @@ export default class Table extends Phaser.Group {
             return
         }
 
-        this.table.itemSelected.dispatch(this.box)
+        this.table.itemSelected.dispatch(this.box);
     }
 
     moveTo(x, y, dur) {
@@ -327,5 +327,18 @@ export default class Table extends Phaser.Group {
         //box.y = y;
         //box.oldY = t;
     }
+
+    disableAll() {
+        for(let i = 0; i < this.boxes.length; i++) {
+            this.boxes[i].inputEnabled = false;
+        }
+    }
+
+    enableAll() {
+        for(let i = 0; i < this.boxes.length; i++) {
+            this.boxes[i].inputEnabled = true;
+        }
+    }
+
 
 }

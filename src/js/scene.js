@@ -2,6 +2,7 @@ import { Randomizer } from "./randomizer"
 import Table from "./prefabs/table"
 import Box from "./prefabs/box"
 import Hint from "./prefabs/hint"
+import Lightbox from "./prefabs/lightbox"
 
 const MATCH_GAME = "match";
 const CHOOSE_GAME = "choose";
@@ -61,19 +62,36 @@ export default class Scene {
             this.table = table;
             this.gameStep = next;
 
-
-            if (otsimo.kv.game.answer_type == CHOOSE_GAME) {
-                this.answerBox = Box.answerBox({ item: next.answer, table: table });
-                table.itemSelected.add(this.onItemSelected, this);
-                this.announce(otsimo.game.world.centerY * 0.3, 300)
+            if (!this.step) {
+                console.log("in first step, must show lightbox");
+                let lightbox = new Lightbox({
+                    session: this.session,
+                    scene: this
+                });
+                setTimeout(() => {
+                    lightbox.call(next, table);
+                }, 0);
             } else {
-                this.answerBox = Box.answerBox({ item: next.answer, table: table });
-                this.answerBox.onDragUpdate.add(this.onDrag, this);
-                this.announce(-100, 500, this.answerBox);
+                this.goNext(next, table);
             }
-            this.session.startStep();
+
+
         })
         return true;
+    }
+
+    goNext(next, table) {
+        if (otsimo.kv.game.answer_type == CHOOSE_GAME) {
+            this.answerBox = Box.answerBox({ item: next.answer, table: table });
+            table.itemSelected.add(this.onItemSelected, this);
+            this.announce(otsimo.game.world.centerY * 0.3, 300)
+        } else {
+            this.answerBox = Box.answerBox({ item: next.answer, table: table });
+            this.answerBox.onDragUpdate.add(this.onDrag, this);
+            this.announce(-100, 500, this.answerBox);
+        }
+
+        this.session.startStep();
     }
 
     onDrag() {
@@ -218,9 +236,6 @@ export default class Scene {
             table.moveTo(table.visiblePos.x, table.visiblePos.y, otsimo.kv.game.table_show_duration);
         }, 1600);
         this.findAnswer();
-        if (!this.answerBox) {
-            this.answerBox = undefined;
-        }
         let hint = new Hint({
             game: otsimo.game,
             answer: this.answerChoose,
@@ -261,7 +276,5 @@ export default class Scene {
             }
         }
     }
-
-
 
 }

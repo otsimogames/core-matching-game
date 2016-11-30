@@ -58,6 +58,16 @@
     },
     "preload": [
         {
+            "name": "gif",
+            "type": "video",
+            "path": "img/gif.mp4"
+        },
+        {
+            "name": "gray",
+            "type": "image",
+            "path": "img/gray.png"
+        },
+        {
             "name": "background",
             "type": "image",
             "path": "img/background.png"
@@ -182,10 +192,10 @@
         "easy_size": 2,
         "medium_size": 3,
         "hard_size": 4,
-        "answer_type": "match",
+        "answer_type": "choose",
         "add_outline": false,
         "outline_image": "stroke",
-        "session_step": 1,
+        "session_step": 2,
         "step_score": 5,
         "question_from": "items",
         "answers_from": "items",
