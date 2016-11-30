@@ -3,9 +3,11 @@ export default class Lightbox {
     constructor({session, scene}) {
         this.session = session;
         this.scene = scene;
+        this.abort = false;
+        this.video = undefined;
         this.coverClicked = new Phaser.Signal();
         this.coverClicked.add(() => {
-            this.destroy();
+            this.destroyAll();
         });
     }
 
@@ -14,53 +16,59 @@ export default class Lightbox {
         this.cover = cover;
         this.cover.events.onInputDown.add(this.clickListener, this);
         this.cover.alpha = 0;
-        this.cover.inputEnabled = true;        
-        //this.cover.events.onInputDown.add(this.clickListener, this);
-        //otsimo.game.add.tween(this.cover).to({ alpha: 0.5 }, 300, Phaser.Easing.Sinusoidal.Out, true);
+        this.cover.inputEnabled = true;
         return cover;
     }
 
     createLightboxScene(width, height) {
-
-        // TODO:
-        // add table in 0.9 x 0.9
-
         this.scene.hint.kill();
         this.scene.hint.removeTimer();
         this.scene.table.disableAll();
 
         //create background
-        let start_x = otsimo.game.width * 0.05;
-        let start_y = otsimo.game.height * 0.05;
+        let start_x = otsimo.game.width * 0.1;
+        let start_y = otsimo.game.height * 0.1;
 
         this.bg = otsimo.game.add.tileSprite(start_x, start_y, width, height, "gray");
         this.bg.alpha = 0;
         otsimo.game.add.tween(this.bg).to({ alpha: 0.7 }, 500, Phaser.Easing.Sinusoidal.Out, true);
         this.bg.inputEnabled = true;
 
+        this.timer = otsimo.game.time.events.add(500, this.addVideo, this);
+
         this.bg.events.onInputDown.add(this.clickListener, this);
+    }
 
-        //table.moveTo(table.visiblePos.x, table.visiblePos.y, otsimo.kv.game.table_show_duration);
+    addVideo() {
+        if (this.abort) {
+            return;
+        }
 
-        setTimeout(() => {
-            //
-        }, 1600);
+        this.video = otsimo.game.add.video("gif");
+
+        this.imageOfVideo = this.video.addToWorld(otsimo.game.width * 0.5, otsimo.game.height * 0.5, 0.5, 0.5);
+        this.video.play(true);
     }
 
     call() {
         this.createCover();
-        let w = otsimo.game.width * 0.9;
-        let h = otsimo.game.height * 0.9;
+        let w = otsimo.game.width * 0.8;
+        let h = otsimo.game.height * 0.8;
         this.createLightboxScene(w, h);
     }
 
     clickListener() {
         console.log("clicked");
-        this.destroy();
+        this.destroyAll();
     }
 
-    destroy() {
+    destroyAll() {
+        this.abort = true;
         console.log("destroying the lightbox");
+        if (this.video) {
+            this.imageOfVideo.destroy();
+            this.video.destroy();
+        }
         this.cover.destroy();
         this.bg.alpha = 0;
         this.bg.destroy();

@@ -58,6 +58,11 @@
     },
     "preload": [
         {
+            "name": "gif",
+            "type": "video",
+            "path": "img/gif.mp4"
+        },
+        {
             "name": "gray",
             "type": "image",
             "path": "img/gray.png"
