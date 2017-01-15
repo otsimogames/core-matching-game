@@ -1,4 +1,7 @@
 import { shuffle } from './utils'
+/*eslint-disable*/
+import { Weighter } from './weighter'
+/*eslint-enable*/
 
 export class GameStep {
   constructor({answer, items}) {
@@ -8,7 +11,14 @@ export class GameStep {
 }
 
 export class Randomizer {
-  constructor() {
+  /**
+   * Creates an instance of Randomizer.
+   * 
+   * @param {Weighter} weighter
+   * 
+   * @memberOf Randomizer
+   */
+  constructor(weighter) {
     const kinds = new Set();
     //select kinds only if there are on both from and to
     const fromKinds = new Set();
@@ -23,18 +33,72 @@ export class Randomizer {
         kinds.add(_to[i].kind);
       }
     }
-
+    this.weighter = weighter;
     this._from = _from;
     this._to = _to;
     this.values = new Set(kinds.values());
     this.kinds = kinds;
   }
 
+  /**
+   * 
+   * 
+   * @param {ItemWeight[]} spec
+   * @returns {ItemWeight}
+   * 
+   * @memberOf Randomizer
+   */
+  weightedRand(spec) {
+    let sum = 0
+    for (const o of spec) {
+      sum += o.weight;
+      o.max = sum;
+    }
+    const r = Math.random() * sum;
+    for (const o of spec) {
+      if (r <= o.max) {
+        return o;
+      }
+    }
+    return spec[spec.length - 1]
+  }
+  /**
+   * 
+   * 
+   * @returns {string}
+   * 
+   * @memberOf Randomizer
+   */
   randomKind() {
-    const randomNumber = Math.floor(Math.random() * this.values.size);
-    return [...this.values][randomNumber];
+    if (this.weighter && this.weighter.ready) {
+      const values = Array.from(this.values);
+      const spec = [];
+      for (const v of values) {
+        const w = this.weighter.kinds.get(v)
+        if (typeof w !== 'undefined') {
+          spec.push({ itemId: v, weight: w })
+        } else {
+          spec.push({ itemId: v, weight: 50 })
+        }
+      }
+      const res = this.weightedRand(spec)
+      return res.itemId
+    } else {
+      const randomNumber = Math.floor(Math.random() * this.values.size);
+      return [...this.values][randomNumber];
+    }
   }
 
+  /**
+   * 
+   * 
+   * @param {Set} set
+   * @param {string} kind
+   * @param {string[]} excluded
+   * @returns
+   * 
+   * @memberOf Randomizer
+   */
   randomItemOfKind(set, kind, excluded) {
     const f = [...set].filter(l => {
       if (kind != null && l.kind != kind) {
@@ -69,33 +133,22 @@ export class Randomizer {
     const s = this.randomKind();
     this.values.delete(s);
 
+    const items = []
+    const correct = this.randomItemOfKind(this._to, s, []);
+    items.push(correct)
+    const n = this.itemAmount - 1;
+    for (let i = 0; i < n; i++) {
+      const item = this.randomItemOfKind(this._to, null, items.map(f => f.kind))
+      items.push(item)
+    }
 
     if (otsimo.kv.game.answer_type == 'match') {
-      const items = []
-      const correct = this.randomItemOfKind(this._to, s, []);
-      items.push(correct)
-      const n = this.itemAmount - 1;
-      for (let i = 0; i < n; i++) {
-        const item = this.randomItemOfKind(this._to, null, items.map(f => f.kind))
-        items.push(item)
-      }
-
       const answer = this.randomItemOfKind(this._from, s, []);
       return callback(new GameStep({
         answer: answer,
         items: shuffle(items)
       }));
     } else if (otsimo.kv.game.answer_type == 'choose') {
-      const items = []
-      const correct = this.randomItemOfKind(this._to, s, []);
-      items.push(correct)
-
-      const n = this.itemAmount - 1;
-      for (let i = 0; i < n; i++) {
-        const item = this.randomItemOfKind(this._to, null, items.map(f => f.kind))
-        items.push(item)
-      }
-
       return callback(new GameStep({
         answer: correct,
         items: shuffle(items)

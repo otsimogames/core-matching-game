@@ -3,6 +3,7 @@ import Table from './prefabs/table'
 import Box from './prefabs/box'
 import Hint from './prefabs/hint'
 import Lightbox from './prefabs/lightbox'
+import { Weighter } from './weighter'
 
 const MATCH_GAME = 'match';
 const CHOOSE_GAME = 'choose';
@@ -26,7 +27,12 @@ export default class Scene {
   constructor({delegate, session}) {
     this.delegate = delegate;
     this.session = session;
-    this.random = new Randomizer();
+    if (typeof otsimo.weightProvider !== 'undefined') {
+      this.weighter = new Weighter(otsimo.weightProvider);
+      this.random = new Randomizer(this.weighter);
+    } else {
+      this.random = new Randomizer();
+    }
     this.step = -1;
     this.prevS = 0;
   }
@@ -62,7 +68,7 @@ export default class Scene {
       this.table = table;
       this.gameStep = next;
 
-      if (!this.step) {
+      if (!this.step && otsimo.kv.show_tutorial) {
         console.log('in first step, must show lightbox');
         const lightbox = new Lightbox({
           session: this.session,
@@ -74,8 +80,6 @@ export default class Scene {
       } else {
         this.goNext(next, table);
       }
-
-
     })
     return true;
   }

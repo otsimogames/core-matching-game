@@ -4,8 +4,8 @@ import { calculateConstraint } from '../utils'
 
 export default class Play extends Phaser.State {
   create() {
-    let session = new Session({ state: this });
-    let scene = new Scene({ delegate: this, session: session });
+    const session = new Session({ state: this });
+    const scene = new Scene({ delegate: this, session: session });
 
     this.session = session
     this.scene = scene
@@ -13,7 +13,7 @@ export default class Play extends Phaser.State {
       this.game.stage.backgroundColor = otsimo.kv.play_background_color;
     }
     if (otsimo.kv.background_image) {
-      let back = this.game.add.image(this.game.world.centerX, this.game.world.centerY, otsimo.kv.background_image)
+      const back = this.game.add.image(this.game.world.centerX, this.game.world.centerY, otsimo.kv.background_image)
       back.anchor.set(0.5, 0.5);
     }
 
@@ -48,9 +48,9 @@ export default class Play extends Phaser.State {
   initDecoration() {
     if (otsimo.kv.decoration) {
       for (let j = 0; j < otsimo.kv.decoration.length; j++) {
-        let d = otsimo.kv.decoration[j];
-        let c = calculateConstraint(d);
-        let img = this.game.add.image(c.x, c.y, d.image, d.frame);
+        const d = otsimo.kv.decoration[j];
+        const c = calculateConstraint(d);
+        const img = this.game.add.image(c.x, c.y, d.image, d.frame);
         img.anchor.set(c.anchor.x, c.anchor.y);
       }
     }
