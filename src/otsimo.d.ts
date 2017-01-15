@@ -144,7 +144,12 @@ interface LanguageMetadata {
 interface Manifest {
     unique_name: string;
     version: string;
-    metadata: Array<LanguageMetadata>;
+    ab_test: string;
+    loading_color: string;
+    languages: string[];
+    capabilities: string[];
+    labels: { property: string; };
+    metadata: LanguageMetadata[];
 }
 
 interface TextShadow {

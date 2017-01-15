@@ -20,7 +20,8 @@ export default class Session {
         this.stepStartTime = Date.now();
         this.previousInput = Date.now();
         this.id = makeid(10);
-        this._itemAmount = this.itemAmount(); 
+        this.ab = otsimo.manifest.ab_test || "";
+        this._itemAmount = this.itemAmount();
         this.sessionStart();
     }
 
@@ -30,7 +31,8 @@ export default class Session {
             id: this.id,
             session_step: session_step,
             difficulty: otsimo.settings.difficulty,
-            difficulty_items: this._itemAmount
+            difficulty_items: this._itemAmount,
+            ab_test: this.ab,
         }
         otsimo.customevent("game:session:start", payload)
     }
@@ -46,7 +48,8 @@ export default class Session {
             correctAnswerTotal: this.correctAnswerTotal,
             id: this.id,
             difficulty: otsimo.settings.difficulty,
-            difficulty_items: this._itemAmount
+            difficulty_items: this._itemAmount,
+            ab_test: this.ab,
         }
         otsimo.customevent("game:session:end", payload)
     }
@@ -98,9 +101,10 @@ export default class Session {
             wrong_count: amount,
             step: step,
             id: this.id,
-            step_score: this.stepScore,            
+            step_score: this.stepScore,
             difficulty: otsimo.settings.difficulty,
-            difficulty_items: this._itemAmount
+            difficulty_items: this._itemAmount,
+            ab_test: this.ab,
         }
         this.previousInput = now;
         otsimo.customevent("game:failure", payload);
@@ -126,11 +130,12 @@ export default class Session {
             time: now - this.stepStartTime,
             delta: now - this.previousInput,
             step: step,
-            hint_step: this.hintStep,            
+            hint_step: this.hintStep,
             id: this.id,
             step_score: this.stepScore,
             difficulty: otsimo.settings.difficulty,
-            difficulty_items: this._itemAmount
+            difficulty_items: this._itemAmount,
+            ab_test: this.ab,
         }
         this.previousInput = now;
         otsimo.customevent("game:success", payload);
