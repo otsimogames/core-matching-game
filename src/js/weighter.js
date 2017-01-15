@@ -75,11 +75,15 @@ export class RemoteProvider extends AbstractWeightProvider {
     const req = new XMLHttpRequest()
     req.onreadystatechange = () => {
       if (req.readyState === 4) {
-        if (req.status == 200) {
-          const data = JSON.parse(req.responseText);
-          cb && cb(null, data.result);
+        if (req.status === 200) {
+          try {
+            const data = JSON.parse(req.responseText);
+            cb(null, data.result);
+          } catch (err) {
+            cb(err);
+          }
         } else {
-          cb && cb(status);
+          cb(`failed to fetch: status=${status}, response=${req.responseText}`);
         }
       }
     }
@@ -143,10 +147,14 @@ export class Weighter {
       console.error(err)
       return;
     }
-    this._isready = true;
-    const now = new Date();
-    this.preLoaded = now.getTime()
-    this.setWeights(data)
+    if (data) {
+      this._isready = true;
+      const now = new Date();
+      this.preLoaded = now.getTime()
+      this.setWeights(data)
+    } else {
+      console.error(`result data is ${data}`);
+    }
   }
 
   /**
