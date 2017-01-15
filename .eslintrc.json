@@ -8,11 +8,12 @@
     },
     "rules": {
         "indent": [
-            0
+            2,
+            2
         ],
         "quotes": [
             2,
-            "double"
+            "single"
         ],
         "linebreak-style": [
             2,
@@ -24,7 +25,8 @@
         ],
         "no-console": [
             0
-        ]
+        ],
+        "prefer-const": "error"
     },
     "env": {
         "browser": true,
