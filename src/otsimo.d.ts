@@ -206,7 +206,7 @@ declare namespace otsimo {
     var clickSound: Phaser.Sound;
     var correctSound: Phaser.Sound;
     var tts: TTS;
-    var weightProvider: any;
+    var weighter: any;
     function quitgame(): void;
 
     function customevent(event: string, payload: Object): void;

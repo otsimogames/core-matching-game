@@ -27,12 +27,7 @@ export default class Scene {
   constructor({delegate, session}) {
     this.delegate = delegate;
     this.session = session;
-    if (typeof otsimo.weightProvider !== 'undefined') {
-      this.weighter = new Weighter(otsimo.weightProvider);
-      this.random = new Randomizer(this.weighter);
-    } else {
-      this.random = new Randomizer();
-    }
+    this.random = new Randomizer(otsimo.weighter);    
     this.step = -1;
     this.prevS = 0;
   }

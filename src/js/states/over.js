@@ -36,7 +36,9 @@ export default class Over extends Phaser.State {
     if (otsimo.currentMusic) {
       otsimo.currentMusic.volume = otsimo.kv.game_music.volume_over_screen;
     }
-
+    if (typeof otsimo.weighter !== 'undefined') {
+      otsimo.weighter.reload()
+    }
     const vic = this.game.add.audio(otsimo.kv.ending_scene.victory_sound, 0.7);
     vic.play()
 

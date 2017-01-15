@@ -1,5 +1,5 @@
 import * as states from './states';
-import { RemoteProvider, LocalProvider, NativeProvider } from './weighter';
+import { RemoteProvider, LocalProvider, NativeProvider, Weighter } from './weighter';
 otsimo.onSettingsChanged(function (settings, sound) {
   otsimo.game.sound.mute = !sound
 });
@@ -40,11 +40,12 @@ otsimo.run(function () {
       const remoteUrl = otsimo.manifest.labels['game.otsimo.com/weighterurl'];
       const childId = otsimo.child.id;
       const gameId = otsimo.child.gameid;
-      otsimo.weightProvider = new RemoteProvider(remoteUrl, childId, gameId)
+      otsimo.weighter = new Weighter(new RemoteProvider(remoteUrl, childId, gameId))
+      otsimo.weighter.reload()
     } else if (w === 'native') {
-      otsimo.weightProvider = new NativeProvider()
+      otsimo.weighter = new Weighter(new NativeProvider())
     } else if (w === 'local') {
-      otsimo.weightProvider = new LocalProvider()
+      otsimo.weighter = new Weighter(new LocalProvider())
     }
   }
   game.state.start('Load');
