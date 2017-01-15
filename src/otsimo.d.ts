@@ -206,7 +206,7 @@ declare namespace otsimo {
     var clickSound: Phaser.Sound;
     var correctSound: Phaser.Sound;
     var tts: TTS;
-
+    var weightProvider: any;
     function quitgame(): void;
 
     function customevent(event: string, payload: Object): void;
@@ -225,6 +225,11 @@ declare namespace otsimo {
      * @param callback Callback Function which returns (err,data)
      */
     function loadLocalSettings(callback: Function): void;
+}
+
+interface ItemWeight {
+    itemId: string;
+    weight: number;
 }
 
 declare module "otsimo" {

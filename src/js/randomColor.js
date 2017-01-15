@@ -434,4 +434,4 @@ function stringToInteger(string) {
     return total
 }
 
-export {randomColor};
+export { randomColor };

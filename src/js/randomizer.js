@@ -1,107 +1,160 @@
-import {shuffle} from "./utils"
+import { shuffle } from './utils'
+/*eslint-disable*/
+import { Weighter } from './weighter'
+/*eslint-enable*/
 
 export class GameStep {
-    constructor({answer, items}) {
-        this.answer = answer
-        this.items = items
-    }
+  constructor({answer, items}) {
+    this.answer = answer
+    this.items = items
+  }
 }
 
 export class Randomizer {
-    constructor() {
-        let kinds = new Set();
-        //select kinds only if there are on both from and to
-        let fromKinds = new Set();
-        let _from = otsimo.kv[otsimo.kv.game.question_from];
-        let _to = otsimo.kv[otsimo.kv.game.answers_from];
+  /**
+   * Creates an instance of Randomizer.
+   * 
+   * @param {Weighter} weighter
+   * 
+   * @memberOf Randomizer
+   */
+  constructor(weighter) {
+    const kinds = new Set();
+    //select kinds only if there are on both from and to
+    const fromKinds = new Set();
+    const _from = otsimo.kv[otsimo.kv.game.question_from];
+    const _to = otsimo.kv[otsimo.kv.game.answers_from];
 
-        for (let i = 0; i < _from.length; i++) {
-            fromKinds.add(_from[i].kind);
-        }
-        for (let i = 0; i < _to.length; i++) {
-            if (fromKinds.has(_to[i].kind)) {
-                kinds.add(_to[i].kind);
-            }
-        }
-
-        this._from = _from;
-        this._to = _to;
-        this.values = new Set(kinds.values());
-        this.kinds = kinds;
+    for (let i = 0; i < _from.length; i++) {
+      fromKinds.add(_from[i].kind);
     }
-
-    randomKind() {
-        let randomNumber = Math.floor(Math.random() * this.values.size);
-        return [...this.values][randomNumber];
+    for (let i = 0; i < _to.length; i++) {
+      if (fromKinds.has(_to[i].kind)) {
+        kinds.add(_to[i].kind);
+      }
     }
+    this.weighter = weighter;
+    this._from = _from;
+    this._to = _to;
+    this.values = new Set(kinds.values());
+    this.kinds = kinds;
+  }
 
-    randomItemOfKind(set, kind, excluded) {
-        let f = [...set].filter(l => {
-            if (kind != null && l.kind != kind) {
-                return false;
-            }
-            if (excluded != null && excluded.indexOf(l.kind) >= 0) {
-                return false;
-            }
-            return true;
-        });
-
-        return f[Math.floor(Math.random() * f.length)]
+  /**
+   * 
+   * 
+   * @param {ItemWeight[]} spec
+   * @returns {ItemWeight}
+   * 
+   * @memberOf Randomizer
+   */
+  weightedRand(spec) {
+    let sum = 0
+    for (const o of spec) {
+      sum += o.weight;
+      o.max = sum;
     }
-
-    get itemAmount() {
-        let diff = otsimo.settings.difficulty;
-        if (diff == "easy") {
-            return otsimo.kv.game.easy_size;
-        } else if (diff == "medium") {
-            return otsimo.kv.game.medium_size;
-        } else if (diff == "hard") {
-            return otsimo.kv.game.hard_size;
-        }
-        return otsimo.kv.game.medium_size;
+    const r = Math.random() * sum;
+    for (const o of spec) {
+      if (r <= o.max) {
+        return o;
+      }
     }
-
-    next(callback) {
-        if (this.values.size == 0) {
-            this.values = new Set(this.kinds.values());
-        }
-
-        let s = this.randomKind();
-        this.values.delete(s);
-
-
-        if (otsimo.kv.game.answer_type == "match") {
-            let items = []
-            let correct = this.randomItemOfKind(this._to, s, []);
-            items.push(correct)
-            let n = this.itemAmount - 1;
-            for (let i = 0; i < n; i++) {
-                let item = this.randomItemOfKind(this._to, null, items.map(f => f.kind))
-                items.push(item)
-            }
-
-            let answer = this.randomItemOfKind(this._from, s, []);
-            return callback(new GameStep({
-                answer: answer,
-                items: shuffle(items)
-            }));
-        } else if (otsimo.kv.game.answer_type == "choose") {
-            let items = []
-            let correct = this.randomItemOfKind(this._to, s, []);
-            items.push(correct)
-
-            let n = this.itemAmount - 1;
-            for (let i = 0; i < n; i++) {
-                let item = this.randomItemOfKind(this._to, null, items.map(f => f.kind))
-                items.push(item)
-            }
-
-            return callback(new GameStep({
-                answer: correct,
-                items: shuffle(items)
-            }));
+    return spec[spec.length - 1]
+  }
+  /**
+   * 
+   * 
+   * @returns {string}
+   * 
+   * @memberOf Randomizer
+   */
+  randomKind() {
+    if (this.weighter && this.weighter.ready) {
+      const values = Array.from(this.values);
+      const spec = [];
+      for (const v of values) {
+        const w = this.weighter.kinds.get(v)
+        if (typeof w !== 'undefined') {
+          spec.push({ itemId: v, weight: w })
         } else {
-            return callback(null);
+          spec.push({ itemId: v, weight: 50 })
         }
+      }
+      const res = this.weightedRand(spec)
+      return res.itemId
+    } else {
+      const randomNumber = Math.floor(Math.random() * this.values.size);
+      return [...this.values][randomNumber];
     }
+  }
+
+  /**
+   * 
+   * 
+   * @param {Set} set
+   * @param {string} kind
+   * @param {string[]} excluded
+   * @returns
+   * 
+   * @memberOf Randomizer
+   */
+  randomItemOfKind(set, kind, excluded) {
+    const f = [...set].filter(l => {
+      if (kind != null && l.kind != kind) {
+        return false;
+      }
+      if (excluded != null && excluded.indexOf(l.kind) >= 0) {
+        return false;
+      }
+      return true;
+    });
+
+    return f[Math.floor(Math.random() * f.length)]
+  }
+
+  get itemAmount() {
+    const diff = otsimo.settings.difficulty;
+    if (diff == 'easy') {
+      return otsimo.kv.game.easy_size;
+    } else if (diff == 'medium') {
+      return otsimo.kv.game.medium_size;
+    } else if (diff == 'hard') {
+      return otsimo.kv.game.hard_size;
+    }
+    return otsimo.kv.game.medium_size;
+  }
+
+  next(callback) {
+    if (this.values.size == 0) {
+      this.values = new Set(this.kinds.values());
+    }
+
+    const s = this.randomKind();
+    this.values.delete(s);
+
+    const items = []
+    const correct = this.randomItemOfKind(this._to, s, []);
+    items.push(correct)
+    const n = this.itemAmount - 1;
+    for (let i = 0; i < n; i++) {
+      const item = this.randomItemOfKind(this._to, null, items.map(f => f.kind))
+      items.push(item)
+    }
+
+    if (otsimo.kv.game.answer_type == 'match') {
+      const answer = this.randomItemOfKind(this._from, s, []);
+      return callback(new GameStep({
+        answer: answer,
+        items: shuffle(items)
+      }));
+    } else if (otsimo.kv.game.answer_type == 'choose') {
+      return callback(new GameStep({
+        answer: correct,
+        items: shuffle(items)
+      }));
+    } else {
+      return callback(null);
+    }
+  }
 }
