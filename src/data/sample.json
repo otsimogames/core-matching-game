@@ -192,7 +192,7 @@
         "easy_size": 2,
         "medium_size": 3,
         "hard_size": 4,
-        "answer_type": "choose",
+        "answer_type": "match",
         "add_outline": false,
         "outline_image": "stroke",
         "session_step": 2,
@@ -226,7 +226,7 @@
         "fixed_size": false,
         "max_item": 4,
         "cell_anchor": {
-            "x": 0.5,
+            "x": 1,
             "y": 0.5
         },
         "horizontal": {

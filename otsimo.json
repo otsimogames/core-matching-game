@@ -60,5 +60,8 @@
                 "audio/en"
             ]
         }
-    ]
+    ],
+    "labels": {
+        "categories": "core"
+    }
 }
