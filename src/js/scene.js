@@ -3,7 +3,6 @@ import Table from './prefabs/table'
 import Box from './prefabs/box'
 import Hint from './prefabs/hint'
 import Lightbox from './prefabs/lightbox'
-import { Weighter } from './weighter'
 
 const MATCH_GAME = 'match';
 const CHOOSE_GAME = 'choose';
