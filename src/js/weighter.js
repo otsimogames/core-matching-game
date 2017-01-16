@@ -89,9 +89,9 @@ export class RemoteProvider extends AbstractWeightProvider {
     }
     req.open('POST', this.url);
     req.setRequestHeader('Content-Type', 'application/json');
-    const reqData = JSON.stringify({ childId: this.child, gameId: this.game, interval: `${interval}` });
-    console.log('req data is', reqData);
-    req.send(reqData);
+
+    interval = Math.floor(interval)
+    req.send(JSON.stringify({ childId: this.child, gameId: this.game, interval: `${interval}` }));
   }
 }
 
