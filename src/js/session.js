@@ -76,14 +76,16 @@ export default class Session {
   /**
    * 
    * 
-   * @param {Object} item
+   * @param {Object} box
    * @param {number} amount
    * @param {number} step
-   * @param {Object} correct
+   * @param {Object} answer
    * 
    * @memberOf Session
    */
-  wrongInput(item, amount, step, correct) {
+  wrongInput(box, amount, step, answer) {
+    let item = box.item;
+    let correct = answer.item;
     console.log('item amount: ', amount);
     this.decrementScore();
     this.incrementHint(step);
@@ -93,10 +95,14 @@ export default class Session {
     const payload = {
       item: item.id,
       kind: item.kind,
+      item_x: box.world.x / otsimo.game.width,
+      item_y: box.world.y / otsimo.game.height,
       time: now - this.stepStartTime,
       delta: now - this.previousInput,
       correct_item: correct.id,
       correct_kind: correct.kind,
+      correct_x: answer.world.x / otsimo.game.width,
+      correct_y: answer.world.y / otsimo.game.height,
       hint_step: this.hintStep,
       wrong_count: amount,
       step: step,
@@ -105,6 +111,7 @@ export default class Session {
       difficulty: otsimo.settings.difficulty,
       difficulty_items: this._itemAmount,
       ab_test: this.ab,
+      session_step: otsimo.kv.game.session_step
     }
     this.previousInput = now;
     otsimo.customevent('game:failure', payload);
@@ -113,12 +120,13 @@ export default class Session {
   /**
    * 
    * 
-   * @param {object} item
+   * @param {object} answer
    * @param {number} step
    * 
    * @memberOf Session
    */
-  correctInput(item, step) {
+  correctInput(answer, step) {
+    let item = answer.item;
     this.incrementHint(step);
     const now = Date.now();
     this.score += this.stepScore;
@@ -127,6 +135,8 @@ export default class Session {
     const payload = {
       item: item.id,
       kind: item.kind,
+      item_x: answer.world.x / otsimo.game.width,
+      item_y: answer.world.y / otsimo.game.height,
       time: now - this.stepStartTime,
       delta: now - this.previousInput,
       step: step,
@@ -136,6 +146,7 @@ export default class Session {
       difficulty: otsimo.settings.difficulty,
       difficulty_items: this._itemAmount,
       ab_test: this.ab,
+      session_step: otsimo.kv.game.session_step
     }
     this.previousInput = now;
     otsimo.customevent('game:success', payload);

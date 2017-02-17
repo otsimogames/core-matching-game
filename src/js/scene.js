@@ -121,7 +121,7 @@ export default class Scene {
         }
         const tempS = this.hint.getStep();
         this.prevS = tempS;
-        this.session.correctInput(box.item, tempS);
+        this.session.correctInput(box, tempS);
 
         const self = this
         setTimeout(() => self.hideTable(), dur * 4);
@@ -143,7 +143,7 @@ export default class Scene {
         }
         const tempS = this.hint.getStep() - this.prevS;
         this.prevS = tempS;
-        this.session.wrongInput(box.item, box.wrongAnswerCount, tempS, answer.item);
+        this.session.wrongInput(box, box.wrongAnswerCount, tempS, this.answerChoose);
       }
     }
     if (!this.gameStep.done) {
@@ -176,7 +176,7 @@ export default class Scene {
       }
       const tempS = this.hint.getStep() - this.prevS;
       this.prevS = tempS;
-      this.session.correctInput(box.item, tempS);
+      this.session.correctInput(box, tempS);
 
       const self = this
       setTimeout(() => self.hideTable(), dur * 4);
@@ -193,7 +193,7 @@ export default class Scene {
       }
       const tempS = this.hint.getStep() - this.prevS;
       this.prevS = tempS;
-      this.session.wrongInput(box.item, box.wrongAnswerCount, tempS, answer.item);
+      this.session.wrongInput(box, box.wrongAnswerCount, tempS, this.answerChoose);
     }
     if (!this.gameStep.done) {
       this.hint.call(0);
