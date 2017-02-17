@@ -84,8 +84,8 @@ export default class Session {
    * @memberOf Session
    */
   wrongInput(box, amount, step, answer) {
-    let item = box.item;
-    let correct = answer.item;
+    const item = box.item;
+    const correct = answer.item;
     console.log('item amount: ', amount);
     this.decrementScore();
     this.incrementHint(step);
@@ -126,7 +126,7 @@ export default class Session {
    * @memberOf Session
    */
   correctInput(answer, step) {
-    let item = answer.item;
+    const item = answer.item;
     this.incrementHint(step);
     const now = Date.now();
     this.score += this.stepScore;

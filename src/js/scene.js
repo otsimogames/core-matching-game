@@ -26,7 +26,7 @@ export default class Scene {
   constructor({delegate, session}) {
     this.delegate = delegate;
     this.session = session;
-    this.random = new Randomizer(otsimo.weighter);    
+    this.random = new Randomizer(otsimo.weighter);
     this.step = -1;
     this.prevS = 0;
   }
@@ -159,7 +159,6 @@ export default class Scene {
     if (this.gameStep.done) {
       return;
     }
-    const answer = this.answerBox;        // thanks travis
     if (this.gameStep.answer.kind == box.item.kind) {
       this.hint.killTween(this.answerChoose.x, this.answerChoose.y);
       this.gameStep.done = true
