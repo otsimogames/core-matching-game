@@ -42,7 +42,8 @@ export default class Over extends Phaser.State {
     const vic = this.game.add.audio(otsimo.kv.ending_scene.victory_sound, 0.7);
     vic.play()
 
-    this.game.add.button(25, 35, 'back', this.backAction, this);
+    const back = this.game.add.button(25, 35, 'back', this.backAction, this);
+    back.scale.set(otsimo.game.height / 768);
 
     //calculate text and button constraints
     const tc = calculateConstraint(otsimo.kv.ending_scene.text)
@@ -51,11 +52,13 @@ export default class Over extends Phaser.State {
     //add button
     const btn = this.game.add.button(bc.x, otsimo.game.height + 200, otsimo.kv.ending_scene.button.image || 'playButton', this.playAction, this, 2, 1, 0);
     btn.anchor.set(bc.anchor.x, bc.anchor.y)
+    btn.scale.set(otsimo.game.height / 768);
     btn.alpha = 0
 
     //add text
     const text = otsimo.game.add.text(tc.x, tc.y - 100, otsimo.kv.ending_scene.text.text, otsimo.kv.ending_scene.text.style);
     text.anchor.set(tc.anchor.x, tc.anchor.y);
+    text.scale.set(otsimo.game.height / 768);
     text.alpha = 0
 
     const dur = otsimo.kv.ending_scene.duration;
@@ -95,6 +98,9 @@ export default class Over extends Phaser.State {
 
     this.counter = new BalloonCounter();
     this.balloons = Balloon.random(this.counter);
+    for (let i = 0; i < this.balloons.length; i++) {
+      this.balloons[i].scale.set(otsimo.game.height / 768);
+    }
     this.payloadSent = false;       // checks whether the balloon payload is sent or not
   }
 

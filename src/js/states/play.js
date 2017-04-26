@@ -13,12 +13,14 @@ export default class Play extends Phaser.State {
       this.game.stage.backgroundColor = otsimo.kv.play_background_color;
     }
     if (otsimo.kv.background_image) {
-      const back = this.game.add.image(this.game.world.centerX, this.game.world.centerY, otsimo.kv.background_image)
-      back.anchor.set(0.5, 0.5);
+      const backGround = this.game.add.image(this.game.world.centerX, this.game.world.centerY, otsimo.kv.background_image)
+      backGround.anchor.set(0.5, 0.5);
     }
 
     this.initDecoration();
-    this.game.add.button(25, 35, 'back', this.backAction, this);
+    const back = this.game.add.button(25, 35, 'back', this.backAction, this);
+    back.anchor.set(0, 0);
+    back.scale.set(otsimo.game.height / 768);
     if (otsimo.currentMusic) {
       otsimo.currentMusic.volume = otsimo.kv.game_music.volume_play_screen;
     }

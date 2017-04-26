@@ -11,7 +11,7 @@ function calculateConstraint(constraint) {
   const y = constraint.y.multiplier * otsimo.game.height + yc;
   const xScale = otsimo.game.width / 1024;
   const yScale = otsimo.game.height / 768;
-  const midScale = yScale / xScale;
+  //const midScale = yScale / xScale;
   return {
     x: x,
     y: y,
