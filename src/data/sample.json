@@ -40,7 +40,7 @@
             "constant": 0
         },
         "y": {
-            "multiplier": 0.3,
+            "multiplier": 0.35,
             "constant": 0
         }
     },
@@ -110,7 +110,7 @@
         {
             "name": "congratulations",
             "type": "audio",
-            "path": "audio/en/congratulations.wav"
+            "path": "audio/en/congratulations.mp3"
         },
         {
             "name": "applause",
@@ -180,7 +180,7 @@
         {
             "name": "victorySound",
             "type": "audio",
-            "path": "audio/finish.mp3"
+            "path": "audio/en/congratulations.mp3"
         },
         {
             "name": "congSound",

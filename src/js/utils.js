@@ -9,10 +9,14 @@ function calculateConstraint(constraint) {
   const yc = constraint.y.constant | 0;
   const x = constraint.x.multiplier * otsimo.game.width + xc;
   const y = constraint.y.multiplier * otsimo.game.height + yc;
+  const xScale = otsimo.game.width / 1024;
+  const yScale = otsimo.game.height / 768;
+  const midScale = yScale / xScale;
   return {
     x: x,
     y: y,
-    anchor: constraint.anchor
+    anchor: constraint.anchor,
+    scale: yScale
   };
 }
 

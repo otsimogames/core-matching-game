@@ -122,7 +122,6 @@ export default class Hint {
 
   handMatch() {
     if (!this.match) {
-      console.log('no this.match, returning');
       return;
     }
     this.arrow = otsimo.game.add.sprite(this.match.world.x, this.match.world.y + otsimo.game.height * 0.05, 'hand');
@@ -155,7 +154,6 @@ export default class Hint {
    */
   jumpTween(type, count, delay) {
     if (this.halt) {
-      console.log('HALT');
       return;
     }
     count++;

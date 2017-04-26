@@ -56,13 +56,11 @@ export default class Lightbox {
   }
 
   clickListener() {
-    console.log('clicked');
     this.destroyAll();
   }
 
   destroyAll() {
     this.abort = true;
-    console.log('destroying the lightbox');
     if (this.video) {
       this.imageOfVideo.destroy();
       this.video.destroy();

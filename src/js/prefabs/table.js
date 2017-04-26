@@ -223,8 +223,6 @@ export default class Table extends Phaser.Group {
       otsimo.game.add.tween(box)
         .to({ x: (sx + (k + 0.5) * (w + e)) }, otsimo.kv.game.hiding_move_duration, Phaser.Easing.Back.Out, true, delay);
 
-      console.log('relayout: ', box.x, box.y);
-
       if (!layout.fixed_size) {
         otsimo.game.time.events.add(2 * otsimo.kv.game.hiding_move_duration, this.killTween, this, box, box.oldX, box.oldY)
         let ns = box.scale.x * (w / box.width);
@@ -300,7 +298,6 @@ export default class Table extends Phaser.Group {
     if (box.tweenArray == []) {
       return;
     }
-    console.log('killTween');
     let temp = box.tweenArray[0];
     for (let j = 0; j < box.tweenArray.length; j++) {
       const i = box.tweenArray[j];

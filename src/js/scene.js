@@ -63,7 +63,6 @@ export default class Scene {
       this.gameStep = next;
 
       if (!this.step && otsimo.kv.show_tutorial) {
-        console.log('in first step, must show lightbox');
         const lightbox = new Lightbox({
           session: this.session,
           scene: this

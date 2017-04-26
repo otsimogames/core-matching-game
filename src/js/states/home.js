@@ -36,6 +36,10 @@ export default class Home extends Phaser.State {
     const q = calculateConstraint(otsimo.kv.gameNameLayout);
     const text = otsimo.game.add.text(q.x, q.y, vn, otsimo.kv.gameNameTextStyle);
     text.anchor.set(q.anchor.x, q.anchor.y);
+    text.scale.set(q.scale);
+    back.scale.set(q.scale);
+    home.scale.set(q.scale);
+
     if (otsimo.kv.name_shadow) {
       text.setShadow(otsimo.kv.name_shadow.x, otsimo.kv.name_shadow.y, otsimo.kv.name_shadow.color, otsimo.kv.name_shadow.blur, true, false);
     }
