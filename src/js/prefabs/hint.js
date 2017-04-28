@@ -105,6 +105,7 @@ export default class Hint {
   handTween() {
     this.arrow = otsimo.game.add.sprite(this.answer.world.x, this.answer.world.y + otsimo.game.height * 0.05, 'hand');
     this.arrow.anchor.set(0.4, 0);
+    this.arrow.scale.set(otsimo.game.height / 768);
     const t = otsimo.game.add.tween(this.arrow).to({ y: this.answer.world.y }, otsimo.kv.game.hint_hand_duration, Phaser.Easing.Sinusoidal.Out, false);
     const t2 = otsimo.game.add.tween(this.arrow)
       .to({ y: this.answer.world.y + otsimo.game.height * 0.05 }, otsimo.kv.game.hint_hand_duration, Phaser.Easing.Sinusoidal.In, false);

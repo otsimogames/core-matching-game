@@ -15,6 +15,7 @@ export default class Play extends Phaser.State {
     if (otsimo.kv.background_image) {
       const backGround = this.game.add.image(this.game.world.centerX, this.game.world.centerY, otsimo.kv.background_image)
       backGround.anchor.set(0.5, 0.5);
+      backGround.scale.set(otsimo.game.height/768);
     }
 
     this.initDecoration();

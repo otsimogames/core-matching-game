@@ -201,6 +201,7 @@ export default class Scene {
   announce(leaveY, leaveTime, answer) {
     const txt = sprintf(otsimo.kv.announceText, this.gameStep.answer.text);
     const text = otsimo.game.add.text(otsimo.game.world.centerX, otsimo.game.world.centerY * 0.7, txt, otsimo.kv.announceTextStyle);
+    text.scale.set(otsimo.game.height / 768);
 
     text.anchor.set(0.5, 0.5);
     text.alpha = 0.1;

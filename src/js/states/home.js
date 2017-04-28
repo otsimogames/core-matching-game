@@ -23,6 +23,7 @@ export default class Home extends Phaser.State {
     if (otsimo.kv.background_image) {
       const back = this.game.add.image(this.game.world.centerX, this.game.world.centerY, otsimo.kv.background_image)
       back.anchor.set(0.5, 0.5);
+      back.scale.set(otsimo.game.height/768);
     }
 
     const cp = calculateConstraint(otsimo.kv.homePlayButton || defaultPlayButton);
