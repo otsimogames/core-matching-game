@@ -1,6 +1,6 @@
 {
     "unique_name": "core-matching-game",
-    "version": "1.8.3",
+    "version": "1.8.8",
     "main": "index.html",
     "licence": "Apache 2",
     "languages": [
