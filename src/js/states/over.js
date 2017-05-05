@@ -135,6 +135,10 @@ export default class Over extends Phaser.State {
       this.payloadSent = true;
       this.counter.send();
     }
+    if (!otsimo.kv.game.show_home_screen) {
+      otsimo.quitgame();
+      return;
+    }
     this.game.state.start('Home');
   }
 

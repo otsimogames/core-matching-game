@@ -15,7 +15,7 @@ export default class Play extends Phaser.State {
     if (otsimo.kv.background_image) {
       const backGround = this.game.add.image(this.game.world.centerX, this.game.world.centerY, otsimo.kv.background_image)
       backGround.anchor.set(0.5, 0.5);
-      backGround.scale.set(otsimo.game.height/768);
+      backGround.scale.set(otsimo.game.height / 768);
     }
 
     this.initDecoration();
@@ -31,6 +31,10 @@ export default class Play extends Phaser.State {
   backAction() {
     if (otsimo.clickSound) {
       otsimo.clickSound.play()
+    }
+    if (!otsimo.kv.game.show_home_screen) {
+      otsimo.quitgame();
+      return;
     }
     this.game.state.start('Home');
   }
