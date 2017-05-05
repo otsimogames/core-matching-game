@@ -17,13 +17,17 @@ const defaultPlayButton = {
 
 export default class Home extends Phaser.State {
   create() {
+    if (!otsimo.kv.game.show_home_screen) {
+      this.game.state.start('Play');
+      return;
+    }
     if (otsimo.kv.home_background_color) {
       this.game.stage.backgroundColor = otsimo.kv.home_background_color;
     }
     if (otsimo.kv.background_image) {
       const back = this.game.add.image(this.game.world.centerX, this.game.world.centerY, otsimo.kv.background_image)
       back.anchor.set(0.5, 0.5);
-      back.scale.set(otsimo.game.height/768);
+      back.scale.set(otsimo.game.height / 768);
     }
 
     const cp = calculateConstraint(otsimo.kv.homePlayButton || defaultPlayButton);

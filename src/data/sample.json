@@ -192,6 +192,7 @@
         "easy_size": 2,
         "medium_size": 3,
         "hard_size": 4,
+        "show_home_screen": false,
         "answer_type": "match",
         "add_outline": false,
         "outline_image": "stroke",

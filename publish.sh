@@ -1,5 +1,5 @@
 #!/bin/sh
-TRAVIS_TAG="Core Find And Count"
+TRAVIS_TAG="Core Matching"
 if [ "$TRAVIS_TAG" ];then
     if [ -d builds/npm ] ; then
         rm -rf builds/npm
