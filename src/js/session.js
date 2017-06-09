@@ -1,3 +1,7 @@
+import { MAWeighter } from './weighter';
+
+let w = new MAWeighter()
+
 function makeid(length = 5) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -7,7 +11,7 @@ function makeid(length = 5) {
 }
 
 export default class Session {
-  constructor({state}) {
+  constructor({ state }) {
     this.score = 0;
     this.stepScore = otsimo.kv.game.step_score;
     this.startTime = Date.now();
@@ -147,6 +151,7 @@ export default class Session {
       session_step: otsimo.kv.game.session_step
     }
     this.previousInput = now;
+    w.grade(item.kind, this.stepScore, console.log);
     otsimo.customevent('game:success', payload);
   }
 

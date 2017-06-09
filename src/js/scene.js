@@ -3,6 +3,7 @@ import Table from './prefabs/table'
 import Box from './prefabs/box'
 import Hint from './prefabs/hint'
 import Lightbox from './prefabs/lightbox'
+import otsimo from 'otsimo';
 
 const MATCH_GAME = 'match';
 const CHOOSE_GAME = 'choose';
@@ -23,7 +24,7 @@ export default class Scene {
    * 
    * @memberOf Scene
    */
-  constructor({delegate, session}) {
+  constructor({ delegate, session }) {
     this.delegate = delegate;
     this.session = session;
     this.random = new Randomizer(otsimo.weighter);

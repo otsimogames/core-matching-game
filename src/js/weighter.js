@@ -1,3 +1,6 @@
+
+import Otsimo, { callbacks } from 'otsimo';
+
 /**
  * Interface for weight providers
  * 
@@ -172,4 +175,105 @@ export class Weighter {
       this.kinds.set(ww.itemId, ww.weight)
     }
   }
+}
+
+export class MAWeighter {
+  /**
+   * 
+   * 
+   * @param {string[]} mats 
+   * 
+   * @memberof MAWeighter
+   */
+  setMaterials(mats, cb) {
+    console.log("setMaterials", mats);
+    if (!otsimo.isWKWebView) {
+      return;
+    }
+    let key = "weights-" + otsimo.manifest.unique_name;
+    let id = callbacks.store('ma', (id, result) => {
+      callbacks.remove(id);
+      console.log("setMaterials result", result);
+      if (!result.error) {
+        window.localStorage.setItem(key, JSON.stringify(mats))
+      }
+      cb(result.error);
+    });
+    window.webkit.messageHandlers.ma.postMessage(JSON.stringify({
+      rpc: "add",
+      callback: id,
+      materials: mats,
+    }));
+  }
+
+
+  /**
+   * 
+   * 
+   * @memberof MAWeighter
+   */
+  next(cb) {
+    if (!otsimo.isWKWebView) {
+      return;
+    }
+    console.log("weighter next called");
+    let id = callbacks.store('ma', (id, result) => {
+      console.log("weighter next", result);
+      callbacks.remove(id);
+      if (result.error) {
+        return cb(result.error);
+      }
+      if (typeof result.elem === "undefined" ||
+        typeof result.elem.material == "undefined" ||
+        result.elem.material == "") {
+        return cb("undefined material");
+      } else {
+        cb(null, result.elem);
+      }
+    });
+    window.webkit.messageHandlers.ma.postMessage(JSON.stringify({
+      rpc: "next",
+      callback: id,
+    }));
+  }
+
+  /**
+   * 
+   * 
+   * @memberof MAWeighter
+   */
+  grade(material, grade, cb) {
+    console.log("weighter grade", material, grade);
+    if (!otsimo.isWKWebView) {
+      return;
+    }
+    let id = callbacks.store('ma', (id, result) => {
+      console.log("weighter grade result", material, grade, result);
+      callbacks.remove(id);
+      cb(result.error);
+    });
+    window.webkit.messageHandlers.ma.postMessage(JSON.stringify({
+      rpc: "grade",
+      callback: id,
+      material: material,
+      grade: grade,
+    }));
+  }
+
+  stats(cb) {
+    console.log("weighter stat");
+    if (!otsimo.isWKWebView) {
+      return;
+    }
+    let id = callbacks.store('ma', (id, result) => {
+      console.log("weighter stat result", result);
+      callbacks.remove(id);
+      cb(result);
+    });
+    window.webkit.messageHandlers.ma.postMessage(JSON.stringify({
+      rpc: "stats",
+      callback: id,
+    }));
+  }
+
 }

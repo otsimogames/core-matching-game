@@ -1,10 +1,10 @@
 import { shuffle } from './utils'
 /*eslint-disable*/
-import { Weighter } from './weighter'
+import { Weighter, MAWeighter } from './weighter'
 /*eslint-enable*/
 
 export class GameStep {
-  constructor({answer, items}) {
+  constructor({ answer, items }) {
     this.answer = answer
     this.items = items
   }
@@ -38,6 +38,16 @@ export class Randomizer {
     this._to = _to;
     this.values = new Set(kinds.values());
     this.kinds = kinds;
+    this.k = new MAWeighter();
+
+    this.k.stats((stats) => {
+      console.log(stats);
+      if (!stats.totalItems) {
+        this.k.setMaterials([...this.kinds], (err) => {
+          console.log("set material ended with", arguments)
+        })
+      }
+    })
   }
 
   /**
@@ -125,11 +135,10 @@ export class Randomizer {
     return otsimo.kv.game.medium_size;
   }
 
-  next(callback) {
+  before(callback) {
     if (this.values.size == 0) {
       this.values = new Set(this.kinds.values());
     }
-
     const s = this.randomKind();
     this.values.delete(s);
 
@@ -157,4 +166,50 @@ export class Randomizer {
       return callback(null);
     }
   }
+
+  next(callback) {
+    this.k.next((err, elem) => {
+      if (err) {
+        console.log("weighted next error", err);
+        return this.before(callback);
+      }
+      console.log("random choosed item:", elem)
+      const items = []
+      const correct_mat = elem.material;
+      let correct;
+      for (let o of this._to) {
+        if (o.kind === correct_mat) {
+          correct = o;
+          break;
+        }
+      }
+      console.log("random choosed element:", correct);
+      if (typeof correct === "undefined") {
+        return this.before(callback);
+      }
+      items.push(correct)
+      const n = this.itemAmount - 1;
+      for (let i = 0; i < n; i++) {
+        const item = this.randomItemOfKind(this._to, null, items.map(f => f.kind))
+        items.push(item)
+      }
+
+      if (otsimo.kv.game.answer_type == 'match') {
+        const answer = this.randomItemOfKind(this._from, correct_mat, []);
+        return callback(new GameStep({
+          answer: answer,
+          items: shuffle(items)
+        }));
+      } else if (otsimo.kv.game.answer_type == 'choose') {
+        return callback(new GameStep({
+          answer: correct,
+          items: shuffle(items)
+        }));
+      } else {
+        return callback(null);
+      }
+    })
+  }
 }
+
+
