@@ -1,3 +1,4 @@
+import otsimo from 'otsimo';
 import * as states from './states';
 import { RemoteProvider, LocalProvider, NativeProvider, Weighter } from './weighter';
 otsimo.onSettingsChanged(function (settings, sound) {
