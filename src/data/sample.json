@@ -218,7 +218,7 @@
         "balloon_sound": "balonpop",
         "correct_sound": "applause",
         "click_sound": "clickSound",
-        "init_tts": true,
+        "init_tts": false,
         "tts_voices": [
             "com.apple.ttsbundle.Samantha-compact"
         ]
@@ -322,7 +322,7 @@
             "text": "Blue",
             "image": "white_box",
             "outline": "white_box",
-            "tts": true
+            "tts": false
         },
         {
             "id": "red",
@@ -332,7 +332,7 @@
             "tint": "0xFF0000",
             "text": "Red",
             "image": "white_box",
-            "tts": true
+            "tts": false
         },
         {
             "id": "yellow",
@@ -342,7 +342,7 @@
             "tint": "0xFFFF00",
             "text": "Yellow",
             "image": "white_box",
-            "tts": true
+            "tts": false
         },
         {
             "id": "green",
@@ -352,7 +352,7 @@
             "tint": "0x00FF00",
             "text": "Green",
             "image": "white_box",
-            "tts": true
+            "tts": false
         },
         {
             "id": "black",
@@ -362,7 +362,7 @@
             "tint": "0x000000",
             "text": "Black",
             "image": "white_box",
-            "tts": true
+            "tts": false
         }
     ],
     "star_items": [
@@ -374,7 +374,7 @@
             "tint": "0x0000FF",
             "text": "Blue",
             "image": "star",
-            "tts": true
+            "tts": false
         },
         {
             "id": "red_star",
@@ -384,7 +384,7 @@
             "tint": "0xFF0000",
             "text": "Red",
             "image": "star",
-            "tts": true
+            "tts": false
         },
         {
             "id": "yellow_star",
@@ -394,7 +394,7 @@
             "tint": "0xFFFF00",
             "text": "Yellow",
             "image": "star",
-            "tts": true
+            "tts": false
         },
         {
             "id": "green_star",
@@ -404,7 +404,7 @@
             "tint": "0x00FF00",
             "text": "Green",
             "image": "star",
-            "tts": true
+            "tts": false
         },
         {
             "id": "black_star",
@@ -414,7 +414,7 @@
             "tint": "0x000000",
             "text": "Black",
             "image": "star",
-            "tts": true
+            "tts": false
         }
     ],
     "game_music": {
