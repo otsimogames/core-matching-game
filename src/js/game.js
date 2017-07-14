@@ -1,5 +1,6 @@
 import * as states from './states';
 import { RemoteProvider, LocalProvider, NativeProvider, Weighter } from './weighter';
+
 otsimo.onSettingsChanged(function (settings, sound) {
   otsimo.game.sound.mute = !sound
 });
@@ -28,11 +29,9 @@ function initTTSVoice() {
 }
 
 otsimo.run(function () {
-
   const game = new Phaser.Game(otsimo.width, otsimo.height, Phaser.CANVAS, 'gameContainer');
   Object.keys(states).forEach(state => game.state.add(state, states[state]));
   otsimo.game = game;
-
   initTTSVoice();
   if (otsimo.manifest.labels) {
     const w = otsimo.manifest.labels['game.otsimo.com/weighter'];

@@ -1,5 +1,5 @@
 #!/bin/sh
-TRAVIS_TAG="Core Matching"
+export TRAVIS_TAG="Core Matching"
 if [ "$TRAVIS_TAG" ];then
     if [ -d builds/npm ] ; then
         rm -rf builds/npm
@@ -11,5 +11,5 @@ if [ "$TRAVIS_TAG" ];then
     cp settings.json builds/npm
 
     cd builds/npm
-    npm publish
+    npm publish --tag ceng
 fi

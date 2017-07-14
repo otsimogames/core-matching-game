@@ -187,7 +187,7 @@ export class MAWeighter {
    */
   setMaterials(mats, cb) {
     console.log("setMaterials", mats);
-    if (!otsimo.isWKWebView) {
+    if (otsimo.capabilities.indexOf('ma') < 0) {
       return;
     }
     let key = "weights-" + otsimo.manifest.unique_name;
@@ -213,8 +213,8 @@ export class MAWeighter {
    * @memberof MAWeighter
    */
   next(cb) {
-    if (!otsimo.isWKWebView) {
-      return;
+    if (otsimo.capabilities.indexOf('ma') < 0) {
+      return cb("not available")
     }
     console.log("weighter next called");
     let id = callbacks.store('ma', (id, result) => {
@@ -244,8 +244,8 @@ export class MAWeighter {
    */
   grade(material, grade, cb) {
     console.log("weighter grade", material, grade);
-    if (!otsimo.isWKWebView) {
-      return;
+    if (otsimo.capabilities.indexOf('ma') < 0) {
+      return cb("not available")
     }
     let id = callbacks.store('ma', (id, result) => {
       console.log("weighter grade result", material, grade, result);
@@ -262,7 +262,7 @@ export class MAWeighter {
 
   stats(cb) {
     console.log("weighter stat");
-    if (!otsimo.isWKWebView) {
+    if (otsimo.capabilities.indexOf('ma') < 0) {
       return;
     }
     let id = callbacks.store('ma', (id, result) => {

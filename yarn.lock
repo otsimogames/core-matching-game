@@ -3897,9 +3897,9 @@ os-tmpdir@^1.0.0, os-tmpdir@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/os-tmpdir/-/os-tmpdir-1.0.2.tgz#bbe67406c79aa85c5cfec766fe5734555dfa1274"
 
-otsimo@1.8.14:
-  version "1.8.14"
-  resolved "https://registry.yarnpkg.com/otsimo/-/otsimo-1.8.14.tgz#8a6de7f977cb7ef17e91c8fbf7aadec1bc937c65"
+otsimo@1.8.15:
+  version "1.8.15"
+  resolved "https://registry.yarnpkg.com/otsimo/-/otsimo-1.8.15.tgz#5c331dad3a500659e8941c44178605c17a4fe96b"
 
 p-finally@^1.0.0:
   version "1.0.0"
@@ -4409,9 +4409,9 @@ request@^2.79.0:
     tunnel-agent "~0.4.1"
     uuid "^3.0.0"
 
-require-dir@^0.3.0:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/require-dir/-/require-dir-0.3.1.tgz#b5a8e28bae0343bb0d0cc38ab1f531e1931b264a"
+require-dir@0.3.2:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/require-dir/-/require-dir-0.3.2.tgz#c1d5c75e9fbffde9f2e6b33e383db4f594b5a6a9"
 
 require-directory@^2.1.1:
   version "2.1.1"
