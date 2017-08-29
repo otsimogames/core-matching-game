@@ -29,6 +29,7 @@
         "browser-sync": "^2.18.8",
         "browserify": "^14.3.0",
         "del": "^2.2.0",
+        "eslint": "^4.5.0",
         "gulp": "^3.9.0",
         "gulp-htmlmin": "^3.0.0",
         "gulp-imagemin": "^3.2.0",

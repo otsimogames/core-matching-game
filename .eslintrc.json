@@ -3,9 +3,6 @@
         "ecmaVersion": 6,
         "sourceType": "module"
     },
-    "ecmaFeatures": {
-        "blockBindings": true
-    },
     "rules": {
         "indent": [
             2,

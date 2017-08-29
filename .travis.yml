@@ -1,10 +1,7 @@
 language: node_js
 node_js:
-- '5.1'
+- '8'
 sudo: false
-install:
-- npm install
-- npm install eslint
 script: npm run-script test
 after_success: sh publish.sh
 before_install:
