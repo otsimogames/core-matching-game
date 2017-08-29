@@ -1,0 +1,4 @@
+pre_scripts:
+    - yarn
+post_scripts:
+    - yarn run staging
