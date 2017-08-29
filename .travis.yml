@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - '8'
 sudo: false
-script: npm run-script test
+script: yarn test
 after_success: sh publish.sh
 before_install:
 - openssl aes-256-cbc -K $encrypted_7563c8fbc5a5_key -iv $encrypted_7563c8fbc5a5_iv
