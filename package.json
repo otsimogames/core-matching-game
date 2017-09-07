@@ -17,7 +17,9 @@
     "scripts": {
         "test": "eslint src/js/*.js",
         "build": "gulp build",
-        "dev": "gulp"
+        "dev": "gulp",
+        "production": "gulp build && otsimoctl game publish --release --dir builds/prod",
+        "staging": "gulp build && otsimoctl -s game publish --release --dir builds/prod"
     },
     "devDependencies": {
         "babel-core": "^6.24.1",
