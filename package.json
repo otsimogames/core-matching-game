@@ -18,8 +18,8 @@
         "test": "eslint src/js/*.js",
         "build": "gulp build",
         "dev": "gulp",
-        "production": "gulp build && /usr/bin/otsimoctl game publish --release --dir builds/prod",
-        "staging": "gulp build && /usr/bin/otsimoctl -s game publish --release --dir builds/prod"
+        "production": "gulp build && otsimoctl --debug game publish --release --dir builds/prod",
+        "staging": "gulp build && otsimoctl --debug -s game publish --release --dir builds/prod"
     },
     "devDependencies": {
         "babel-core": "^6.24.1",
