@@ -1,4 +1,19 @@
-pre_scripts:
+output_path: builds/prod
+# git clone
+before_install:
     - yarn
-post_scripts:
-    - yarn run staging
+# download materials
+# generate otsimo.json
+# generate locale datas
+after_install:
+    - yarn run build
+deploy:
+    - |
+    BUILD_ENV=""
+    if [ "$OTSIMO_DEPLOY_TYPE" = "staging" ];then
+        BUILD_ENV="--staging"
+    fi
+    otsimoctl --debug ${BUILD_ENV} game publish --release --dir builds/prod
+
+before_preview:
+    - echo "Preview"

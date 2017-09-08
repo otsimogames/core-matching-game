@@ -19,7 +19,7 @@
         "build": "gulp build",
         "dev": "gulp",
         "production": "gulp build && otsimoctl --debug game publish --release --dir builds/prod",
-        "staging": "gulp build && cat builds/prod/otsimo.json && otsimoctl --debug -s game publish --release --dir builds/prod"
+        "staging": "gulp build && otsimoctl --debug -s game publish --release --dir builds/prod"
     },
     "devDependencies": {
         "babel-core": "^6.24.1",
