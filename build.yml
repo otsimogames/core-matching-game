@@ -7,8 +7,7 @@ before_install:
 # generate locale datas
 after_install:
     - yarn run build
-deploy:
-    - |
+deploy: |
     BUILD_ENV=""
     if [ "$OTSIMO_DEPLOY_TYPE" = "staging" ];then
         BUILD_ENV="--staging"
