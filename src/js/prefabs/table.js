@@ -1,3 +1,4 @@
+
 import Box from './box'
 
 const HIDING_FADE = 'fade';

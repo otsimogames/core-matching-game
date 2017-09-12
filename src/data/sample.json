@@ -60,132 +60,132 @@
         {
             "name": "gif",
             "type": "video",
-            "path": "img/gif.mp4"
+            "path": "assets/gif.mp4"
         },
         {
             "name": "gray",
             "type": "image",
-            "path": "img/gray.png"
+            "path": "assets/gray.png"
         },
         {
             "name": "background",
             "type": "image",
-            "path": "img/background.png"
+            "path": "assets/background.png"
         },
         {
             "name": "decline",
             "type": "image",
-            "path": "img/line.png"
+            "path": "assets/line.png"
         },
         {
             "name": "stroke",
             "type": "image",
-            "path": "img/stroke.png"
+            "path": "assets/stroke.png"
         },
         {
             "name": "playButton",
             "type": "image",
-            "path": "img/en/play.png"
+            "path": "assets/en/play.png"
         },
         {
             "name": "back",
             "type": "image",
-            "path": "img/back.png"
+            "path": "assets/back.png"
         },
         {
             "name": "white_box",
             "type": "image",
-            "path": "img/white_box.png"
+            "path": "assets/white_box.png"
         },
         {
             "name": "particle",
             "type": "image",
-            "path": "img/particle.png"
+            "path": "assets/particle.png"
         },
         {
             "name": "hand",
             "type": "image",
-            "path": "img/hand.png"
+            "path": "assets/hand.png"
         },
         {
             "name": "congratulations",
             "type": "audio",
-            "path": "audio/en/congratulations.mp3"
+            "path": "assets/en/congratulations.mp3"
         },
         {
             "name": "applause",
             "type": "audio",
-            "path": "audio/applause.mp3"
+            "path": "assets/applause.mp3"
         },
         {
             "name": "welcome",
             "type": "audio",
-            "path": "audio/en/welcome.wav"
+            "path": "assets/en/welcome.wav"
         },
         {
             "name": "try_again",
             "type": "audio",
-            "path": "audio/en/try_again.wav"
+            "path": "assets/en/try_again.wav"
         },
         {
             "name": "blue_audio",
             "type": "audio",
-            "path": "audio/en/blue.mp3"
+            "path": "assets/en/blue.mp3"
         },
         {
             "name": "blue_question",
             "type": "audio",
-            "path": "audio/en/show_blue.mp3"
+            "path": "assets/en/show_blue.mp3"
         },
         {
             "name": "ballon_body",
             "type": "image",
-            "path": "img/ballon/ballon_body.png"
+            "path": "assets/ballon/ballon_body.png"
         },
         {
             "name": "ballon_light",
             "type": "image",
-            "path": "img/ballon/ballon_light.png"
+            "path": "assets/ballon/ballon_light.png"
         },
         {
             "name": "ballon_rope",
             "type": "image",
-            "path": "img/ballon/ballon_rope.png"
+            "path": "assets/ballon/ballon_rope.png"
         },
         {
             "name": "ballon_star",
             "type": "image",
-            "path": "img/ballon/ballon_star.png"
+            "path": "assets/ballon/ballon_star.png"
         },
         {
             "name": "star",
             "type": "image",
-            "path": "img/star.png"
+            "path": "assets/star.png"
         },
         {
             "name": "backmusic",
             "type": "audio",
-            "path": "audio/bg.mp3"
+            "path": "assets/bg.mp3"
         },
         {
             "name": "balonpop",
             "type": "audio",
-            "path": "audio/balon.mp3"
+            "path": "assets/balon.mp3"
         },
         {
             "name": "clickSound",
             "type": "audio",
-            "path": "audio/click.mp3"
+            "path": "assets/click.mp3"
         },
         {
             "name": "victorySound",
             "type": "audio",
-            "path": "audio/en/congratulations.mp3"
+            "path": "assets/en/congratulations.mp3"
         },
         {
             "name": "congSound",
             "type": "audio",
-            "path": "audio/tebrikler.mp3"
+            "path": "assets/tebrikler.mp3"
         }
     ],
     "game": {

@@ -44,3 +44,4 @@ builds
 
 # intellij idea
 .idea
+dist
