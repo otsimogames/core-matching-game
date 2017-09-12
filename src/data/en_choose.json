@@ -15,8 +15,8 @@
     "loadingFont": "60px mfont",
     "loadingBackground": "#18B9F2",
     "loadingColor": "#fff",
-    "announceText": "Choose %s",
-    "custom_announce_color": "",
+    "announceText": "Choose the %s",
+    "custom_announce_color": "#CC3366",
     "background_image": "background",
     "announceTextStyle": {
         "strokeThickness": 10,
