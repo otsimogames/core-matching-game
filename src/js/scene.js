@@ -220,9 +220,9 @@ export default class Scene {
     a.start();
 
     if (this.gameStep.answer.tts === true) {
-      otsimo.tts.speak(this.gameStep.answer.question)
+      otsimo.tts.speak(this.gameStep.answer["question_" + otsimo.kv.game.answer_type])
     } else {
-      otsimo.game.sound.play(this.gameStep.answer.question)
+      otsimo.game.sound.play(this.gameStep.answer["question_" + otsimo.kv.game.answer_type])
     }
     const table = this.table;
     setTimeout(() => {

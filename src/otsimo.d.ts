@@ -22,7 +22,8 @@ interface GameItem {
     id: string;
     kind: string;
     audio: string;
-    question: string;
+    question_match: string;
+    question_choose: string;
     tint: string;
     text: string;
     image: string;

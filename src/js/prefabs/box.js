@@ -50,11 +50,11 @@ export default class Box extends Phaser.Sprite {
   }
 
   playQuestion() {
-    if (typeof this.item.question !== 'undefined') {
+    if (typeof this.item["question_" + otsimo.kv.game.answer_type] !== 'undefined') {
       if (this.item.tts === true) {
-        otsimo.tts.speak(this.item.question);
+        otsimo.tts.speak(this.item["question_" + otsimo.kv.game.answer_type]);
       } else {
-        this.game.sound.play(this.item.question);
+        this.game.sound.play(this.item["question_" + otsimo.kv.game.answer_type]);
       }
     }
   }
