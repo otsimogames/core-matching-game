@@ -16,10 +16,10 @@
     },
     "scripts": {
         "test": "eslint src/js/*.js",
-        "build": "webpack --display-error-details --config webpack.config.js",
+        "build": "webpack --display-error-details --config webpack.production.config.js",
         "start": "webpack-dev-server --progress --profile --colors --config webpack.config.js",
-        "production": "gulp build && otsimoctl --debug game publish --release --dir builds/prod",
-        "staging": "gulp build && otsimoctl --debug -s game publish --release --dir builds/prod"
+        "production": "gulp build && otsimoctl --debug game publish --release --dir dist",
+        "staging": "gulp build && otsimoctl --debug -s game publish --release --dir dist"
     },
     "devDependencies": {
         "babel-core": "^6.24.1",
