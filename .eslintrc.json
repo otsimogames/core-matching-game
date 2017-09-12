@@ -32,8 +32,7 @@
     },
     "globals": {
         "Phaser": true,
-        "otsimo": true,
-        "sprintf": true
+        "otsimo": true
     },
     "extends": "eslint:recommended"
 }

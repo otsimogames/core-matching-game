@@ -3,6 +3,7 @@ import Table from './prefabs/table'
 import Box from './prefabs/box'
 import Hint from './prefabs/hint'
 import Lightbox from './prefabs/lightbox'
+import * as sprintf from 'sprintf-js';
 
 const MATCH_GAME = 'match';
 const CHOOSE_GAME = 'choose';
@@ -199,7 +200,7 @@ export default class Scene {
   }
 
   announce(leaveY, leaveTime, answer) {
-    const txt = sprintf(otsimo.kv.announceText, this.gameStep.answer.text);
+    const txt = sprintf.sprintf(otsimo.kv.announceText, this.gameStep.answer.text);
     const text = otsimo.game.add.text(otsimo.game.world.centerX, otsimo.game.world.centerY * 0.7, txt, otsimo.kv.announceTextStyle);
     text.scale.set(otsimo.game.height / 768);
 

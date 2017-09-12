@@ -2,8 +2,20 @@
 module.exports = [
   {
     test: /\.js?$/,
-    exclude: /(node_modules|public\/)/,
+    exclude: /(node_modules\/)/,
     loader: 'babel-loader'
+  },
+  {
+    test: /pixi\.js/,
+    loader: 'expose-loader?PIXI'
+  },
+  {
+    test: /phaser-split\.js$/,
+    loader: 'expose-loader?Phaser'
+  },
+  {
+    test: /p2\.js/,
+    loader: 'expose-loader?p2'
   },
   {
     test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
@@ -39,8 +51,5 @@ module.exports = [
     test: /\.png/,
     exclude: /(node_modules)/,
     loader: 'url-loader?limit=10000&mimetype=image/png'
-  },
-  { test: /pixi\.js/, loader: 'expose?PIXI' },
-  { test: /phaser-split\.js$/, loader: 'expose?Phaser' },
-  { test: /p2\.js/, loader: 'expose?p2' }
+  }
 ];

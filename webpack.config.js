@@ -15,16 +15,14 @@ const PORT = process.env.PORT || '3001';
 
 
 module.exports = {
-  entry: {
-    app: [
-      'babel-polyfill',
-      path.resolve(__dirname, 'src/js/game.js')
-    ],
-    vendor: ['pixi', 'p2', 'phaser', 'webfontloader']
-  },
+  entry: [
+    'babel-polyfill',
+    'pixi', 'p2', 'phaser', 'webfontloader',
+    path.resolve(__dirname, 'src/js/game.js'),
+  ],
   devtool: process.env.WEBPACK_DEVTOOL || 'eval-source-map',
   output: {
-    pathinfo: true,    
+    pathinfo: true,
     publicPath: '',
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
@@ -54,13 +52,13 @@ module.exports = {
     host: HOST
   },
   plugins: [
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({ template: './src/index.html' }),
     new CopyWebpackPlugin([
       {
         context: sourcePath,
-        from: '**/*.{woff,json,svg,mp4,mp3,png}'
+        from: '**/*.{woff,json,svg,mp4,mp3,png,wav}'
       }
     ])
   ]
