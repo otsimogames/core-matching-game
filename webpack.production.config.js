@@ -3,7 +3,7 @@ const path = require('path');
 const loaders = require('./webpack.loaders');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const sourcePath = path.resolve(__dirname, 'src');
 var phaserModule = path.join(__dirname, '/node_modules/phaser/')
 var phaser = path.join(phaserModule, 'build/custom/phaser-split.js')
@@ -40,14 +40,7 @@ module.exports = {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        screw_ie8: true,
-        drop_console: true,
-        drop_debugger: true
-      }
-    }),
+    new UglifyJsPlugin(),
     new HtmlWebpackPlugin({ template: './src/index.html' }),
     new CopyWebpackPlugin([
       {
