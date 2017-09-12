@@ -30,9 +30,13 @@ export default class Over extends Phaser.State {
       this.game.stage.backgroundColor = otsimo.kv.over_background_color;
     }
     if (otsimo.kv.background_image) {
-      const back = this.game.add.image(this.game.world.centerX, this.game.world.centerY, otsimo.kv.background_image)
-      back.anchor.set(0.5, 0.5);
+      if (otsimo.kv.background_image) {
+        const backGround = this.game.add.image(this.game.world.centerX, this.game.world.centerY, otsimo.kv.background_image)
+        backGround.anchor.set(0.5, 0.5);
+        backGround.scale.set(otsimo.game.height / 768);
+      }
     }
+    this.initDecoration();
     if (otsimo.currentMusic) {
       otsimo.currentMusic.volume = otsimo.kv.game_music.volume_over_screen;
     }
@@ -142,4 +146,14 @@ export default class Over extends Phaser.State {
     this.game.state.start('Home');
   }
 
+  initDecoration() {
+    if (otsimo.kv.decoration) {
+      for (let j = 0; j < otsimo.kv.decoration.length; j++) {
+        const d = otsimo.kv.decoration[j];
+        const c = calculateConstraint(d);
+        const img = this.game.add.image(c.x, c.y, d.image, d.frame);
+        img.anchor.set(c.anchor.x, c.anchor.y);
+      }
+    }
+  }
 }

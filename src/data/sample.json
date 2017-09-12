@@ -73,7 +73,7 @@
             "path": "assets/background.png"
         },
         {
-            "name": "decline",
+            "name": "line",
             "type": "image",
             "path": "assets/line.png"
         },
@@ -282,7 +282,7 @@
             }
         },
         {
-            "image": "decline",
+            "image": "line",
             "anchor": {
                 "x": 1,
                 "y": 0.5
@@ -297,7 +297,7 @@
             }
         },
         {
-            "image": "decline",
+            "image": "line",
             "anchor": {
                 "x": 1,
                 "y": 0.5
