@@ -52,4 +52,6 @@ otsimo.run(function () {
   game.state.start('Load');
 });
 
+otsimo.init({ language: 'en', width: 1024, height: 576});
+
 
