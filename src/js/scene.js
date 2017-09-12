@@ -224,7 +224,6 @@ export default class Scene {
     } else {
       otsimo.game.sound.play(this.gameStep.answer.question)
     }
-
     const table = this.table;
     setTimeout(() => {
       if (answer) {
