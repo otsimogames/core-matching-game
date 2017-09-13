@@ -354,7 +354,7 @@
             }
         },
         {
-            "image": "decline",
+            "image": "line",
             "anchor": {
                 "x": 1,
                 "y": 0.5
@@ -369,7 +369,7 @@
             }
         },
         {
-            "image": "decline",
+            "image": "line",
             "anchor": {
                 "x": 1,
                 "y": 0.5
