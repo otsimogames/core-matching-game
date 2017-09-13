@@ -426,7 +426,7 @@
                 "multiplier": 0.3,
                 "constant": 0
             },
-            "tts": true
+            "tts": false
         },
         "button": {
             "delay": 4200,
