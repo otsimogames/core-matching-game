@@ -146,7 +146,7 @@
         {
             "name": "victorySound",
             "type": "audio",
-            "path": "assets/en/congratulations.mp3"
+            "path": "assets/finish.mp3"
         },
         {
             "name": "congSound",
@@ -336,7 +336,7 @@
         }
     },
     "custom_announce_color": "#CC3366",
-    "background_image": "back_pattern",
+    "background_image": "background",
     "decoration": [
         {
             "image": "stroke",

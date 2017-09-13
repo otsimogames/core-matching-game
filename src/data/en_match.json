@@ -148,12 +148,12 @@
         {
             "name": "victorySound",
             "type": "audio",
-            "path": "assets/en/congratulations.mp3"
+            "path": "assets/finish.mp3"
         },
         {
             "name": "congSound",
             "type": "audio",
-            "path": "assets/tebrikler.mp3"
+            "path": "assets/en/congratulations.mp3"
         }
     ],
     "game": {
@@ -442,11 +442,11 @@
         }
     },
     "ending_scene": {
-        "victory_sound": "congratulations",
+        "victory_sound": "victorySound",
         "duration": 1000,
         "text": {
             "text": "Congratulations",
-            "sound": "congratulations",
+            "sound": "congSound",
             "style": {
                 "strokeThickness": 18,
                 "stroke": "#FFFFFF",
