@@ -41,7 +41,9 @@ export default class Load extends Phaser.State {
       if (asset.type === 'atlas') {
         loader.atlas(asset.name, asset.path, asset.data);
       } else {
-        loader[asset.type](asset.name, asset.path);
+        if (asset.type != 'metadata') {
+          loader[asset.type](asset.name, asset.path);
+        }
       }
     }
   }
