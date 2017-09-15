@@ -7,13 +7,12 @@ before_install:
 # generate locale datas
 after_install:
     - yarn run build
-deploy:
+deploy: 
     - |
-    BUILD_ENV=""
-    if [ "$OTSIMO_DEPLOY_TYPE" = "staging" ];then
-        BUILD_ENV="--staging"
-    fi
-    otsimoctl --debug ${BUILD_ENV} game publish --release --dir ./dist
-
+        BUILD_ENV=""
+        if [ "$OTSIMO_DEPLOY_TYPE" = "staging" ];then
+            BUILD_ENV="--staging"
+        fi
+        otsimoctl --debug ${BUILD_ENV} game publish --release --dir ./dist
 before_preview:
     - echo "Preview"
