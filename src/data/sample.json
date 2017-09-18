@@ -58,6 +58,11 @@
     },
     "preload": [
         {
+            "name": "load_bar",
+            "type": "image",
+            "path": "assets/load_bar.png"
+        },
+        {
             "name": "gif",
             "type": "video",
             "path": "assets/gif.mp4"
@@ -474,5 +479,9 @@
                 "constant": 0
             }
         }
+    },
+    "loading_bar": {
+        "color": "#ff9999",
+        "sprite": "load_bar"
     }
 }
