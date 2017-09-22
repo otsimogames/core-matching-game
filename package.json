@@ -24,6 +24,7 @@
     "devDependencies": {
         "babel-core": "^6.26.0",
         "babel-loader": "^7.1.2",
+        "babel-plugin-inline-import-data-uri-otsimo": "^1.0.0",
         "babel-plugin-transform-es5-property-mutators": "^6.24.1",
         "babel-plugin-transform-object-assign": "^6.22.0",
         "babel-polyfill": "^6.26.0",
