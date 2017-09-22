@@ -1,6 +1,16 @@
-
+import LoadingBar from '../prefabs/loadingBar'
 export default class Load extends Phaser.State {
   preload() {
+    const bar = new LoadingBar({
+      game: this.game,
+      bar_width: this.game.width * 0.3,
+      bar_height: this.game.height * 0.15,
+      bar_left_x: this.game.width * 0.35,
+      bar_left_y: this.game.height * 0.425
+    });
+    bar.createSprite();
+    this.bar = bar;
+
     const loadingMessage = otsimo.kv.loadingText
     const loadingFont = otsimo.kv.loadingFont
     const loadingColor = otsimo.kv.loadingColor
@@ -8,8 +18,8 @@ export default class Load extends Phaser.State {
     this.game.sound.mute = !otsimo.sound
     this.game.stage.backgroundColor = otsimo.kv.loadingBackground;
 
-    const loading = this.game.add.text(this.game.world.centerX, this.game.world.centerY, loadingMessage, { font: loadingFont, fill: loadingColor });
-    loading.anchor.setTo(0.5, 0.5);
+    //const loading = this.game.add.text(this.game.world.centerX, this.game.world.centerY, loadingMessage, { font: loadingFont, fill: loadingColor });
+    //loading.anchor.setTo(0.5, 0.5);
     this.loadAssets();
   }
 
@@ -31,7 +41,10 @@ export default class Load extends Phaser.State {
     if (otsimo.kv.game.correct_sound) {
       otsimo.correctSound = this.game.add.audio(otsimo.kv.game.correct_sound);
     }
-    this.game.state.start('Home');
+    // wait for a little while after the loading bar is full
+    setTimeout(() => {
+      this.game.state.start('Home');
+    }, 600);
   }
 
   loadAssets() {
@@ -46,6 +59,10 @@ export default class Load extends Phaser.State {
         }
       }
     }
+  }
+
+  loadUpdate() {
+    this.bar.update(this.load.progress)
   }
 }
 

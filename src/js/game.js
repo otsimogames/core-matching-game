@@ -49,7 +49,7 @@ otsimo.run(function () {
       otsimo.weighter = new Weighter(new LocalProvider())
     }
   }
-  game.state.start('Load');
+  game.state.start('Boot');
 });
 
 otsimo.init({width: 1024, height: 576 });
