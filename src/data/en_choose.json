@@ -447,5 +447,9 @@
     },
     "tts_voices": [
         "com.apple.ttsbundle.Samantha-compact"
-    ]
+    ],
+    "loading_bar": {
+        "color": "#ff9999",
+        "sprite": "load_bar"
+    }
 }

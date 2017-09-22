@@ -488,5 +488,9 @@
                 "constant": 0
             }
         }
+    },
+    "loading_bar": {
+        "color": "#ff9999",
+        "sprite": "load_bar"
     }
 }
