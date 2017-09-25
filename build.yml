@@ -9,10 +9,20 @@ after_install:
     - yarn run build
 deploy: 
     - |
-        BUILD_ENV=""
+        BUILD_ENV="${BUILD_ENV:-}"
+        PUBLISH_CONFIG="${PUBLISH_CONFIG:-}"
         if [ "$OTSIMO_DEPLOY_TYPE" = "staging" ];then
-            BUILD_ENV="--staging"
+            BUILD_ENV="${BUILD_ENV} --staging"
+            if [ ! "$OTSIMOCTL_API_KEY_STAGING" = "" ];then
+                export OTSIMOCTL_API_KEY="$OTSIMOCTL_API_KEY_STAGING"
+            fi 
         fi
-        otsimoctl --debug ${BUILD_ENV} game publish --release --dir ./dist
+        if [ "$OTSIMO_SKIP_PREFLIGHT_CHECKS" = "1" ];then
+            PUBLISH_CONFIG="${PUBLISH_CONFIG} --skip-preflight-checks"
+        fi 
+        if [ "$OTSIMO_DRY_RUN" = "1" ];then
+            PUBLISH_CONFIG="${PUBLISH_CONFIG} --dry-run"
+        fi 
+        otsimoctl --debug ${BUILD_ENV} game publish --release --dir ./dist ${PUBLISH_CONFIG}
 before_preview:
     - echo "Preview"
