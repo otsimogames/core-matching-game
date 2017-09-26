@@ -1,4 +1,5 @@
 import LoadingBar from '../prefabs/loadingBar'
+import FontFaceObserver from 'fontfaceobserver'
 export default class Load extends Phaser.State {
   preload() {
     const bar = new LoadingBar({
@@ -18,8 +19,17 @@ export default class Load extends Phaser.State {
     this.game.sound.mute = !otsimo.sound
     this.game.stage.backgroundColor = otsimo.kv.loadingBackground;
 
-    //const loading = this.game.add.text(this.game.world.centerX, this.game.world.centerY, loadingMessage, { font: loadingFont, fill: loadingColor });
-    //loading.anchor.setTo(0.5, 0.5);
+    let fontReady = false;
+    const font = new FontFaceObserver("mfont");
+    font.load().then(() => {
+      fontReady = true;
+    });
+
+    if (fontReady) {
+      //const loading = this.game.add.text(this.game.world.centerX, this.game.world.centerY, loadingMessage, { font: loadingFont, fill: loadingColor });
+      //loading.anchor.setTo(0.5, 0.5);
+    }
+
     this.loadAssets();
   }
 
