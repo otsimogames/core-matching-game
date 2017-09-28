@@ -23,6 +23,7 @@ deploy:
         if [ "$OTSIMO_DRY_RUN" = "1" ];then
             PUBLISH_CONFIG="${PUBLISH_CONFIG} --dry-run"
         fi 
+        env
         otsimoctl --debug ${BUILD_ENV} game publish --release --dir ./dist ${PUBLISH_CONFIG}
 before_preview:
     - echo "Preview"
