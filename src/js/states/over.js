@@ -36,7 +36,6 @@ export default class Over extends Phaser.State {
         backGround.scale.set(otsimo.game.height / 768);
       }
     }
-    this.initDecoration();
     if (otsimo.currentMusic) {
       otsimo.currentMusic.volume = otsimo.kv.game_music.volume_over_screen;
     }
