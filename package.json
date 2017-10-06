@@ -21,7 +21,8 @@
         "start": "webpack-dev-server --progress --profile --colors --config webpack.config.js",
         "production": "yarn run build && otsimoctl --debug game publish --release --dir dist",
         "staging": "yarn run build && otsimoctl --debug -s game publish --release --dir dist",
-        "protobuf":"sh builder/proto.sh"
+        "protobuf": "sh builder/proto.sh",
+        "generate": "ts-node --project builder builder/generator.ts "
     },
     "devDependencies": {
         "babel-core": "^6.26.0",
@@ -39,6 +40,8 @@
         "protobufjs": "^6.8.0",
         "require-dir": "^0.3.0",
         "run-sequence": "^1.1.5",
+        "ts-node": "^3.3.0",
+        "typescript": "^2.5.3",
         "url-loader": "^0.5.9",
         "vinyl-buffer": "^1.0.0",
         "vinyl-source-stream": "^1.1.0",

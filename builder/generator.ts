@@ -1,14 +1,12 @@
-const pb = require('./pb');
 const http = require('https');
-
+import * as pb from './pb';
 
 /**
  * Download file by given url
  * returns buffer object
- * @param {string} url 
  */
-async function getFile(url) {
-  return new Promise((resolve, reject) => {
+async function getFile(url: string) {
+  return new Promise<Buffer>((resolve, reject) => {
     http.get(url, (resp) => {
       const data = []; // List of Buffer objects
       resp.on('data', function (chunk) {
@@ -25,10 +23,19 @@ async function getFile(url) {
 }
 
 /**
+ * 
+ * 
+ * @param {otsimo.GameBuild} d 
+ */
+function buildProject(task: pb.otsimo.IBuildTask, game: pb.otsimo.GameBuild) {
+  console.log('build project')
+}
+
+/**
  * Get build data from given url string
  * @param {string} url 
  */
-async function fetchBuildData(url) {
+async function fetchBuildData(url: string) {
   const data = await getFile(url);
   return pb.otsimo.GameBuild.decode(data)
 }
@@ -37,8 +44,18 @@ async function run({ buildId = '', debug = false, customInGameData = false, buck
   console.log('start to building', buildId, 'debug:', debug, 'customInGameData', customInGameData)
   const buildDataURL = `https://s3-eu-west-1.amazonaws.com/${bucket}/${folder}/${buildId}`
   const data = await fetchBuildData(buildDataURL)
-  
-  console.log(JSON.stringify(data.toJSON(), null, '  '))
+  for (const t of data.tasks) {
+    if (t.build) {
+      buildProject(t.build, data);
+    }
+  }
+  for (const t of data.tasks) {
+    if (t.deploy) {
+      console.log('deploy project')
+    } else if (t.preview) {
+      console.log('preview project')
+    }
+  }
 }
 
 function main() {
@@ -46,7 +63,7 @@ function main() {
   const stdInGame = !!process.env['CUSTOM_IN_GAME_DATA']
   run({
     buildId: process.env['OTSIMO_BUILD_ID'],
-    custom_in_game_data: stdInGame,
+    customInGameData: stdInGame,
     debug: debug,
     bucket: process.env['OTSIMO_BUCKET'],
     folder: process.env['OTSIMO_FOLDER']
@@ -63,7 +80,7 @@ if (typeof process.env['OTSIMO_IN_K8S'] !== 'undefined') {
   console.log(process.argv);
   run({
     buildId: process.argv[2],
-    custom_in_game_data: false,
+    customInGameData: false,
     debug: true,
     bucket: 'otsimo-games',
     folder: 'd'
