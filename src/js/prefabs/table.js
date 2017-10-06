@@ -5,7 +5,7 @@ const HIDING_FADE = 'fade';
 const HIDING_MOVE = 'move';
 
 export default class Table extends Phaser.Group {
-  constructor({game, direction, items, enableInput}) {
+  constructor({ game, direction, items, enableInput }) {
     super(game);
     this.items = items;
     this.direction = direction;
@@ -24,12 +24,14 @@ export default class Table extends Phaser.Group {
   }
 
   layoutHorizontal() {
-    const layout = otsimo.kv.layout;
-
+    let layout = otsimo.kv.new_layout;
+    if (otsimo.kv.game.hasOwnProperty("layout_type") && otsimo.kv.game.layout_type != "") {
+      layout = otsimo.kv[otsimo.kv.game.layout_type + "_layout"];
+    }
     const gw = otsimo.game.width * layout.horizontal.width.multiplier + layout.horizontal.width.constant;
 
     const is = layout.fixed_size
-      ? otsimo.kv.layout.max_item
+      ? layout.max_item
       : this.items.length;
 
     const w = gw / (is + 1);
@@ -73,10 +75,13 @@ export default class Table extends Phaser.Group {
   }
 
   layoutVertical() {
-    const layout = otsimo.kv.layout;
+    let layout = otsimo.kv.new_layout;
+    if (otsimo.kv.game.hasOwnProperty("layout_type") && otsimo.kv.game.layout_type != "") {
+      layout = otsimo.kv[otsimo.kv.game.layout_type + "_layout"];
+    }
     const gh = otsimo.game.height * layout.vertical.height.multiplier + layout.vertical.height.constant;
     const is = layout.fixed_size
-      ? otsimo.kv.layout.max_item
+      ? layout.max_item
       : this.items.length;
 
     const h = gh / (is + 1);
@@ -189,7 +194,7 @@ export default class Table extends Phaser.Group {
     }
   }
 
-  relayout({delay}) {
+  relayout({ delay }) {
     if (this.direction == 'vertical') {
       this.relayoutVertical(delay)
     } else {
@@ -198,13 +203,16 @@ export default class Table extends Phaser.Group {
   }
 
   relayoutHorizontal(delay) {
-    const layout = otsimo.kv.layout;
+    let layout = otsimo.kv.new_layout;
+    if (otsimo.kv.game.hasOwnProperty("layout_type") && otsimo.kv.game.layout_type != "") {
+      layout = otsimo.kv[otsimo.kv.game.layout_type + "_layout"];
+    }
     const gw = otsimo.game.width * layout.horizontal.width.multiplier + layout.horizontal.width.constant;
 
     const vis = this.boxes.filter(b => !b.hidden).length
 
     const is = layout.fixed_size
-      ? otsimo.kv.layout.max_item
+      ? layout.max_item
       : (vis + 0.5);
 
     const w = gw / (is + 1);
@@ -239,13 +247,16 @@ export default class Table extends Phaser.Group {
   }
 
   relayoutVertical(delay) {
-    const layout = otsimo.kv.layout;
+    let layout = otsimo.kv.new_layout;
+    if (otsimo.kv.game.hasOwnProperty("layout_type") && otsimo.kv.game.layout_type != "") {
+      layout = otsimo.kv[otsimo.kv.game.layout_type + "_layout"];
+    }
     const gh = otsimo.game.height * layout.vertical.height.multiplier + layout.vertical.height.constant;
 
     const vis = this.boxes.filter(b => !b.hidden).length
 
     const is = layout.fixed_size
-      ? otsimo.kv.layout.max_item
+      ? layout.max_item
       : (vis + 0.5);
 
     const h = gh / (is + 1);

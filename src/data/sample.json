@@ -15,13 +15,14 @@
     "loadingFont": "60px mfont",
     "loadingBackground": "#18B9F2",
     "loadingColor": "#fff",
-    "announceText": "Choose %s",
+    "announceText": "Match the %s",
     "custom_announce_color": "",
     "background_image": "background",
     "announceTextStyle": {
         "strokeThickness": 4,
         "stroke": "#FFFFFF",
-        "font": "65px mfont",
+        "font": "98px mfont",
+        "line-height": "98px",
         "align": "center"
     },
     "name_shadow": {
@@ -194,6 +195,7 @@
         }
     ],
     "game": {
+        "layout_type": "",
         "easy_size": 2,
         "medium_size": 3,
         "hard_size": 4,
@@ -201,7 +203,7 @@
         "answer_type": "match",
         "add_outline": false,
         "outline_image": "stroke",
-        "session_step": 2,
+        "session_step": 1,
         "step_score": 5,
         "question_from": "items",
         "answers_from": "items",
@@ -228,7 +230,7 @@
             "com.apple.ttsbundle.Samantha-compact"
         ]
     },
-    "layout": {
+    "old_layout": {
         "fixed_size": false,
         "max_item": 4,
         "cell_anchor": {
@@ -241,7 +243,7 @@
                 "constant": 0
             },
             "y": {
-                "multiplier": 0.5,
+                "multiplier": 1,
                 "constant": 0
             }
         },
@@ -253,6 +255,48 @@
             "x": {
                 "multiplier": 1,
                 "constant": -100
+            }
+        },
+        "answer_box": {
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 0.3,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        }
+    },
+    "new_layout": {
+        "fixed_size": true,
+        "max_item": 4,
+        "cell_anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "horizontal": {
+            "width": {
+                "multiplier": 1,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 1,
+                "constant": 0
+            }
+        },
+        "vertical": {
+            "height": {
+                "multiplier": 1,
+                "constant": 0
+            },
+            "x": {
+                "multiplier": 1,
+                "constant": -175
             }
         },
         "answer_box": {
@@ -435,7 +479,7 @@
         "victory_sound": "victorySound",
         "duration": 1000,
         "text": {
-            "text": "Tebrikler",
+            "text": "Congrats",
             "sound": "congSound",
             "tts": true,
             "style": {
@@ -444,11 +488,11 @@
                 "font": "98px mfont",
                 "fill": "#00FF22",
                 "align": "center",
-                "maxLines": 2,
+                "maxLines": 5,
                 "wordWrap": true,
                 "wordWrapWidth": 960,
                 "boundsAlignH": "center",
-                "boundsAlignV": "top"
+                "boundsAlignV": "center"
             },
             "anchor": {
                 "x": 0.5,

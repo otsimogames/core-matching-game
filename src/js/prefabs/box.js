@@ -7,7 +7,7 @@
  * @extends {Phaser.Sprite}
  */
 export default class Box extends Phaser.Sprite {
-  constructor({game, x, y, item}) {
+  constructor({ game, x, y, item }) {
     super(game, x, y, item.image)
     this.item = item;
     this.name = item.text;
@@ -117,8 +117,11 @@ export default class Box extends Phaser.Sprite {
     this.stopDrag()
   }
 
-  static answerBox({item, table}) {
-    const layout = otsimo.kv.layout.answer_box;
+  static answerBox({ item, table }) {
+    let layout = otsimo.kv.new_layout.answer_box;
+    if (otsimo.kv.game.hasOwnProperty("layout_type") && otsimo.kv.game.layout_type != "") {
+      layout = otsimo.kv[otsimo.kv.game.layout_type + "_layout"].answer_box;
+    }
     const visY = (otsimo.game.height * layout.y.multiplier) + layout.y.constant;
     const visX = (otsimo.game.width * layout.x.multiplier) + layout.x.constant;
 
