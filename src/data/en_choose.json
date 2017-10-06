@@ -216,6 +216,90 @@
             "com.apple.ttsbundle.Samantha-compact"
         ]
     },
+    "new_layout": {
+        "fixed_size": false,
+        "max_item": 4,
+        "cell_anchor": {
+            "x": 1,
+            "y": 0.5
+        },
+        "horizontal": {
+            "width": {
+                "multiplier": 0.7,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 1,
+                "constant": 0
+            }
+        },
+        "vertical": {
+            "height": {
+                "multiplier": 0.8,
+                "constant": 0
+            },
+            "x": {
+                "multiplier": 1,
+                "constant": -100
+            }
+        },
+        "answer_box": {
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 0.3,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        }
+    },
+    "old_layout": {
+        "fixed_size": false,
+        "max_item": 4,
+        "cell_anchor": {
+            "x": 1,
+            "y": 0.5
+        },
+        "horizontal": {
+            "width": {
+                "multiplier": 0.7,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 1,
+                "constant": 0
+            }
+        },
+        "vertical": {
+            "height": {
+                "multiplier": 0.8,
+                "constant": 0
+            },
+            "x": {
+                "multiplier": 1,
+                "constant": -100
+            }
+        },
+        "answer_box": {
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 0.3,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        }
+    },
     "layout": {
         "fixed_size": false,
         "max_item": 4,
