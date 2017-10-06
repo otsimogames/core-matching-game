@@ -1,0 +1,329 @@
+syntax = "proto3";
+package otsimo;
+
+option go_package = "assetpb";
+option objc_class_prefix = "OTS";
+option java_package = "com.otsimo.grpc";
+option java_multiple_files = true;
+
+/*
+RFC-001: Asset/Material Service
+
+Models:
+With this service there will be (currently) four types objects: App, Material, Component(or property) and FileAsset
+
+App: an app can be an app! or a game. Purpose of an app is teach people with educational materials. So
+each app contains lots of materials to teach.
+
+Material: a material contains lots of components which are the properties of this material. For example 'car' is a material,
+and text 'Car' is a component with key='name'. A material can be used in any app if it is compatible.
+
+Component: components are compulsory items that describes a material. A material contains lots of components. Components are
+necessary items to localize materials and games. For example, 'Car' material will have two components with key='name' one of
+them's value is 'Car' and another is 'Araba' for Turkish.
+
+FileAsset: an app asset like image, audio, font, file.
+
++------------------------+  +------------------------+  +-------------------+
+|  APP/GAME              |  |  MATERIAL              |  |  COMPONENT        |
++------------------------+  +------------------------+  +-------------------+
+|Component:Name/TR       |  |Name:                   |  |Description:       |
+|Component:Name/EN       |  |Labels:                 |  |Type:              |
+|Component:Settings/TR   |  +------------------------+  |Key:               |
+|Component:Settings/EN   |  |Comp:Image/EN           |  |Value:             |
+|Material Description    |  |Comp:Image/TR  1        |  |Locales:           |
+|                        |  |Comp:Image/TR  2        |  |Labels:            |
+|                        |  |Comp:XAudio/EN          |  |                   |
+|                        |  |Comp:XAudio/TR          |  |                   |
+|                        |  |Comp:Text/EN            |  |                   |
+|                        |  |Comp:Text/ES            |  |                   |
+|                        |  |Comp:<key>/<locale>     |  |                   |
++------------------------+  +------------------------+  +-------------------+
+
+Creating A Game:
+A game has a requirements for materials. For example a drawing game needs materials which has component with
+key='steps' and type 'vector-array'.
+Translation is done with component locales. If a material has all the required components for a game of a language
+than it can be used for that game with that language.
+Adding new languages can be done with community that way.
+
+*/
+
+/*
+TODO: version logic to component,material and app, appSpec
+TODO: improve accessibilty, ex: public read/write...
+TODO: fork/dublicate materials
+TODO: community translations and voting to materials and components, may be like github, pull-request
+TODO: file upload and search
+TODO: priority/score system
+TODO: material relations, ex: writing 'car' text and match 'car' images
+TODO: think RDBMS, how to implement with postgres or mongodb(not rdbms)
+TODO: how apps vendor materials, remote database or download while compiling than store locally? 
+*/
+
+// A label selector operator is the set of operators that can be used in
+// a label selector requirement.
+enum LabelSelectorOperator{
+    In           =0;
+    NotIn        =1;
+    Exists       =2;
+    DoesNotExist =3;
+    Gt           =4;
+    Lt           =5;
+}
+// A label selector requirement is a selector that contains values, a key, and an operator
+// that relates the key and values.
+message LabelSelectorRequirement{
+    // key is the label key that the selector applies to.
+    string key = 1;
+    // operator represents a key's relationship to a set of values.
+    // Valid operators are In, NotIn, Exists, DoesNotExist. Gt, and Lt.
+    LabelSelectorOperator operator = 2;
+    // values is an array of string values. If the operator is In or NotIn,
+    // the values array must be non-empty. If the operator is Exists or DoesNotExist,
+    // the values array must be empty. If the operator is Gt or Lt, the values
+    // array must have a single element, which will be interpreted as an integer.
+    repeated string values = 3;
+}
+// An empty label selector term matches all objects. A null label selector term
+// matches no objects.
+message LabelSelectorTerm{
+    // expressions is a list of label selector requirements. The requirements are ANDed.
+    repeated LabelSelectorRequirement expressions = 1;
+}
+// A label selector represents the union of the results of one or more label queries
+// over a set of labels; that is, it represents the OR of the selectors represented
+// by the labelSelectorTerms.
+message LabelSelector{
+    // terms is a list of label selector terms. The terms are ORed.
+    repeated LabelSelectorTerm terms = 1;
+}
+
+message SimpleLabelSelector{
+    map<string,string> match_labels = 1;
+}
+
+//Point is a 2D vector
+message Point{
+    double x = 1;
+    double y = 2;
+}
+
+message VectorArray{
+    repeated Point points = 1;
+}
+
+message DrawSteps{
+    repeated VectorArray steps = 1;
+}
+
+message AppMetadata{
+    // Visible Name 
+    string visible_name = 2;
+    // Summary is summary of game 
+    string summary = 3;
+    // Description 
+    string description = 4;
+    // Logo is a rectangle image 
+    string logo = 5 ;
+    // Icon is a square image
+    string icon = 6;
+    // Images are image files
+    repeated string images = 7;
+    // Keywords     
+    repeated string keywords = 8;
+    // InfoSlug is the id of the content which describes how to play this game
+    string info_slug = 9;
+}
+
+//TODO: improve Access Mode
+enum AccessMode{
+    PUBLIC = 0;
+    OWNER = 1;
+}
+
+//ComponentType is enumeration for component type like image, audio
+enum ComponentType{
+    TEXT = 0;
+    IMAGE = 1;
+    AUDIO = 2;
+    COLOR = 3;
+    NUMBER = 4;
+    VIDEO = 5 ;
+    FILE = 6;   //font,json,
+    VECTOR_ARRAY = 7;
+    DRAW_STEPS = 8;
+    METADATA = 9;
+    I18N = 10; // i18n backed text
+}
+
+message Component{
+    message Value{
+        oneof value{
+            string str = 1;
+            double number = 2;
+            string url = 3;
+            VectorArray vector = 4;
+            DrawSteps steps = 5;
+            AppMetadata metadata = 6;
+        }
+    }
+    //ID is auto generated component uuid
+    string id = 1;
+    //Description of this component.
+    string description = 2;
+    //Type is component type
+    ComponentType type = 3;    //image,color,audio,text
+    //Key is the key for material, like 'letter_audio' for drawing game.
+    //This field is not unique, there could be more than one component with same key.
+    //If there is more than one key than game will choose one of them randomly.
+    string key = 4;
+    //component value
+    Value value = 5;   //todo(byted and oneof); fileAsset id for image, audio and files
+    //Locales are the locales that supports this component, like 'en','tr' or country
+    //spesific 'en-GB' 'en-US'. If this is empty which means supports all locales.
+    //if the value type is i18n then this locales should come from i18n service.
+    repeated string locales = 6;
+    //Labels for querying components
+    map<string,string> labels = 7;
+    //TODO: AccessMode is determines whether is public or not.
+    AccessMode access_mode = 8;
+    //CreatedBy is the owner of this component. If a material is public then users can
+    //add private components for themselves
+    string created_by = 9;
+    //Is this component disabled
+    bool disabled = 10;
+    int64 created_at = 11;
+    int64 updated_at = 12;
+    //Version is component version that will increase on each update
+    int64 version = 13;
+}
+
+message Material{
+    //ID of the material
+    string id = 1;
+    //Name of the material
+    string name = 2;
+    //Description is explains what is this material and what for
+    string description = 3;
+    //Labels of the material for querying
+    map<string,string> labels = 4;
+    //List of components of this material
+    repeated Component components = 5;
+    //TODO: Version is material version that will increase on each update
+    int64 version = 6;
+    //AccessMode is the access mode of this material. Users can add materials for themself as private or public.
+    //If it is than anyone can add new components. ??What happens if a public material goes to private or disabled.
+    //?? Other component owners situations in that case
+    AccessMode access_mode = 7;
+    //CreatedBy is the owner of this material
+    string created_by = 8;
+    bool disabled = 9;
+    int64 created_at = 10;
+    int64 updated_at = 11;
+}
+
+//FileAsset is an asset like audio and image which we will store at our cloud storage
+message FileAsset{
+    //ID is asset id
+    string id = 1;
+    //Url is publicly accessible url
+    string url = 2;
+    //Name of the asset
+    string name = 3;
+    //Keywords of the asset, will use for search
+    repeated string keywords = 5;
+}
+
+//ComponentSpec defines 
+message ComponentSpec{
+    enum Parent{
+        APP = 0;
+        GROUP = 1;
+    }
+    //Key is the required component key and it is unique for material spec
+    string key = 1;
+    //Type is required component type
+    ComponentType type = 2;
+    //IsAdvanced is boolean for whether this component is advanced or not
+    bool is_advanced = 4;
+    //Parent is the owner of this component spec
+    Parent parent = 5;
+    //TODO default value
+    //LabelSelector
+    oneof label_selector{
+        SimpleLabelSelector simple = 6;
+        LabelSelector advanced = 7;
+    }
+    // Component description to end user
+    string description = 9;    
+}
+
+message LabelSelectorSerializor{
+    oneof label_selector{
+        SimpleLabelSelector simple = 6;
+        LabelSelector advanced = 7;
+    }
+}
+
+message MaterialSelectGroup{
+    string group_name = 1;
+    // Component specifications of the material group
+    // i.e. what's needed to form items, numbers, colors etc
+    repeated ComponentSpec component_specs = 2;
+}
+
+// AppSpec defines an app like Match Game, Choose Game or Drawing Game
+message AppSpec{
+    string id = 1;
+    string name = 2;
+    string repository = 3;
+    //Command is the the docker image of the app
+    string command = 4;
+    //Env is runtime env of command script
+    repeated string env = 5;
+    // Components are the array of component specs for the app itself
+    // This does not include the specs for material groups
+    repeated ComponentSpec components = 6;
+    // Selects is an array of component_specs for
+    // every individual material group in this app
+    repeated MaterialSelectGroup selects = 9;
+    //CreatedBy is the owner of this AppSpec
+    string created_by = 10;
+    bool disabled = 11;
+    int64 created_at = 12;
+    int64 updated_at = 13;
+}
+
+message AppMaterialGroup{
+    string group_name = 1;
+    repeated string material_ids = 2;
+    string spec_group = 3;
+}
+
+message AppMaterialGroupSerializor{
+    repeated AppMaterialGroup app_material_groups = 1;
+}
+
+// App is an app like 'Color Match Game' based on 'Match Game Spec'
+message App {
+    //ID of the App
+    string id = 1;
+    //Spec is the app's spec
+    string spec = 2;
+    //Name of the App
+    string name = 3;
+    //Components is list of components that compatible with appSpec's components definition
+    repeated Component components = 4;
+    //MaterialIDs is ids of the material that are compatible with appSpec Definition
+    repeated AppMaterialGroup material_groups = 5;
+    //Env is appends to AppSpec.env
+    repeated string env = 6;
+    //CreatedBy is the owner of this material
+    string created_by = 9;
+    bool disabled = 10;
+    int64 created_at = 11;
+    int64 updated_at = 12;
+    map<string,string> labels = 13;
+    string build_version = 14;
+}

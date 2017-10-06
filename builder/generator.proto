@@ -1,0 +1,67 @@
+syntax = "proto3";
+package otsimo;
+import "asset.proto";
+
+option go_package = "assetpb";
+
+// GameBuild describes game that will be generated
+//
+// The builder service uploads a GameBuild which then can be used for generating
+// with the stated tasks. Also the language-specific versions of the game components
+// and materials are provided after the compile operation
+message GameBuild{
+    string build_id = 1;
+    repeated Task tasks = 2;
+    App app = 3;
+    AppSpec spec = 4;
+    repeated GameLocale locales = 5;
+}
+
+// Task for generator to work on
+message Task{
+    oneof task {
+        BuildTask build = 1;
+        DeployTask deploy = 2;
+        PreviewTask preview = 3;
+    }
+}
+
+// BuildTask describes the purpose and the input (repo), output paths
+//
+// Environments and command are used for calls to the executable; also the branch, from
+// which the system clones, is passed for potentially different build purposes
+message BuildTask{
+    string command = 1;
+    repeated string env = 2;
+    string git_repo = 3;
+    string git_branch = 4;
+}
+
+// DeployTask specifies which cluster will be used for deployment
+message DeployTask{
+    string type = 1;
+}
+
+// PreviewTask contains where the preview upload will take place
+message PreviewTask{
+    string upload_bucket = 1;
+    string upload_folder = 2;
+}
+
+// GameLocale spcifies material groups and app components for each language
+//
+// The groups and components are fetched from localization or
+// regarding their language
+message GameLocale{
+    string language = 1;
+    repeated MaterialGroup groups = 2;
+    repeated Component components = 3;
+}
+
+// MaterialGroup represents the corresponding materials for each group
+message MaterialGroup{
+    string name = 1;
+    repeated Material materials = 2;
+    string spec_group = 3;
+}
+
