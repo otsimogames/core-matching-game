@@ -451,7 +451,7 @@
         "fixed_size": false,
         "max_item": 4,
         "cell_anchor": {
-            "x": 1,
+            "x": 0.5,
             "y": 0.5
         },
         "horizontal": {
@@ -460,7 +460,7 @@
                 "constant": 0
             },
             "y": {
-                "multiplier": 1,
+                "multiplier": 0.5,
                 "constant": 0
             }
         },
@@ -493,7 +493,7 @@
         "fixed_size": false,
         "max_item": 4,
         "cell_anchor": {
-            "x": 1,
+            "x": 0.5,
             "y": 0.5
         },
         "horizontal": {
@@ -502,7 +502,7 @@
                 "constant": 0
             },
             "y": {
-                "multiplier": 1,
+                "multiplier": 0.5,
                 "constant": 0
             }
         },
