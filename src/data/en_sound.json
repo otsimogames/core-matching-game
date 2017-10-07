@@ -15,7 +15,7 @@
     "loadingFont": "60px mfont",
     "loadingBackground": "#18B9F2",
     "loadingColor": "#fff",
-    "announceText": "Show the %s",
+    "announceText": "Which animal makes this sound?",
     "custom_announce_color": "#CC3366",
     "background_image": "background",
     "announceTextStyle": {
