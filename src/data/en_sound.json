@@ -1,0 +1,487 @@
+{
+    "settings/difficulty/title": "Difficulty",
+    "settings/difficulty/description": "difficulty of the game",
+    "settings/difficulty/keys/easy/title": "Easy",
+    "settings/difficulty/keys/easy/description": "easy",
+    "settings/difficulty/keys/medium/title": "Medium",
+    "settings/difficulty/keys/medium/description": "medium",
+    "settings/difficulty/keys/hard/title": "Hard",
+    "settings/difficulty/keys/hard/description": "hard",
+    "settings/show_hint/title": "Show Hint",
+    "settings/show_hint/description": "Show hint",
+    "settings/hint_duration/title": "Hint Duration",
+    "settings/hint_duration/description": "Hint duration",
+    "loadingText": "Loading...",
+    "loadingFont": "60px mfont",
+    "loadingBackground": "#18B9F2",
+    "loadingColor": "#fff",
+    "announceText": "Show the %s",
+    "custom_announce_color": "#CC3366",
+    "background_image": "background",
+    "announceTextStyle": {
+        "strokeThickness": 10,
+        "stroke": "#FFFFFF",
+        "font": "65px mfont",
+        "align": "center"
+    },
+    "gameNameLayout": {
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "x": {
+            "multiplier": 0.5,
+            "constant": 0
+        },
+        "y": {
+            "multiplier": 0.35,
+            "constant": 0
+        }
+    },
+    "gameNameTextStyle": {
+        "strokeThickness": 18,
+        "stroke": "#FFFFFF",
+        "font": "98px mfont",
+        "fill": "#00FF22",
+        "align": "center",
+        "maxLines": 2,
+        "wordWrap": true,
+        "wordWrapWidth": 960,
+        "boundsAlignH": "center",
+        "boundsAlignV": "top"
+    },
+    "preload": [
+        {
+            "name": "gif",
+            "type": "video",
+            "path": "assets/gif.mp4"
+        },
+        {
+            "name": "gray",
+            "type": "image",
+            "path": "assets/gray.png"
+        },
+        {
+            "name": "background",
+            "type": "image",
+            "path": "assets/background.png"
+        },
+        {
+            "name": "line",
+            "type": "image",
+            "path": "assets/line.png"
+        },
+        {
+            "name": "stroke",
+            "type": "image",
+            "path": "assets/stroke.png"
+        },
+        {
+            "name": "playButton",
+            "type": "image",
+            "path": "assets/en/play.png"
+        },
+        {
+            "name": "back",
+            "type": "image",
+            "path": "assets/back.png"
+        },
+        {
+            "name": "white_box",
+            "type": "image",
+            "path": "assets/white_box.png"
+        },
+        {
+            "name": "particle",
+            "type": "image",
+            "path": "assets/particle.png"
+        },
+        {
+            "name": "hand",
+            "type": "image",
+            "path": "assets/hand.png"
+        },
+        {
+            "name": "congratulations",
+            "type": "audio",
+            "path": "assets/en/congratulations.mp3"
+        },
+        {
+            "name": "applause",
+            "type": "audio",
+            "path": "assets/applause.mp3"
+        },
+        {
+            "name": "welcome",
+            "type": "audio",
+            "path": "assets/en/welcome.wav"
+        },
+        {
+            "name": "try_again",
+            "type": "audio",
+            "path": "assets/en/try_again.wav"
+        },
+        {
+            "name": "blue_audio",
+            "type": "audio",
+            "path": "assets/en/blue.mp3"
+        },
+        {
+            "name": "blue_question",
+            "type": "audio",
+            "path": "assets/en/show_blue.mp3"
+        },
+        {
+            "name": "ballon_body",
+            "type": "image",
+            "path": "assets/ballon/ballon_body.png"
+        },
+        {
+            "name": "ballon_light",
+            "type": "image",
+            "path": "assets/ballon/ballon_light.png"
+        },
+        {
+            "name": "ballon_rope",
+            "type": "image",
+            "path": "assets/ballon/ballon_rope.png"
+        },
+        {
+            "name": "ballon_star",
+            "type": "image",
+            "path": "assets/ballon/ballon_star.png"
+        },
+        {
+            "name": "star",
+            "type": "image",
+            "path": "assets/star.png"
+        },
+        {
+            "name": "backmusic",
+            "type": "audio",
+            "path": "assets/bg.mp3"
+        },
+        {
+            "name": "balonpop",
+            "type": "audio",
+            "path": "assets/balon.mp3"
+        },
+        {
+            "name": "clickSound",
+            "type": "audio",
+            "path": "assets/click.mp3"
+        },
+        {
+            "name": "victorySound",
+            "type": "audio",
+            "path": "assets/finish.mp3"
+        },
+        {
+            "name": "congSound",
+            "type": "audio",
+            "path": "assets/en/congratulations.mp3"
+        }
+    ],
+    "game": {
+        "easy_size": 2,
+        "medium_size": 3,
+        "hard_size": 4,
+        "answer_type": "sound",
+        "add_outline": false,
+        "outline_image": "top_box",
+        "session_step": 10,
+        "step_score": 5,
+        "question_from": "items",
+        "answers_from": "items",
+        "hint_type": "jump",
+        "hide_item_on": 1,
+        "hiding_type": "fade",
+        "hiding_fade_alpha": 0.2,
+        "hiding_fade_duration": 200,
+        "hiding_move_duration": 300,
+        "table_show_duration": 400,
+        "table_leave_duration": 600,
+        "hint_jump_duration": 200,
+        "hint_hand_duration": 400,
+        "balloon_options": {
+            "count": 15,
+            "luminosity": "bright"
+        },
+        "balloon_sound": "balonpop",
+        "correct_sound": "applause",
+        "click_sound": "clickSound",
+        "hint_hand_match_duration": 900,
+        "init_tts": true,
+        "tts_voices": [
+            "com.apple.ttsbundle.Samantha-compact"
+        ]
+    },
+    "new_layout": {
+        "fixed_size": false,
+        "max_item": 4,
+        "cell_anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "horizontal": {
+            "width": {
+                "multiplier": 0.7,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        },
+        "vertical": {
+            "height": {
+                "multiplier": 0.8,
+                "constant": 0
+            },
+            "x": {
+                "multiplier": 1,
+                "constant": -100
+            }
+        },
+        "answer_box": {
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 0.3,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        }
+    },
+    "old_layout": {
+        "fixed_size": false,
+        "max_item": 4,
+        "cell_anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "horizontal": {
+            "width": {
+                "multiplier": 0.7,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        },
+        "vertical": {
+            "height": {
+                "multiplier": 0.8,
+                "constant": 0
+            },
+            "x": {
+                "multiplier": 1,
+                "constant": -100
+            }
+        },
+        "answer_box": {
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 0.3,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        }
+    },
+    "layout": {
+        "fixed_size": false,
+        "max_item": 4,
+        "cell_anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "horizontal": {
+            "width": {
+                "multiplier": 0.7,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        },
+        "vertical": {
+            "height": {
+                "multiplier": 0.8,
+                "constant": 0
+            },
+            "x": {
+                "multiplier": 1,
+                "constant": -100
+            }
+        },
+        "answer_box": {
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 0.3,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        }
+    },
+    "items": [
+        {
+            "id": "blue",
+            "kind": "blue",
+            "audio": "blue_audio",
+            "question_choose": "blue_question",
+            "tint": "0x0000FF",
+            "text": "Blue",
+            "image": "white_box",
+            "outline": "white_box",
+            "tts": false
+        },
+        {
+            "id": "red",
+            "kind": "red",
+            "audio": "blue_audio",
+            "question_choose": "blue_question",
+            "tint": "0xFF0000",
+            "text": "Red",
+            "image": "white_box",
+            "tts": false
+        },
+        {
+            "id": "yellow",
+            "kind": "yellow",
+            "audio": "blue_audio",
+            "question_choose": "blue_question",
+            "tint": "0xFFFF00",
+            "text": "Yellow",
+            "image": "white_box",
+            "tts": false
+        },
+        {
+            "id": "green",
+            "kind": "green",
+            "audio": "blue_audio",
+            "question_choose": "blue_question",
+            "tint": "0x00FF00",
+            "text": "Green",
+            "image": "white_box",
+            "tts": false
+        },
+        {
+            "id": "black",
+            "kind": "black",
+            "audio": "blue_audio",
+            "question_choose": "blue_question",
+            "tint": "0x000000",
+            "text": "Black",
+            "image": "white_box",
+            "tts": false
+        }
+    ],
+    "decoration": [],
+    "play_background_color": "#F49AC2",
+    "home_background_color": "#F49AC2",
+    "over_background_color": "#F49AC2",
+    "name_shadow": {
+        "x": 4,
+        "y": 4,
+        "color": "rgba(0,0,0,0.2)",
+        "blur": 4
+    },
+    "game_music": {
+        "music": "backmusic",
+        "volume": 1,
+        "loop": true,
+        "volume_load_screen": 1,
+        "volume_home_screen": 1,
+        "volume_play_screen": 0.3,
+        "volume_over_screen": 1
+    },
+    "homePlayButton": {
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "x": {
+            "multiplier": 0.5,
+            "constant": 0
+        },
+        "y": {
+            "multiplier": 0.7,
+            "constant": 0
+        }
+    },
+    "ending_scene": {
+        "victory_sound": "victorySound",
+        "duration": 1000,
+        "text": {
+            "text": "Congratulations",
+            "sound": "congSound",
+            "style": {
+                "strokeThickness": 18,
+                "stroke": "#FFFFFF",
+                "font": "98px mfont",
+                "fill": "#00FF22",
+                "align": "center",
+                "maxLines": 2,
+                "wordWrap": true,
+                "wordWrapWidth": 960,
+                "boundsAlignH": "center",
+                "boundsAlignV": "top"
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 0.5,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.3,
+                "constant": 0
+            },
+            "tts": false
+        },
+        "button": {
+            "delay": 4200,
+            "image": "playButton",
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 0.5,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.7,
+                "constant": 0
+            }
+        }
+    },
+    "tts_voices": [
+        "com.apple.ttsbundle.Samantha-compact"
+    ],
+    "loading_bar": {
+        "color": "#ff9999",
+        "sprite": "load_bar"
+    }
+}
