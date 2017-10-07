@@ -200,7 +200,7 @@
         "medium_size": 3,
         "hard_size": 4,
         "show_home_screen": false,
-        "answer_type": "match",
+        "answer_type": "sound",
         "add_outline": false,
         "outline_image": "stroke",
         "session_step": 1,
@@ -234,7 +234,7 @@
         "fixed_size": false,
         "max_item": 4,
         "cell_anchor": {
-            "x": 1,
+            "x": 0.5,
             "y": 0.5
         },
         "horizontal": {
@@ -243,7 +243,7 @@
                 "constant": 0
             },
             "y": {
-                "multiplier": 1,
+                "multiplier": 0.5,
                 "constant": 0
             }
         },
@@ -273,7 +273,7 @@
         }
     },
     "new_layout": {
-        "fixed_size": true,
+        "fixed_size": false,
         "max_item": 4,
         "cell_anchor": {
             "x": 0.5,
@@ -281,22 +281,22 @@
         },
         "horizontal": {
             "width": {
-                "multiplier": 1,
+                "multiplier": 0.7,
                 "constant": 0
             },
             "y": {
-                "multiplier": 1,
+                "multiplier": 0.5,
                 "constant": 0
             }
         },
         "vertical": {
             "height": {
-                "multiplier": 1,
+                "multiplier": 0.8,
                 "constant": 0
             },
             "x": {
                 "multiplier": 1,
-                "constant": -175
+                "constant": -100
             }
         },
         "answer_box": {
@@ -366,7 +366,7 @@
             "id": "blue",
             "kind": "blue",
             "audio": "blue_audio",
-            "question": "blue_question",
+            "question_sound": "blue_question",
             "tint": "0x0000FF",
             "text": "Blue",
             "image": "white_box",
@@ -377,7 +377,7 @@
             "id": "red",
             "kind": "red",
             "audio": "blue_audio",
-            "question": "blue_question",
+            "question_sound": "blue_question",
             "tint": "0xFF0000",
             "text": "Red",
             "image": "white_box",
@@ -387,7 +387,7 @@
             "id": "yellow",
             "kind": "yellow",
             "audio": "blue_audio",
-            "question": "blue_question",
+            "question_sound": "blue_question",
             "tint": "0xFFFF00",
             "text": "Yellow",
             "image": "white_box",
@@ -397,7 +397,7 @@
             "id": "green",
             "kind": "green",
             "audio": "blue_audio",
-            "question": "blue_question",
+            "question_sound": "blue_question",
             "tint": "0x00FF00",
             "text": "Green",
             "image": "white_box",
@@ -407,7 +407,7 @@
             "id": "black",
             "kind": "black",
             "audio": "blue_audio",
-            "question": "blue_question",
+            "question_sound": "blue_question",
             "tint": "0x000000",
             "text": "Black",
             "image": "white_box",
@@ -419,7 +419,9 @@
             "id": "blue_star",
             "kind": "blue",
             "audio": "blue_audio",
-            "question": "blue_question",
+            "question_choose": "blue_question",
+            "question_match": "blue_question",
+            "question_sound": "blue_question",
             "tint": "0x0000FF",
             "text": "Blue",
             "image": "star",
@@ -429,7 +431,9 @@
             "id": "red_star",
             "kind": "red",
             "audio": "blue_audio",
-            "question": "blue_question",
+            "question_choose": "blue_question",
+            "question_match": "blue_question",
+            "question_sound": "blue_question",
             "tint": "0xFF0000",
             "text": "Red",
             "image": "star",
@@ -439,7 +443,9 @@
             "id": "yellow_star",
             "kind": "yellow",
             "audio": "blue_audio",
-            "question": "blue_question",
+            "question_choose": "blue_question",
+            "question_match": "blue_question",
+            "question_sound": "blue_question",
             "tint": "0xFFFF00",
             "text": "Yellow",
             "image": "star",
@@ -449,7 +455,9 @@
             "id": "green_star",
             "kind": "green",
             "audio": "blue_audio",
-            "question": "blue_question",
+            "question_choose": "blue_question",
+            "question_match": "blue_question",
+            "question_sound": "blue_question",
             "tint": "0x00FF00",
             "text": "Green",
             "image": "star",
@@ -459,7 +467,9 @@
             "id": "black_star",
             "kind": "black",
             "audio": "blue_audio",
-            "question": "blue_question",
+            "question_choose": "blue_question",
+            "question_match": "blue_question",
+            "question_sound": "blue_question",
             "tint": "0x000000",
             "text": "Black",
             "image": "star",
