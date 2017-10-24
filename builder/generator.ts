@@ -1,6 +1,19 @@
 const http = require('https');
 import * as pb from './pb';
 
+interface RunConfig {
+  buildId: string,
+  debug: boolean,
+  customInGameData: boolean,
+  bucket: string
+  folder: string
+}
+
+interface GameBuildConfig {
+  run: RunConfig
+  data: pb.otsimo.GameBuild
+}
+
 /**
  * Download file by given url
  * returns buffer object
@@ -27,7 +40,7 @@ async function getFile(url: string) {
  * 
  * @param {otsimo.GameBuild} d 
  */
-function buildProject(task: pb.otsimo.IBuildTask, game: pb.otsimo.GameBuild) {
+async function buildProject(task: pb.otsimo.IBuildTask, game: GameBuildConfig) {
   console.log('build project')
 }
 
@@ -40,13 +53,14 @@ async function fetchBuildData(url: string) {
   return pb.otsimo.GameBuild.decode(data)
 }
 
-async function run({ buildId = '', debug = false, customInGameData = false, bucket = 'otsimo-games', folder = 'd' }) {
-  console.log('start to building', buildId, 'debug:', debug, 'customInGameData', customInGameData)
-  const buildDataURL = `https://s3-eu-west-1.amazonaws.com/${bucket}/${folder}/${buildId}`
+async function run(config: RunConfig) {
+  console.log('start to building', config.buildId, 'debug:', config.debug, 'customInGameData', config.customInGameData)
+  const buildDataURL = `https://s3-eu-west-1.amazonaws.com/${config.bucket}/${config.folder}/${config.buildId}`
   const data = await fetchBuildData(buildDataURL)
+  const bc: GameBuildConfig = { run: config, data: data }
   for (const t of data.tasks) {
     if (t.build) {
-      buildProject(t.build, data);
+      await buildProject(t.build, bc);
     }
   }
   for (const t of data.tasks) {
