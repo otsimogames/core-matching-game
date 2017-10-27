@@ -395,58 +395,6 @@
             "tts": false
         }
     ],
-    "star_items": [
-        {
-            "id": "blue_star",
-            "kind": "blue",
-            "audio": "blue_audio",
-            "question_choose": "blue_question",
-            "tint": "0x0000FF",
-            "text": "Blue",
-            "image": "star",
-            "tts": false
-        },
-        {
-            "id": "red_star",
-            "kind": "red",
-            "audio": "blue_audio",
-            "question_choose": "blue_question",
-            "tint": "0xFF0000",
-            "text": "Red",
-            "image": "star",
-            "tts": false
-        },
-        {
-            "id": "yellow_star",
-            "kind": "yellow",
-            "audio": "blue_audio",
-            "question_choose": "blue_question",
-            "tint": "0xFFFF00",
-            "text": "Yellow",
-            "image": "star",
-            "tts": false
-        },
-        {
-            "id": "green_star",
-            "kind": "green",
-            "audio": "blue_audio",
-            "question_choose": "blue_question",
-            "tint": "0x00FF00",
-            "text": "Green",
-            "image": "star",
-            "tts": false
-        },
-        {
-            "id": "black_star",
-            "kind": "black",
-            "audio": "blue_audio",
-            "question_choose": "blue_question",
-            "tint": "0x000000",
-            "text": "Black",
-            "image": "star",
-            "tts": false
-        }
-    ],
     "decoration": [],
     "play_background_color": "#F49AC2",
     "home_background_color": "#F49AC2",

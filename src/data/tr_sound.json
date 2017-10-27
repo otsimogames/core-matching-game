@@ -15,7 +15,7 @@
     "loadingFont": "60px mfont",
     "loadingBackground": "#F49AC2",
     "loadingColor": "#cc3366",
-    "announceText": "%s",
+    "announceText": "Bu neyin sesi?",
     "custom_announce_color": "#cc3366",
     "background_image": "background",
     "announceTextStyle": {
@@ -186,7 +186,7 @@
         "easy_size": 2,
         "medium_size": 3,
         "hard_size": 4,
-        "answer_type": "choose",
+        "answer_type": "sound",
         "add_outline": false,
         "outline_image": "top_box",
         "session_step": 2,

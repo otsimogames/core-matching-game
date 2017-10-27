@@ -4,7 +4,7 @@ import { Weighter } from './weighter'
 /*eslint-enable*/
 
 export class GameStep {
-  constructor({answer, items}) {
+  constructor({ answer, items }) {
     this.answer = answer
     this.items = items
   }
@@ -149,6 +149,11 @@ export class Randomizer {
         items: shuffle(items)
       }));
     } else if (otsimo.kv.game.answer_type == 'choose') {
+      return callback(new GameStep({
+        answer: correct,
+        items: shuffle(items)
+      }));
+    } else if (otsimo.kv.game.answer_type == 'sound') {
       return callback(new GameStep({
         answer: correct,
         items: shuffle(items)

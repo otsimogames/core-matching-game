@@ -1,22 +1,22 @@
 {
-    "settings/difficulty/title": "Zorluk",
-    "settings/difficulty/description": "Oyunun zorluk ayarı",
-    "settings/difficulty/keys/easy/title": "Kolay",
-    "settings/difficulty/keys/easy/description": "Kolay",
-    "settings/difficulty/keys/medium/title": "Orta",
-    "settings/difficulty/keys/medium/description": "Orta",
-    "settings/difficulty/keys/hard/title": "Zor",
-    "settings/difficulty/keys/hard/description": "Zor",
-    "settings/show_hint/title": "İpucu Göster",
-    "settings/show_hint/description": "Oyunun içindeki ipucularını açar, kapar",
-    "settings/hint_duration/title": "İpucu Süresi",
-    "settings/hint_duration/description": "Oyunun içindeki ipucularının süresini değiştirir.",
-    "loadingText": "Yükleniyor...",
+    "settings/difficulty/title": "Difficulty",
+    "settings/difficulty/description": "difficulty of the game",
+    "settings/difficulty/keys/easy/title": "Easy",
+    "settings/difficulty/keys/easy/description": "easy",
+    "settings/difficulty/keys/medium/title": "Medium",
+    "settings/difficulty/keys/medium/description": "medium",
+    "settings/difficulty/keys/hard/title": "Hard",
+    "settings/difficulty/keys/hard/description": "hard",
+    "settings/show_hint/title": "Show Hint",
+    "settings/show_hint/description": "Show hint",
+    "settings/hint_duration/title": "Hint Duration",
+    "settings/hint_duration/description": "Hint duration",
+    "loadingText": "Loading...",
     "loadingFont": "60px mfont",
-    "loadingBackground": "#F49AC2",
-    "loadingColor": "#cc3366",
-    "announceText": "%s",
-    "custom_announce_color": "#cc3366",
+    "loadingBackground": "#18B9F2",
+    "loadingColor": "#fff",
+    "announceText": "Which animal makes this sound?",
+    "custom_announce_color": "#CC3366",
     "background_image": "background",
     "announceTextStyle": {
         "strokeThickness": 10,
@@ -79,7 +79,7 @@
         {
             "name": "playButton",
             "type": "image",
-            "path": "assets/play.png"
+            "path": "assets/en/play.png"
         },
         {
             "name": "back",
@@ -179,17 +179,17 @@
         {
             "name": "congSound",
             "type": "audio",
-            "path": "assets/tebrikler.mp3"
+            "path": "assets/en/congratulations.mp3"
         }
     ],
     "game": {
         "easy_size": 2,
         "medium_size": 3,
         "hard_size": 4,
-        "answer_type": "choose",
+        "answer_type": "sound",
         "add_outline": false,
         "outline_image": "top_box",
-        "session_step": 2,
+        "session_step": 10,
         "step_score": 5,
         "question_from": "items",
         "answers_from": "items",
@@ -215,6 +215,90 @@
         "tts_voices": [
             "com.apple.ttsbundle.Samantha-compact"
         ]
+    },
+    "new_layout": {
+        "fixed_size": false,
+        "max_item": 4,
+        "cell_anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "horizontal": {
+            "width": {
+                "multiplier": 0.7,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        },
+        "vertical": {
+            "height": {
+                "multiplier": 0.8,
+                "constant": 0
+            },
+            "x": {
+                "multiplier": 1,
+                "constant": -100
+            }
+        },
+        "answer_box": {
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 0.3,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        }
+    },
+    "old_layout": {
+        "fixed_size": false,
+        "max_item": 4,
+        "cell_anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "horizontal": {
+            "width": {
+                "multiplier": 0.7,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        },
+        "vertical": {
+            "height": {
+                "multiplier": 0.8,
+                "constant": 0
+            },
+            "x": {
+                "multiplier": 1,
+                "constant": -100
+            }
+        },
+        "answer_box": {
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            },
+            "x": {
+                "multiplier": 0.3,
+                "constant": 0
+            },
+            "y": {
+                "multiplier": 0.5,
+                "constant": 0
+            }
+        }
     },
     "layout": {
         "fixed_size": false,
@@ -311,6 +395,10 @@
             "tts": false
         }
     ],
+    "decoration": [],
+    "play_background_color": "#F49AC2",
+    "home_background_color": "#F49AC2",
+    "over_background_color": "#F49AC2",
     "name_shadow": {
         "x": 4,
         "y": 4,
@@ -344,7 +432,7 @@
         "victory_sound": "victorySound",
         "duration": 1000,
         "text": {
-            "text": "Tebrikler",
+            "text": "Congratulations",
             "sound": "congSound",
             "style": {
                 "strokeThickness": 18,
@@ -369,7 +457,8 @@
             "y": {
                 "multiplier": 0.3,
                 "constant": 0
-            }
+            },
+            "tts": false
         },
         "button": {
             "delay": 4200,
@@ -394,89 +483,5 @@
     "loading_bar": {
         "color": "#ff9999",
         "sprite": "load_bar"
-    },
-    "new_layout": {
-        "fixed_size": false,
-        "max_item": 4,
-        "cell_anchor": {
-            "x": 0.5,
-            "y": 0.5
-        },
-        "horizontal": {
-            "width": {
-                "multiplier": 0.7,
-                "constant": 0
-            },
-            "y": {
-                "multiplier": 0.5,
-                "constant": 0
-            }
-        },
-        "vertical": {
-            "height": {
-                "multiplier": 0.8,
-                "constant": 0
-            },
-            "x": {
-                "multiplier": 1,
-                "constant": -100
-            }
-        },
-        "answer_box": {
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            },
-            "x": {
-                "multiplier": 0.3,
-                "constant": 0
-            },
-            "y": {
-                "multiplier": 0.5,
-                "constant": 0
-            }
-        }
-    },
-    "old_layout": {
-        "fixed_size": false,
-        "max_item": 4,
-        "cell_anchor": {
-            "x": 0.5,
-            "y": 0.5
-        },
-        "horizontal": {
-            "width": {
-                "multiplier": 0.7,
-                "constant": 0
-            },
-            "y": {
-                "multiplier": 0.5,
-                "constant": 0
-            }
-        },
-        "vertical": {
-            "height": {
-                "multiplier": 0.8,
-                "constant": 0
-            },
-            "x": {
-                "multiplier": 1,
-                "constant": -100
-            }
-        },
-        "answer_box": {
-            "anchor": {
-                "x": 0.5,
-                "y": 0.5
-            },
-            "x": {
-                "multiplier": 0.3,
-                "constant": 0
-            },
-            "y": {
-                "multiplier": 0.5,
-                "constant": 0
-            }
-        }
     }
 }

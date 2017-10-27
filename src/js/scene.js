@@ -7,8 +7,9 @@ import * as sprintf from 'sprintf-js';
 
 const MATCH_GAME = 'match';
 const CHOOSE_GAME = 'choose';
+const SOUND_GAME = 'sound';
 
-export { MATCH_GAME, CHOOSE_GAME };
+export { MATCH_GAME, CHOOSE_GAME, SOUND_GAME };
 
 /**
  * 
@@ -54,7 +55,7 @@ export default class Scene {
         game: otsimo.game,
         items: next.items,
         direction: dir,
-        enableInput: (otsimo.kv.game.answer_type == CHOOSE_GAME)
+        enableInput: (otsimo.kv.game.answer_type == CHOOSE_GAME || otsimo.kv.game.answer_type == SOUND_GAME)
       });
 
       table.x = table.hiddenPos.x;
@@ -79,7 +80,7 @@ export default class Scene {
   }
 
   goNext(next, table) {
-    if (otsimo.kv.game.answer_type == CHOOSE_GAME) {
+    if (otsimo.kv.game.answer_type == CHOOSE_GAME || otsimo.kv.game.answer_type == SOUND_GAME) {
       this.answerBox = Box.answerBox({ item: next.answer, table: table });
       table.itemSelected.add(this.onItemSelected, this);
       this.announce(otsimo.game.world.centerY * 0.3, 300)
