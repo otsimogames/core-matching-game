@@ -11,7 +11,7 @@
     "homepage": "https://github.com/otsimo/core-matching-game",
     "dependencies": {
         "fontfaceobserver": "^2.0.13",
-        "otsimo": "1.9.0",
+        "otsimo": "1.9.1",
         "phaser": "^2.6.2",
         "sprintf-js": "^1.0.3"
     },
